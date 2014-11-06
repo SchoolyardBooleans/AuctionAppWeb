@@ -1,10 +1,45 @@
 {>"layouts/main"/}
 
-{<title}Foo {title}{/title}
+{<title}{title}{/title}
 
+	{<container}
+   	 <div class="panel panel-default">
+   	 	<div class="panel-heading"> <h4>Auctions</h4></div>
+   	 	<table class="table table-hover">
+   	 		<tr>
+   	 			<th>Auction Name</th>
+   	 			<th>Auction Date</th>
+   	 			<th>Auction Status</th>
+   	 		</tr>
+   	 		<tr>
+   	 			<td>2014 Rodeo</td>
+   	 			<td>November 5, 2014</td>
+   	 			<td>In Progress</td>
+   	 		</tr>
+   	 		<tr>
+   	 			<td>2014 Ball</td>
+   	 			<td>December 19, 2014</td>
+   	 			<td>Coming Up</td>
+   	 		</tr>
+   	 		<tr>
+   	 			<td>2012 Gala</td>
+   	 			<td>October 7, 2012</td>
+   	 			<td>Ended</td>
+   	 		</tr>
+   	 		<tr>
+   	 			<td>2011 Beerfest</td>
+   	 			<td>October 2, 2011</td>
+   	 			<td>Ended</td>
+   	 		</tr>
+   	 		<tr>
+   	 			<td>The Great Gatsby Bash</td>
+   	 			<td>September 4, 2010</td>
+   	 			<td>Ended</td>
+   	 		</tr>
+   	 	</table>
+   	 </div>
 
-	{<html_body}
-   	 <p>This is my index.dust main body {title}</p>
-	{/html_body}
+   	 <button type="button" class="btn btn-primary btn-lg">Create Auction</button>
+	{/container}
 
 {<copy}{copy|s}{/copy}

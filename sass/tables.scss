@@ -1,0 +1,9 @@
+.table {
+  font-size: 22px;
+
+  tr {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
