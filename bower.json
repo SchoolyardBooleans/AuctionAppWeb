@@ -2,7 +2,7 @@
   "name": "AuctionWebApp",
   "version": "0.0.0",
   "dependencies": {
-    "bootstrap-sass": "~3.0.0"
+    "bootstrap-sass-official": "~3.3.0"
   },
   "private": true
 }
