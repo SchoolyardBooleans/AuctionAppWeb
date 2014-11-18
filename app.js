@@ -7,12 +7,24 @@ var bodyParser = require('body-parser');
 var dust = require('dustjs-linkedin');
 var cons = require('consolidate');
 var dustHelper = require('dustjs-helpers');
+var jsforce = require('jsforce');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 
 var app = express();
+
+//
+// OAuth2 client information can be shared with multiple connections.
+//
+var oauth2 = new sf.OAuth2({
+  // you can change loginUrl to connect to sandbox or prerelease env.
+  // loginUrl : 'https://test.salesforce.com',
+  clientId : '3MVG9fMtCkV6eLhd_Ci9gKcU8wJNrzR3P1g_9FBdsK00qNoyA4B6XsKRGxYoeJq3mDpQN3diSpOdtjv5Wp0g9',
+  clientSecret : '8096065161182768313',
+  redirectUri : '/oauth/callback'
+});
 
 // view engine setup
 app.engine('dust', cons.dust);
@@ -38,6 +50,29 @@ app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
+});
+
+/* SF OAuth request, redirect to SF login */
+app.get('/oauth/auth', function(req, res) {
+    res.redirect(oauth2.getAuthorizationUrl({scope: 'api id web'}));
+});
+ 
+/* OAuth callback from SF, pass received auth code and get access token */
+app.get('/oauth/callback', function(req, res) {
+    var conn = new jsforce.Connection({oauth2: oauth2});
+    var code = req.query.code;
+    conn.authorize(code, function(err, userInfo) {
+        if (err) { return console.error(err); }
+ 
+        console.log('Access Token: ' + conn.accessToken);
+        console.log('Instance URL: ' + conn.instanceUrl);
+        console.log('User ID: ' + userInfo.id);
+        console.log('Org ID: ' + userInfo.organizationId);
+ 
+        req.session.accessToken = conn.accessToken;
+        req.session.instanceUrl = conn.instanceUrl;
+        res.redirect('/');
+    });
 });
 
 // error handlers
