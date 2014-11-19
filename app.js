@@ -18,7 +18,7 @@ var app = express();
 //
 // OAuth2 client information can be shared with multiple connections.
 //
-var oauth2 = new sf.OAuth2({
+var oauth2 = new jsforce.OAuth2({
   // you can change loginUrl to connect to sandbox or prerelease env.
   // loginUrl : 'https://test.salesforce.com',
   clientId : '3MVG9fMtCkV6eLhd_Ci9gKcU8wJNrzR3P1g_9FBdsK00qNoyA4B6XsKRGxYoeJq3mDpQN3diSpOdtjv5Wp0g9',
