@@ -1,0 +1,5 @@
+<head>
+    	<meta charset="utf-8">
+    	<link rel="stylesheet" type="text/css" href="/stylesheets/application.css">
+    	<title>{+title}My Site{/title}</title>
+</head>
