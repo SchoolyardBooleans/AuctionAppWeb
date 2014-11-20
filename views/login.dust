@@ -1,0 +1,27 @@
+<html>
+	{>"layouts/head"/}
+	<body>
+		<div class="container">
+			<div class="login">
+				<h3 class="heading-desc"> Login to Auction App 9000</h3>
+				<div class="social-box">
+					<div class="row mg-btm">
+						<div class="col-md-12">
+							<a href="/oauth/salesforce" class="btn btn-primary btn-block">
+								<i class="icon-facebook"></i> &nbsp;&nbsp;&nbsp;Login with Salesforce
+							</a>
+						</div>
+					</div>
+					<div class="login-footer">
+						<div class="row">
+							<p> Not a Salesforce User?</p>
+						</div>
+						<div class="row">
+							<a href="https://www.salesforce.com/form/signup/freetrial-sales.jsp">Sign up now.</a>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</body>
+</html>

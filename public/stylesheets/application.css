@@ -4894,5 +4894,40 @@ button.close {
   .table tr:hover {
     cursor: pointer; }
 
-.navbar {
-  margin-bottom: 50px; }
+.login {
+  max-width: 400px;
+  margin: auto;
+  display: block;
+  background-color: #f7f7f7;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px #888;
+  box-shadow: 0 0 1px 1px #888;
+  border-radius: 2px; }
+
+.social-box {
+  margin: 0 auto;
+  padding: 38px 38px 10px;
+  border-bottom: 1px #ccc solid; }
+  .social-box a {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 6px; }
+    .social-box a i {
+      font-weight: bold;
+      font-size: 20px; }
+
+.heading-desc {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 38px 38px 0px 38px; }
+
+.login-footer {
+  margin: 0 auto;
+  border-top: 1px solid #dadada;
+  padding: 10px; }
+  .login-footer a {
+    font-size: 14px;
+    padding: 2px; }
+
+.mg-btm {
+  margin-bottom: 20px; }
