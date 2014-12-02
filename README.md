@@ -13,8 +13,16 @@ AuctionAppWeb
 /auctions/:id/stats           	GET   get auction stats					(Authenticated)
 /auctions/:id/items/:id/stats    GET   get item stats						(Authenticated)
 
+Trigger build yo
 
 
+Choice 1:
+
+Two seperate accounts, essentially copies of eachother
+
+Choice 2:
+
+One account, two connected apps, share the same API
 
 
 Web Auction App for Capstone 2014-15
