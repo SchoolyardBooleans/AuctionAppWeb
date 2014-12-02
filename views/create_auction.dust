@@ -1,0 +1,21 @@
+{>"layouts/main"/}
+
+	{<container}
+      <form action="/auction" method="post">
+         <div class="form-group">
+            <label for="auctionName">Auction Name </label>
+            <input type="text" class="form-control" id="auctionName" placeholder="A night in Paris">
+         </div>
+         <div class="form-group">
+            <label for="auctionDate">Auction Date </label>
+            <input type="text" class="form-control" id="auctionDate" placeholder="04/25/2015">
+         </div>
+         <div class="form-group">
+            <label for="auctionLocation">Auction Location </label>
+            <input type="text" class="form-control" id="auctionLocation" placeholder="Mckenzie Park">
+         </div>
+         <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+	{/container}
+
+{<copy}{copy|s}{/copy}

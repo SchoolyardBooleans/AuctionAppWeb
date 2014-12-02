@@ -35,7 +35,7 @@ router.get('/callback', function(req, res) {
         console.log('Access Token: ' + conn.accessToken);
         console.log('Instance URL: ' + conn.instanceUrl);
         console.log('User ID: ' + userInfo.id);
-        console.log('Org ID: ' + userInfo.organizationId);        
+        console.log('Org ID: ' + userInfo.organizationId);       
  
         req.session.accessToken = conn.accessToken;
         req.session.instanceUrl = conn.instanceUrl;
