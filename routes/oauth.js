@@ -2,15 +2,17 @@ var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
 
+var cId = process.env.CLIENT_ID || '3MVG9fMtCkV6eLhf_.BQiGsIkFrST_DhAezGVR8iA.fnmsZe9ciV3NxOkI1.y0jo26qDFS3FjCwfm84xGfCaR';
+var cSecret = process.env.CLIENT_SECRET || '7491496118908735789';
+var rUri = process.env.REDIRECT_URI || 'http://localhost:3000/oauth/callback';
+
 //
 // OAuth2 client information can be shared with multiple connections.
 //
 var oauth2 = new jsforce.OAuth2({
-  // you can change loginUrl to connect to sandbox or prerelease env.
-  //loginUrl : 'https://test.salesforce.com',
-  clientId : '3MVG9fMtCkV6eLhf_.BQiGsIkFrST_DhAezGVR8iA.fnmsZe9ciV3NxOkI1.y0jo26qDFS3FjCwfm84xGfCaR',
-  clientSecret : '7491496118908735789',
-  redirectUri : 'http://localhost:3000/oauth/callback'
+  clientId : cId,
+  clientSecret : cSecret,
+  redirectUri : rUri
 });
 
 /* GET login page. */
