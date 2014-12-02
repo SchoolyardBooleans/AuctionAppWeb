@@ -1,7 +1,5 @@
 {>"layouts/main"/}
 
-{<title}{title}{/title}
-
 	{<container}
    	 <div class="panel panel-default">
    	 	<div class="panel-heading"> <h4>Auctions</h4></div>
@@ -39,7 +37,7 @@
    	 	</table>
    	 </div>
 
-   	 <button type="button" class="btn btn-primary btn-lg">Create Auction</button>
+   	 <a href="/auction" class="btn btn-primary btn-lg">Create Auction</a>
 	{/container}
 
 {<copy}{copy|s}{/copy}
