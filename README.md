@@ -13,7 +13,7 @@ AuctionAppWeb
 /auctions/:id/stats           	GET   get auction stats					(Authenticated)
 /auctions/:id/items/:id/stats    GET   get item stats						(Authenticated)
 
-Trigger build yo
+Trigger build 
 
 
 Choice 1:
