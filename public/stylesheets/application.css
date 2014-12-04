@@ -4931,3 +4931,10 @@ button.close {
 
 .mg-btm {
   margin-bottom: 20px; }
+
+form {
+  width: 70%;
+  margin: 0 auto; }
+
+.panel {
+  margin-top: 25px; }
