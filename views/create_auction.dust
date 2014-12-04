@@ -1,18 +1,18 @@
 {>"layouts/main"/}
 
 	{<container}
-      <form action="/auction" method="post">
+      <form action="/auction" method="POST">
          <div class="form-group">
-            <label for="auctionName">Auction Name </label>
-            <input type="text" class="form-control" id="auctionName" placeholder="A night in Paris">
+            <label for="name">Auction Name </label>
+            <input type="text" class="form-control" name="name" placeholder="A night in Paris">
          </div>
          <div class="form-group">
-            <label for="auctionDate">Auction Date </label>
-            <input type="text" class="form-control" id="auctionDate" placeholder="04/25/2015">
+            <label for="date">Auction Date </label>
+            <input type="text" class="form-control" name="date" placeholder="04/25/2015">
          </div>
          <div class="form-group">
-            <label for="auctionLocation">Auction Location </label>
-            <input type="text" class="form-control" id="auctionLocation" placeholder="Mckenzie Park">
+            <label for="location">Auction Location </label>
+            <input type="text" class="form-control" name="location" placeholder="Mckenzie Park">
          </div>
          <button type="submit" class="btn btn-primary">Submit</button>
       </form>

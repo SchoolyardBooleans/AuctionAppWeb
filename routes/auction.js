@@ -17,26 +17,34 @@ router.post('/', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
+	var body = {
+		name: req.body.name,
+		orgId: 'a0Zj0000000eDTTEA2', 
+		location: req.body.location,
+		startDate: req.body.date
+	};
+
+	console.log("Req body %j", req.body);
+
+	// FIGURE THIS OUT	
+	// conn.apex.post("/auctions", body, function(err, res) {
+	// 	if (err) { return console.error(err); }
+	// 	console.log("response: ", res);
+	// });
+
 	request.post(
 	    'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
-	    { json: { name: req.body.auctionName,
-	    			  orgId: 'a0Zj0000000eDTTEA2' } },
+	    { json: { name: req.body.name,
+	    			  orgId: 'a0Zj0000000eDTTEA2',
+	    			  location: req.body.location,
+					  startDate: req.body.date } },
 	    function (error, response, body) {
 	        if (!error && response.statusCode == 200) {
-	            console.log(body)
+	            console.log(body);
+	            res.redirect('/');
 	        }
 	    }
 	);
-
-	// In the future it will be something like this
-	// conn.sobject("Auction").create({'Auction Name': req.body.auctionName,
-	// 											'Hosting Nonprofit': 'a0Zj0000000eDTTEA2'}, function(err, ret) {
-	// 	if (err || !ret.success) { return console.error(err, ret); }
- //  		console.log("Created auction id : " + ret.id);
- //  		// ...
-	// });
-
-	console.log('Submitting auction');
 });
 
 
