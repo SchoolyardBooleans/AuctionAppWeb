@@ -8,7 +8,9 @@ var router = express.Router();
 router.get('/', function(req, res) {
 	var dustVars = {
 		title: 'Create Auction',
-		cssFiles: [{css: 'datepicker.css'}],
+		cssFiles: [
+			{css: 'create_auction.css'},
+			{css: 'datepicker.css'}],
 		javascriptFiles: [
 			{javascript: 'datepicker.js'},
 			{javascript: 'create_auction.js'}]

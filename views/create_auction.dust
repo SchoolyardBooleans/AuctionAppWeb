@@ -2,8 +2,8 @@
 
 {<container}
 <div class="container">
-<div>
-   <h3>Create a New Auction</h3>
+<div class="heading_container">
+   <h2>Create a New Auction</h2>
 </div>
 <form action="/auction" method="POST">
    <div class="form-group">
@@ -22,7 +22,9 @@
       <label for="location">Auction Location </label>
       <input type="text" class="form-control" name="location" placeholder="Mckenzie Park">
    </div>
-   <button type="submit" id="submit_auction" class="btn btn-primary">Submit</button>
+   <div class="submit_container">
+      <button type="submit submit_button" id="submit_auction" class="btn btn-primary">Submit</button>
+   </div>
 </form>
 </div>
 {/container}

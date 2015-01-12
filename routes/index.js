@@ -12,7 +12,13 @@ router.get('/', function(req, res) {
 	        if (!error && response.statusCode == 200) {
 	            console.log(body);
 	            console.log(body[0].Name);
-	            res.render('index', { title: 'Auction App Baby!', auctions: body[0].auctions});
+
+	            var dustVars = {
+	            	title: 'Auction App',
+	            	cssFiles: [{css: 'index.css'}],
+	            	auctions: body[0].auctions
+	            }
+	            res.render('index', dustVars);
 	        }
 	    }
 	);

@@ -17,7 +17,12 @@ var oauth2 = new jsforce.OAuth2({
 
 /* GET login page. */
 router.get('/', function(req, res) {
-	res.render('login', { title: 'Auction App Baby!' });
+    var dustVars = {
+        title: 'Login',
+        cssFiles : [{css: 'login.css'}]
+    };
+
+	res.render('login', dustVars);
 });
 
 /* GET login salesforce page. */
