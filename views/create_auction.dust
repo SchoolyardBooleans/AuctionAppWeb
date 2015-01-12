@@ -3,7 +3,7 @@
 {<container}
 <div class="container">
 <div class="heading_container">
-   <h2>Create a New Auction</h2>
+   <h2 class="new_auction_title">Create a New Auction</h2>
 </div>
 <form action="/auction" method="POST">
    <div class="form-group">
@@ -12,12 +12,82 @@
    </div>
    <div class="form-group">
       <label for="date">Auction Start Date </label>
-      <input type="text" class="form-control" name="date" placeholder="04/25/2015">
+      <div style="float:left">
+         <input type="text" id="dp_start" class="form-control inline day" name="date" placeholder="04/25/2015">
+         <div class="btn-group hour" role="group">
+            <button type="button" id="start_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               1 <span class="caret"></span>
+            </button>
+            <ul id="start_hour" class="dropdown-menu" role="menu">
+               <li><a>1</a></li>
+               <li><a>2</a></li>
+               <li><a>3</a></li>
+               <li><a>4</a></li>
+               <li><a>5</a></li>
+               <li><a>6</a></li>
+               <li><a>7</a></li>
+               <li><a>8</a></li>
+               <li><a>9</a></li>
+               <li><a>10</a></li>
+               <li><a>11</a></li>
+               <li><a>12</a></li>
+            </ul>
+         </div>
+         <label> : </label>
+         <div class="btn-group minute" role="group">
+            <button type="button" id="start_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               15 <span class="caret"></span>
+            </button>
+            <ul id="start_minute" class="dropdown-menu" role="menu">
+               <li><a>00</a></li>
+               <li><a>15</a></li>
+               <li><a>30</a></li>
+               <li><a>45</a></li>
+            </ul>
+         </div>
+         <input type="text" class="form-control inline am_pm" name="date" placeholder="PM">
+      </div>
    </div>
+   <br><br>
    <div class="form-group">
       <label for="date">Auction End Date </label>
-      <input type="text" id="dp_end" class="form-control" name="date" placeholder="04/25/2015">
+      <div style="float:left">
+         <input type="text" id="dp_end" class="form-control inline day" name="date" placeholder="04/26/2015">
+         <div class="btn-group hour" role="group">
+            <button type="button" id="end_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               1 <span class="caret"></span>
+            </button>
+            <ul id="end_hour"class="dropdown-menu" role="menu">
+               <li><a>1</a></li>
+               <li><a>2</a></li>
+               <li><a>3</a></li>
+               <li><a>4</a></li>
+               <li><a>5</a></li>
+               <li><a>6</a></li>
+               <li><a>7</a></li>
+               <li><a>8</a></li>
+               <li><a>9</a></li>
+               <li><a>10</a></li>
+               <li><a>11</a></li>
+               <li><a>12</a></li>
+            </ul>
+         </div>
+         <label> : </label>
+         <div class="btn-group minute" role="group">
+            <button type="button" id="end_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               15 <span class="caret"></span>
+            </button>
+            <ul id="end_minute" class="dropdown-menu" role="menu">
+               <li><a>00</a></li>
+               <li><a>15</a></li>
+               <li><a>30</a></li>
+               <li><a>45</a></li>
+            </ul>
+         </div>
+         <input type="text" class="form-control inline am_pm" name="date" placeholder="PM">
+      </div>
    </div>
+   <br><br>
    <div class="form-group">
       <label for="location">Auction Location </label>
       <input type="text" class="form-control" name="location" placeholder="Mckenzie Park">
