@@ -8,11 +8,13 @@
 				{+container/}
 			</div>
 		</div>
-		<div id="footer">{+copy}Copyright{/copy}</footer>
 	</body>
 
-	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+	<script src="/javascripts/jquery.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	{#javascriptFiles}
+		<script src="/javascripts/{javascript}"></script>
+	{/javascriptFiles}
 	
 
 </html>

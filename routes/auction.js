@@ -4,13 +4,19 @@ var jsforce = require('jsforce');
 var request = require('request');
 var router = express.Router();
 
-/* Get the create auction page */
+/* GET the create auction page */
 router.get('/', function(req, res) {
-	console.log('In auction');
-	res.render('create_auction', { title: 'Auction App Baby!' });
+	var dustVars = {
+		title: 'Create Auction',
+		cssFiles: [{css: 'datepicker.css'}],
+		javascriptFiles: [
+			{javascript: 'datepicker.js'},
+			{javascript: 'create_auction.js'}]
+	};
+	res.render('create_auction', dustVars);
 });
 
-/* Put auction */
+/* POST created auction */
 router.post('/', function(req, res) {
 	var conn = new jsforce.Connection({
 		accessToken: req.session.accessToken,
@@ -25,12 +31,6 @@ router.post('/', function(req, res) {
 	};
 
 	console.log("Req body %j", req.body);
-
-	// FIGURE THIS OUT	
-	// conn.apex.post("/auctions", body, function(err, res) {
-	// 	if (err) { return console.error(err); }
-	// 	console.log("response: ", res);
-	// });
 
 	request.post(
 	    'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
