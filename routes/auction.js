@@ -10,10 +10,14 @@ router.get('/', function(req, res) {
 		title: 'Create Auction',
 		cssFiles: [
 			{css: 'create_auction.css'},
-			{css: 'datepicker.css'}],
+			{css: 'datepicker.css'},
+			{css: 'formValidation.min.css'}
+		],
 		javascriptFiles: [
 			{javascript: 'datepicker.js'},
-			{javascript: 'create_auction.js'}]
+			{javascript: 'formValidation.min.js'},
+			{javascript: 'create_auction.js'}
+		]
 	};
 	res.render('create_auction', dustVars);
 });

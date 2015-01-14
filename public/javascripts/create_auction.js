@@ -7,16 +7,8 @@ $(document).ready(function() {
     dropdown_title_changer("start_minute", "start_minute_btn");
     dropdown_title_changer("end_hour", "end_hour_btn");
     dropdown_title_changer("end_minute", "end_minute_btn");
-
- //    $(function() {
-	// 	$("#start_hour li a").click(function() {
-	// 		$("#start_hour_btn:first-child").text($(this).text() + ' ');
- //    		$("#start_hour_btn:first-child").val($(this).text());
- //    		$("#start_hour_btn:first-child").append('<span class="caret"></span>')
-
-	// 	});
-
-	// });
+    dropdown_title_changer("start_am_pm", "start_am_pm_btn");
+    dropdown_title_changer("end_am_pm", "end_am_pm_btn");
 
     function dropdown_title_changer(id_name, id_btn_name) {
     	$(function() {
@@ -29,6 +21,22 @@ $(document).ready(function() {
 
 		});
     }
+
+	/*Validate the form*/
+    $('#create_auction').bootstrapValidator(
+    {
+	    message: 'This value is not valid',
+		fields: {
+	    	name: {
+	        	message: 'The auction name is not valid',
+	        	validators: {
+	            	notEmpty: {
+	                	message: 'The auction name is required and can\'t be empty'
+	            	}
+	        	}
+	    	}
+	    }
+	});
 
     // $('#submit_auction').click(function() {
     	// var name = $("#name").val();

@@ -26,7 +26,5 @@ node_modules
 
 bower_components
 
-public/stylesheets
-
 # Users Environment Variables
 .lock-wscript

@@ -5,7 +5,7 @@
 <div class="heading_container">
    <h2 class="new_auction_title">Create a New Auction</h2>
 </div>
-<form action="/auction" method="POST">
+<form action="/auction" id="create_auction" method="POST">
    <div class="form-group">
       <label for="name">Auction Name </label>
       <input type="text" class="form-control" name="name" placeholder="A night in Paris">
@@ -45,7 +45,15 @@
                <li><a>45</a></li>
             </ul>
          </div>
-         <input type="text" class="form-control inline am_pm" name="date" placeholder="PM">
+         <div class="btn-group am_pm" role="group">
+            <button type="button" id="start_am_pm_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               AM <span class="caret"></span>
+            </button>
+            <ul id="start_am_pm" class="dropdown-menu" role="menu">
+               <li><a>AM</a></li>
+               <li><a>PM</a></li>
+            </ul>
+         </div>
       </div>
    </div>
    <br><br>
@@ -84,7 +92,15 @@
                <li><a>45</a></li>
             </ul>
          </div>
-         <input type="text" class="form-control inline am_pm" name="date" placeholder="PM">
+         <div class="btn-group am_pm" role="group">
+            <button type="button" id="end_am_pm_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               AM <span class="caret"></span>
+            </button>
+            <ul id="end_am_pm" class="dropdown-menu" role="menu">
+               <li><a>AM</a></li>
+               <li><a>PM</a></li>
+            </ul>
+         </div>
       </div>
    </div>
    <br><br>

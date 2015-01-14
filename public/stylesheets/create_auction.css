@@ -1,0 +1,58 @@
+.container {
+	width: 80%;
+	text-align: center;
+}
+
+.heading_container {
+	margin-bottom: 30px;
+}
+
+.new_auction_title {
+	font-weight: bold;
+}
+
+form {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.form-group {
+	text-align:left;
+}
+
+.submit_button {
+	text-align: right;
+}
+
+.submit_container {
+	text-align:right;
+}
+
+.inline {
+	display:inline;
+}
+
+.day {
+	width: 40%;
+	margin-right: 10%;
+}
+
+.hour {
+	width: 10%;
+	float:center;
+	text-align: center;
+	margin-right: 2%;
+}
+
+.minute {
+	width: 10%;
+	text-align: center;
+	margin-left: 2%;
+}
+
+.am_pm {
+	float:right;
+	text-align: center;
+	margin-left: 10%;
+	width: 11%;
+}
