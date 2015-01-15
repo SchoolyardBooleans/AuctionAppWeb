@@ -12,11 +12,12 @@
    </div>
    <div class="form-group">
       <label for="date">Auction Start Date </label>
+      <br>
       <div style="float:left">
          <input type="text" id="dp_start" class="form-control inline day" name="date" placeholder="04/25/2015">
          <div class="btn-group hour" role="group">
             <button type="button" id="start_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               1 <span class="caret"></span>
+               1 
             </button>
             <ul id="start_hour" class="dropdown-menu" role="menu">
                <li><a>1</a></li>
@@ -36,7 +37,7 @@
          <label> : </label>
          <div class="btn-group minute" role="group">
             <button type="button" id="start_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               15 <span class="caret"></span>
+               15
             </button>
             <ul id="start_minute" class="dropdown-menu" role="menu">
                <li><a>00</a></li>
@@ -59,11 +60,12 @@
    <br><br>
    <div class="form-group">
       <label for="date">Auction End Date </label>
+      <br>
       <div style="float:left">
          <input type="text" id="dp_end" class="form-control inline day" name="date" placeholder="04/26/2015">
          <div class="btn-group hour" role="group">
             <button type="button" id="end_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               1 <span class="caret"></span>
+               1
             </button>
             <ul id="end_hour"class="dropdown-menu" role="menu">
                <li><a>1</a></li>
@@ -83,7 +85,7 @@
          <label> : </label>
          <div class="btn-group minute" role="group">
             <button type="button" id="end_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               15 <span class="caret"></span>
+               15
             </button>
             <ul id="end_minute" class="dropdown-menu" role="menu">
                <li><a>00</a></li>
@@ -94,7 +96,7 @@
          </div>
          <div class="btn-group am_pm" role="group">
             <button type="button" id="end_am_pm_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               AM <span class="caret"></span>
+               AM
             </button>
             <ul id="end_am_pm" class="dropdown-menu" role="menu">
                <li><a>AM</a></li>
