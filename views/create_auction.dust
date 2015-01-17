@@ -1,16 +1,16 @@
 {>"layouts/main"/}
 
 {<container}
-<div style="text-align:center; margin-bottom:5%">
+<div class="auction_title">
    <h2>Create a New Auction</h2>
 </div>
 <div class="form_container">
-    <form class="form-horizontal" style="margin: 0 auto; width:50%">
+    <form class="form-horizontal center_form">
         <fieldset>
-            <div class="form-group">
-                <label for="inputEmail" class="control-label col-xs-3">Auction Name</label>
+            <div class="form-group bottom_padding">
+                <label for="auction_name" class="control-label col-xs-3">Auction Name</label>
                 <div class="col-xs-9">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="A Night in Paris">
+                    <input id="auction_name" type="text" class="form-control" placeholder="A Night in Paris">
                 </div>
             </div>
             <div class="form-group">
@@ -30,13 +30,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-3">Location</label>
+                <label for="auction_location" class="control-label col-xs-3">Location</label>
                 <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="McKenzie Park">
+                    <input type="text" class="form-control" id="auction_location" placeholder="McKenzie Park">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-xs-offset-3 col-xs-9">
+            <div class="form-group right">
+                <div class="col-xs-9">
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
             </div>

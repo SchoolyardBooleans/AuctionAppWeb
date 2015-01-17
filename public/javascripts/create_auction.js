@@ -32,11 +32,10 @@ $(document).ready(function() {
 
 function initialize() {
 	$("#start_date").datetimepicker({
-        format: "dd/MM/yy, HH:ii P",
+        format: "mm/dd/yy, HH:ii P",
         showMeridian: true,
         autoclose: true,
-        todayBtn: false,
-        initialDate: new Date()
+        todayBtn: false
 	});
 
 	 $("#end_date").datetimepicker({
@@ -46,10 +45,13 @@ function initialize() {
         todayBtn: false
     });
 
-	 var today = new Date();
-	 var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-
+	var today = new Date();
+	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+	var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+	var tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+	
 	$("#start_date_input").attr("placeholder", todayStr);
+	$("#end_date_input").attr("placeholder", tomorrowStr);
 }
 
 function dropdown_title_changer(id_name, id_btn_name) {
