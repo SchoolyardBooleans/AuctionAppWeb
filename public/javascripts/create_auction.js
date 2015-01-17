@@ -1,34 +1,56 @@
 $(document).ready(function() {
 
-	$('#dp_start').datepicker();
-    $('#dp_end').datepicker();
+	initialize();
 
-    setDefaultDates();
 
-    dropdown_title_changer("start_hour", "start_hour_btn");
-    dropdown_title_changer("start_minute", "start_minute_btn");
-    dropdown_title_changer("end_hour", "end_hour_btn");
-    dropdown_title_changer("end_minute", "end_minute_btn");
-    dropdown_title_changer("start_am_pm", "start_am_pm_btn");
-    dropdown_title_changer("end_am_pm", "end_am_pm_btn");
+ //    setDefaultDates();
 
-	/*Validate the form*/
-    $('#create_auction').bootstrapValidator(
-    {
-	    message: 'This value is not valid',
-		fields: {
-	    	name: {
-	        	message: 'The auction name is not valid',
-	        	validators: {
-	            	notEmpty: {
-	                	message: 'The auction name is required and can\'t be empty'
-	            	}
-	        	}
-	    	}
-	    }
-	});
+ //    dropdown_title_changer("start_hour", "start_hour_btn");
+ //    dropdown_title_changer("start_minute", "start_minute_btn");
+ //    dropdown_title_changer("end_hour", "end_hour_btn");
+ //    dropdown_title_changer("end_minute", "end_minute_btn");
+ //    dropdown_title_changer("start_am_pm", "start_am_pm_btn");
+ //    dropdown_title_changer("end_am_pm", "end_am_pm_btn");
+
+	// /*Validate the form*/
+ //    $('#create_auction').bootstrapValidator(
+ //    {
+	//     message: 'This value is not valid',
+	// 	fields: {
+	//     	name: {
+	//         	message: 'The auction name is not valid',
+	//         	validators: {
+	//             	notEmpty: {
+	//                 	message: 'The auction name is required and can\'t be empty'
+	//             	}
+	//         	}
+	//     	}
+	//     }
+	// });
 
 });
+
+function initialize() {
+	$("#start_date").datetimepicker({
+        format: "dd/MM/yy, HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false,
+        initialDate: new Date()
+	});
+
+	 $("#end_date").datetimepicker({
+        format: "dd MM yyyy - HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false
+    });
+
+	 var today = new Date();
+	 var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+
+	$("#start_date_input").attr("placeholder", todayStr);
+}
 
 function dropdown_title_changer(id_name, id_btn_name) {
 	$(function() {

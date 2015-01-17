@@ -1,7 +1,51 @@
 {>"layouts/main"/}
 
 {<container}
-<div class="container">
+<div style="text-align:center; margin-bottom:5%">
+   <h2>Create a New Auction</h2>
+</div>
+<div class="form_container">
+    <form class="form-horizontal" style="margin: 0 auto; width:50%">
+        <fieldset>
+            <div class="form-group">
+                <label for="inputEmail" class="control-label col-xs-3">Auction Name</label>
+                <div class="col-xs-9">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="A Night in Paris">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="start_date" class="control-label col-xs-3">Start Date</label>
+                <div id="start_date" class="col-xs-9 input-append date">
+                     <input id="start_date_input" type="text" class="form-control" >
+                     <span class="add-on"><i class="icon-remove"></i></span>
+                     <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="end_date" class="control-label col-xs-3">End Date</label>
+                <div id="end_date" class="col-xs-9 input-append date">
+                     <input id="end_date_input" type="text" class="form-control">
+                     <span class="add-on"><i class="icon-remove"></i></span>
+                     <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="control-label col-xs-3">Location</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="inputPassword" placeholder="McKenzie Park">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-9">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<!-- <div class="container">
 <div class="heading_container">
    <h2 class="new_auction_title">Create a New Auction</h2>
 </div>
@@ -13,6 +57,11 @@
    <div class="form-group">
       <label for="date">Auction Start Date </label>
       <br>
+      <div class="input-append date datetime_start" data-date="2012-12-21T15:25:00Z">
+         <input size="16" type="text" value="" readonly>
+         <span class="add-on"><i class="icon-remove"></i></span>
+         <span class="add-on"><i class="icon-th"></i></span>
+      </div>
       <div style="float:left">
          <input type="text" id="dp_start" class="form-control inline day" name="date" placeholder="04/25/2015">
          <div class="btn-group hour" role="group">
@@ -114,5 +163,6 @@
       <button type="submit submit_button" id="submit_auction" class="btn btn-primary">Submit</button>
    </div>
 </form>
-</div>
+</div> -->
+
 {/container}
