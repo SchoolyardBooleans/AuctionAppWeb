@@ -14,9 +14,9 @@ router.get('/', function(req, res) {
 			{css: 'bootstrap-datetimepicker.min.css'}
 		],
 		javascriptFiles: [
+			{javascript: 'bootstrap-datetimepicker.min.js'},
 			{javascript: 'formValidation.min.js'},
-			{javascript: 'create_auction.js'},
-			{javascript: 'bootstrap-datetimepicker.min.js'}
+			{javascript: 'create_auction.js'}
 		]
 	};
 	res.render('create_auction', dustVars);

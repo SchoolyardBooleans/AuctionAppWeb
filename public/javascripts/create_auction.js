@@ -1,10 +1,5 @@
-$(document).ready(function() {
-
-	initialize();
-
-	/*Validate the form*/
-    $('#create_auction').bootstrapValidator(
-    {
+var validationOptions =
+	{
 	    message: 'This value is not valid',
 		fields: {
 	    	auction_name: {
@@ -26,20 +21,21 @@ $(document).ready(function() {
 	    	end_date_input: {
 	        	message: "The auction's end date is not valid",
 	        	validators: {
-	            	notEmpty: {
-	                	message: "The auction's end date is required"
-	            	},
 	            	callback: {
                         message: "The auction's end date must be after the start date",
-                        callback: function (value, validator, $field) {
-                            var start_date = $('#start_date_input').value(),
-                            	end_date = $('#end_date_input').value();
-                            console.log(start_date);
-                            console.log(end_date);
+                        callback: function(value, validator, $field) {
+                            console.log('Work please');
+                            console.log(value);
+                            var start = $('#start_date_input').val();
+                            var end = $('#end_date_input').val();
+                            console.log('start: ' + start + ' , end ' + end);
 
-                            return false;
+                            return value == 'hello';
                         }
-                    }
+                    },
+					notEmpty: {
+	                	message: "The auction's end date is required"
+	            	}
 	        	}
 	    	},
 	    	auction_location: {
@@ -51,7 +47,14 @@ $(document).ready(function() {
 	        	}
 	    	}
 	    }
-	});
+	};
+
+$(document).ready(function() {
+
+	/*Validate the form*/
+    $('#create_auction').bootstrapValidator(validationOptions);
+
+	initialize();
 
 });
 
@@ -61,6 +64,10 @@ function initialize() {
         showMeridian: true,
         autoclose: true,
         todayBtn: false
+	}).on('changeDate', function(ev) {
+		console.log('start date changed');
+		//$('#create_auction').data('bootstrapValidator').validate();
+		$('#create_auction').data('bootstrapValidator').validateField('start_date_input');
 	});
 
 	 $("#end_date").datetimepicker({
@@ -68,7 +75,10 @@ function initialize() {
         showMeridian: true,
         autoclose: true,
         todayBtn: false
-    });
+    }).on('changeDate', function(ev) {
+    	console.log('end date changed');
+    	$('#create_auction').data('bootstrapValidator').validateField('end_date_input');
+	});
 
 	var today = new Date();
 	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
