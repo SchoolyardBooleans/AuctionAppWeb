@@ -10,12 +10,10 @@ router.get('/', function(req, res) {
 		title: 'Create Auction',
 		cssFiles: [
 			{css: 'create_auction.css'},
-			{css: 'datepicker.css'},
 			{css: 'formValidation.min.css'},
 			{css: 'bootstrap-datetimepicker.min.css'}
 		],
 		javascriptFiles: [
-			{javascript: 'datepicker.js'},
 			{javascript: 'formValidation.min.js'},
 			{javascript: 'create_auction.js'},
 			{javascript: 'bootstrap-datetimepicker.min.js'}

@@ -5,26 +5,26 @@
    <h2>Create a New Auction</h2>
 </div>
 <div class="form_container">
-    <form class="form-horizontal center_form">
+    <form id="create_auction" class="form-horizontal center_form">
         <fieldset>
             <div class="form-group bottom_padding">
                 <label for="auction_name" class="control-label col-xs-3">Auction Name</label>
                 <div class="col-xs-9">
-                    <input id="auction_name" type="text" class="form-control" placeholder="A Night in Paris">
+                    <input id="auction_name" name="auction_name" type="text" class="form-control" placeholder="A Night in Paris">
                 </div>
             </div>
             <div class="form-group">
-                <label for="start_date" class="control-label col-xs-3">Start Date</label>
+                <label for="start_date_input" class="control-label col-xs-3">Start Date</label>
                 <div id="start_date" class="col-xs-9 input-append date">
-                     <input id="start_date_input" type="text" class="form-control" >
+                     <input id="start_date_input" name="start_date_input" type="text" class="form-control" >
                      <span class="add-on"><i class="icon-remove"></i></span>
                      <span class="add-on"><i class="icon-th"></i></span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="end_date" class="control-label col-xs-3">End Date</label>
+                <label for="end_date_input" class="control-label col-xs-3">End Date</label>
                 <div id="end_date" class="col-xs-9 input-append date">
-                     <input id="end_date_input" type="text" class="form-control">
+                     <input id="end_date_input" name="end_date_input" type="text" class="form-control">
                      <span class="add-on"><i class="icon-remove"></i></span>
                      <span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label for="auction_location" class="control-label col-xs-3">Location</label>
                 <div class="col-xs-9">
-                    <input type="text" class="form-control" id="auction_location" placeholder="McKenzie Park">
+                    <input type="text" class="form-control" id="auction_location" name="auction_location" placeholder="McKenzie Park">
                 </div>
             </div>
             <div class="form-group right">
@@ -43,126 +43,5 @@
         </fieldset>
     </form>
 </div>
-
-
-<!-- <div class="container">
-<div class="heading_container">
-   <h2 class="new_auction_title">Create a New Auction</h2>
-</div>
-<form action="/auction" id="create_auction" method="POST">
-   <div class="form-group">
-      <label for="name">Auction Name </label>
-      <input type="text" class="form-control" name="name" placeholder="A night in Paris">
-   </div>
-   <div class="form-group">
-      <label for="date">Auction Start Date </label>
-      <br>
-      <div class="input-append date datetime_start" data-date="2012-12-21T15:25:00Z">
-         <input size="16" type="text" value="" readonly>
-         <span class="add-on"><i class="icon-remove"></i></span>
-         <span class="add-on"><i class="icon-th"></i></span>
-      </div>
-      <div style="float:left">
-         <input type="text" id="dp_start" class="form-control inline day" name="date" placeholder="04/25/2015">
-         <div class="btn-group hour" role="group">
-            <button type="button" id="start_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               1 
-            </button>
-            <ul id="start_hour" class="dropdown-menu" role="menu">
-               <li><a>1</a></li>
-               <li><a>2</a></li>
-               <li><a>3</a></li>
-               <li><a>4</a></li>
-               <li><a>5</a></li>
-               <li><a>6</a></li>
-               <li><a>7</a></li>
-               <li><a>8</a></li>
-               <li><a>9</a></li>
-               <li><a>10</a></li>
-               <li><a>11</a></li>
-               <li><a>12</a></li>
-            </ul>
-         </div>
-         <label> : </label>
-         <div class="btn-group minute" role="group">
-            <button type="button" id="start_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               15
-            </button>
-            <ul id="start_minute" class="dropdown-menu" role="menu">
-               <li><a>00</a></li>
-               <li><a>15</a></li>
-               <li><a>30</a></li>
-               <li><a>45</a></li>
-            </ul>
-         </div>
-         <div class="btn-group am_pm" role="group">
-            <button type="button" id="start_am_pm_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               AM <span class="caret"></span>
-            </button>
-            <ul id="start_am_pm" class="dropdown-menu" role="menu">
-               <li><a>AM</a></li>
-               <li><a>PM</a></li>
-            </ul>
-         </div>
-      </div>
-   </div>
-   <br><br>
-   <div class="form-group">
-      <label for="date">Auction End Date </label>
-      <br>
-      <div style="float:left">
-         <input type="text" id="dp_end" class="form-control inline day" name="date" placeholder="04/26/2015">
-         <div class="btn-group hour" role="group">
-            <button type="button" id="end_hour_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               1
-            </button>
-            <ul id="end_hour"class="dropdown-menu" role="menu">
-               <li><a>1</a></li>
-               <li><a>2</a></li>
-               <li><a>3</a></li>
-               <li><a>4</a></li>
-               <li><a>5</a></li>
-               <li><a>6</a></li>
-               <li><a>7</a></li>
-               <li><a>8</a></li>
-               <li><a>9</a></li>
-               <li><a>10</a></li>
-               <li><a>11</a></li>
-               <li><a>12</a></li>
-            </ul>
-         </div>
-         <label> : </label>
-         <div class="btn-group minute" role="group">
-            <button type="button" id="end_minute_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               15
-            </button>
-            <ul id="end_minute" class="dropdown-menu" role="menu">
-               <li><a>00</a></li>
-               <li><a>15</a></li>
-               <li><a>30</a></li>
-               <li><a>45</a></li>
-            </ul>
-         </div>
-         <div class="btn-group am_pm" role="group">
-            <button type="button" id="end_am_pm_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-               AM
-            </button>
-            <ul id="end_am_pm" class="dropdown-menu" role="menu">
-               <li><a>AM</a></li>
-               <li><a>PM</a></li>
-            </ul>
-         </div>
-      </div>
-   </div>
-   <br><br>
-   <div class="form-group">
-      <label for="location">Auction Location </label>
-      <input type="text" class="form-control" name="location" placeholder="Mckenzie Park">
-   </div>
-   <div class="submit_container">
-      <button type="submit submit_button" id="submit_auction" class="btn btn-primary">Submit</button>
-   </div>
-</form>
-</div> -->
 
 {/container}

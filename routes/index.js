@@ -18,12 +18,24 @@ router.get('/', function(req, res) {
 	            	cssFiles: [{css: 'index.css'}],
 	            	auctions: body[0].auctions
 	            }
+
+	            res.render('index', dustVars);
+	        }
+	        else {
+	        	console.log("Unable to access REST API.");
+	        	console.log("Error: " + error);
+	        	console.log("Response: " + response.statusCode);
+
+	        	var dustVars = {
+	            	title: 'Auction App',
+	            	cssFiles: [{css: 'index.css'}]
+	            }
+
 	            res.render('index', dustVars);
 	        }
 	    }
 	);
 
-	//res.render('index', { title: 'Auction App Baby!' });
 });
 
 
