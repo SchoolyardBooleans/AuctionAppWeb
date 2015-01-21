@@ -6,24 +6,27 @@ var router = express.Router();
 
 /* GET the edit auction page */
 router.get('/:id', function(req, res) {
-	// var dustVars = {
-	// 	title: 'Create Auction',
-	// 	cssFiles: [
-	// 		{css: 'create_auction.css'},
-	// 		{css: 'formValidation.min.css'},
-	// 		{css: 'bootstrap-datetimepicker.min.css'}
-	// 	],
-	// 	javascriptFiles: [
-	// 		{javascript: 'bootstrap-datetimepicker.min.js'},
-	// 		{javascript: 'formValidation.min.js'},
-	// 		{javascript: 'create_auction.js'}
-	// 	]
-	// };
+	var dustVars = {
+		title: 'Edit Auction',
+		auction_name: 'My Auction',
+		auction_location: 'My House',
+		auction_start_date: '01/26/2014 07:30 PM',
+		auction_end_date: '01/27/2014 07:30 PM',
+		cssFiles: [
+			{css: 'edit_auction.css'},
+			{css: 'formValidation.min.css'},
+			{css: 'bootstrap-datetimepicker.min.css'}
+		],
+		javascriptFiles: [
+			{javascript: 'bootstrap-datetimepicker.min.js'},
+			{javascript: 'formValidation.min.js'},
+			{javascript: 'edit_auction.js'}
+		]
+	};
 	
 	console.log("ID is: " + req.params.id);
 
-	res.end();
-	//res.render('create_auction', dustVars);
+	res.render('edit_auction', dustVars);
 });
 
 /* POST created auction */
