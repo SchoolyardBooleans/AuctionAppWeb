@@ -1,3 +1,14 @@
+.form_container {
+	text-align: center;
+	margin: 0 auto;
+	width: 60%;
+	padding: 5%;
+	border-style: solid;
+	border-width: medium;
+	border-radius: 20px;
+	background-color: #e7e7e7;
+}
+
 .bottom_padding {
 	margin-bottom: 40px;
 }
@@ -9,7 +20,7 @@
 
 .center_form {
 	margin: 0 auto;
-	width:50%;
+	width:100%;
 }
 
 .right {
