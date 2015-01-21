@@ -1,5 +1,7 @@
-var validationOptions =
-	{
+$(document).ready(function() {
+
+	/*Validate the form*/
+    $('#create_auction').bootstrapValidator({
 	    message: 'This value is not valid',
 		fields: {
 	    	auction_name: {
@@ -24,13 +26,15 @@ var validationOptions =
 	            	callback: {
                         message: "The auction's end date must be after the start date",
                         callback: function(value, validator, $field) {
-                            console.log('Work please');
-                            console.log(value);
-                            var start = $('#start_date_input').val();
-                            var end = $('#end_date_input').val();
-                            console.log('start: ' + start + ' , end ' + end);
+                            var start_str = $('#start_date_input').val(),
+                            	end_str = $('#end_date_input').val();
 
-                            return value == 'hello';
+                            var start = new Date(start_str),
+                            	end = new Date(end_str);
+
+                            console.log('start: ' + start.getTime() + ' , end ' + end.getTime());
+
+                            return start.getTime() < end.getTime();
                         }
                     },
 					notEmpty: {
@@ -47,14 +51,11 @@ var validationOptions =
 	        	}
 	    	}
 	    }
-	};
-
-$(document).ready(function() {
-
-	/*Validate the form*/
-    $('#create_auction').bootstrapValidator(validationOptions);
+	});
 
 	initialize();
+
+	initializeSubmitButton();
 
 });
 
@@ -66,8 +67,8 @@ function initialize() {
         todayBtn: false
 	}).on('changeDate', function(ev) {
 		console.log('start date changed');
-		//$('#create_auction').data('bootstrapValidator').validate();
-		$('#create_auction').data('bootstrapValidator').validateField('start_date_input');
+
+		$('#create_auction').data('bootstrapValidator').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
 	});
 
 	 $("#end_date").datetimepicker({
@@ -77,7 +78,8 @@ function initialize() {
         todayBtn: false
     }).on('changeDate', function(ev) {
     	console.log('end date changed');
-    	$('#create_auction').data('bootstrapValidator').validateField('end_date_input');
+    	$('#create_auction').data('bootstrapValidator').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
+    	console.log('end date changed 2');
 	});
 
 	var today = new Date();
@@ -87,4 +89,35 @@ function initialize() {
 	
 	$("#start_date_input").attr("placeholder", todayStr);
 	$("#end_date_input").attr("placeholder", tomorrowStr);
+}
+
+function initializeSubmitButton() {
+	$('#create_auction').submit(function(event) {
+		event.preventDefault();
+
+    	var name = $("#auction_name").val(),
+    		start_date = $('#start_date_input').val(),
+    		end_date = $('#end_date_input').val(),
+    		location = $('#auction_location').val();
+
+        $.ajax({
+            type:'POST',
+            url:'/auction',
+            data: {
+            	'name': name,
+            	'start_date': start_date,
+            	'end_date': end_date,
+            	'location': location
+            },
+            dataType: 'JSON',
+            complete: function(data) {
+				//$('#submit_button').before('<span id="notifier"><font color="#00FF00">Message sent ✓</font></span>');
+				// $('#notifier').hide();
+				// $('#notifier').fadeIn(600);
+
+				// $("#submit_button").prop("disabled", true);
+				console.log('Submitted!');
+			}
+        });
+    });
 }

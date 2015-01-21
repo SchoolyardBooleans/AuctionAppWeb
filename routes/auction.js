@@ -38,19 +38,22 @@ router.post('/', function(req, res) {
 
 	console.log("Req body %j", req.body);
 
-	request.post(
-	    'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
-	    { json: { name: req.body.name,
-	    			  orgId: 'a0Zj0000000eDTTEA2',
-	    			  location: req.body.location,
-					  startDate: req.body.date } },
-	    function (error, response, body) {
-	        if (!error && response.statusCode == 200) {
-	            console.log(body);
-	            res.redirect('/');
-	        }
-	    }
-	);
+	/*this is temporary*/
+	res.end();
+
+	// request.post(
+	//     'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
+	//     { json: { name: req.body.name,
+	//     			  orgId: 'a0Zj0000000eDTTEA2',
+	//     			  location: req.body.location,
+	// 				  startDate: req.body.date } },
+	//     function (error, response, body) {
+	//         if (!error && response.statusCode == 200) {
+	//             console.log(body);
+	//             res.redirect('/');
+	//         }
+	//     }
+	// );
 });
 
 
