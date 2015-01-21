@@ -60,6 +60,8 @@ $(document).ready(function() {
 });
 
 function initialize() {
+	$('#notifier').hide();
+
 	$("#start_date").datetimepicker({
         format: "mm/dd/yy, HH:ii P",
         showMeridian: true,
@@ -111,12 +113,11 @@ function initializeSubmitButton() {
             },
             dataType: 'JSON',
             complete: function(data) {
-				//$('#submit_button').before('<span id="notifier"><font color="#00FF00">Message sent ✓</font></span>');
-				// $('#notifier').hide();
-				// $('#notifier').fadeIn(600);
+				$('#submit_button').before('<span id="notifier"><font color="#00FF00">Message sent ✓</font></span>');
+				$('#notifier').hide();
+				$('#notifier').fadeIn(600);
 
-				// $("#submit_button").prop("disabled", true);
-				console.log('Submitted!');
+				console.log('Auction submitted.');
 			}
         });
     });

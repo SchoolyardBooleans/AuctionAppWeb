@@ -15,3 +15,13 @@
 .right {
 	float: right;
 }
+
+#notifier {
+	float: left;
+	margin-left: 30%;
+	margin-top: 10px;
+}
+
+#submit_auction {
+	float: right;
+}
