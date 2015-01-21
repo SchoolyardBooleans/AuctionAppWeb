@@ -113,7 +113,6 @@ function initializeSubmitButton() {
             },
             dataType: 'JSON',
             complete: function(data) {
-				$('#submit_button').before('<span id="notifier"><h3 style="background-color:#000000">Message sent ✓</h3></span>');
 				$('#notifier').hide();
 				$('#notifier').fadeIn(600);
 
