@@ -104,7 +104,7 @@ function initializeSubmitButton() {
 
         $.ajax({
             type:'POST',
-            url:'/auction',
+            url:'/create_auction',
             data: {
             	'name': name,
             	'start_date': start_date,

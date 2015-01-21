@@ -38,22 +38,30 @@ router.post('/', function(req, res) {
 
 	console.log("Req body %j", req.body);
 
-	/*this is temporary*/
-	res.end();
+	request.post(
+	    'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
+	    {
+	    	json: {
+	    		name: req.body.name,
+	    		orgId: 'a0Zj0000000eDTTEA2',
+	    		location: req.body.location,
+				startDate: req.body.start_date,
+				endDate: req.body.end_date
+			}
+		},
+	    function (error, response, body) {
+	        if (!error && response.statusCode == 200) {
+	            console.log(body);
+	        }
+	        else {
+	        	console.log('Error: ' + error + '\n' + 'Response code: ' + response.statusCode + '\n' + 'Body: ' + body);
 
-	// request.post(
-	//     'https://schooolyardbooleans-developer-edition.na16.force.com/public/services/apexrest/auctions',
-	//     { json: { name: req.body.name,
-	//     			  orgId: 'a0Zj0000000eDTTEA2',
-	//     			  location: req.body.location,
-	// 				  startDate: req.body.date } },
-	//     function (error, response, body) {
-	//         if (!error && response.statusCode == 200) {
-	//             console.log(body);
-	//             res.redirect('/');
-	//         }
-	//     }
-	// );
+	        	/*Need to notify that auction was not created somehow*/
+	        }
+
+	        res.end();
+	    }
+	);
 });
 
 

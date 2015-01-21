@@ -50,12 +50,12 @@ app.use(function (req, res, next) {
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
-var auction = require('./routes/auction');
+var auction = require('./routes/create_auction');
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/oauth', oauth);
-app.use('/auction', auction);
+app.use('/create_auction', auction);
 
 
 /*Dev error handler, prints stack trace*/
