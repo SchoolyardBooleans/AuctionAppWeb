@@ -16,6 +16,7 @@ router.get('/', function(req, res) {
 	            var dustVars = {
 	            	title: 'Auction App',
 	            	cssFiles: [{css: 'index.css'}],
+	            	javascriptFiles: [{javascript: 'index.js'}],
 	            	auctions: body[0].auctions
 	            }
 
@@ -28,7 +29,8 @@ router.get('/', function(req, res) {
 
 	        	var dustVars = {
 	            	title: 'Auction App',
-	            	cssFiles: [{css: 'index.css'}]
+	            	cssFiles: [{css: 'index.css'}],
+	            	javascriptFiles: [{javascript: 'index.js'}],
 	            }
 
 	            res.render('index', dustVars);
