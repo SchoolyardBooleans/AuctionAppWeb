@@ -25,7 +25,6 @@ router.get('/', function(req, res) {
 	        else {
 	        	console.log("Unable to access REST API.");
 	        	console.log("Error: " + error);
-	        	console.log("Response: " + response.statusCode);
 
 	        	var dustVars = {
 	            	title: 'Auction App',
