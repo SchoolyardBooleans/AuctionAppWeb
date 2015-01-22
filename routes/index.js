@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-
+var moment = require('moment');
 /* GET home page. */
 router.get('/', function(req, res) {
 
@@ -13,11 +13,18 @@ router.get('/', function(req, res) {
 	            console.log(body);
 	            console.log(body[0]);
 
+	            var auction_list = body[0].auctions;
+
+	            auction_list.forEach(function(auction, index, auctions) {
+	            	auctions[index].Start_Time = moment(auction.Start_Time).format('MM/DD/YYYY hh:SS A');
+	            	auctions[index].End_Time = moment(auction.End_Time).format('MM/DD/YYYY hh:SS A');
+	            });
+
 	            var dustVars = {
 	            	title: 'Auction App',
 	            	cssFiles: [{css: 'index.css'}],
 	            	javascriptFiles: [{javascript: 'index.js'}],
-	            	auctions: body[0].auctions
+	            	auctions: auction_list
 	            }
 
 	            res.render('index', dustVars);
