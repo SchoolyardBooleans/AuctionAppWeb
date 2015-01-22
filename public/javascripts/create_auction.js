@@ -96,9 +96,6 @@ function initialize() {
 function initializeSubmitButton() {
 	$('#create_auction').submit(function(event) {
 		event.preventDefault();
-		event.stopImmediatePropagation();
-
-		console.log('submitted');
 
     	var name = $("#auction_name").val(),
     		start_date = $('#start_date_input').val(),
