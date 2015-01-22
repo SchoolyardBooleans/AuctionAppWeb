@@ -2,7 +2,7 @@
 
 {<container}
 <div class="auction_title">
-   <h2>Create a New Auction</h2>
+   <h2>Edit an Auction</h2>
 </div>
 <div class="form_container">
     <form id="create_auction" class="form-horizontal center_form">
@@ -10,13 +10,13 @@
             <div class="form-group bottom_padding">
                 <label for="auction_name" class="control-label col-xs-3">Auction Name</label>
                 <div class="col-xs-9">
-                    <input id="auction_name" name="auction_name" type="text" class="form-control" placeholder="A Night in Paris">
+                    <input id="auction_name" name="auction_name" type="text" class="form-control" value="{auction_name}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="start_date_input" class="control-label col-xs-3">Start Date</label>
                 <div id="start_date" class="col-xs-9 input-append date">
-                     <input id="start_date_input" name="start_date_input" type="text" class="form-control" >
+                     <input id="start_date_input" name="start_date_input" type="text" class="form-control" value="{auction_start_date}" >
                      <span class="add-on"><i class="icon-remove"></i></span>
                      <span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label for="end_date_input" class="control-label col-xs-3">End Date</label>
                 <div id="end_date" class="col-xs-9 input-append date">
-                     <input id="end_date_input" name="end_date_input" type="text" class="form-control">
+                     <input id="end_date_input" name="end_date_input" type="text" class="form-control" value="{auction_end_date}">
                      <span class="add-on"><i class="icon-remove"></i></span>
                      <span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -32,13 +32,13 @@
             <div class="form-group">
                 <label for="auction_location" class="control-label col-xs-3">Location</label>
                 <div class="col-xs-9">
-                    <input type="text" class="form-control" id="auction_location" name="auction_location" placeholder="McKenzie Park">
+                    <input type="text" class="form-control" id="auction_location" name="auction_location" value="{auction_location}">
                 </div>
             </div>
             <div class="form-group">
                 <div class="row" style="width:100%">
                     <span id="notifier" class="col-xs-6"><h4 style="color:#008A00">Auction Created ✓</h4></span>
-                    <button id="submit_auction" class="btn btn-primary">Create</button>
+                    <button id="submit_auction" type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </fieldset>

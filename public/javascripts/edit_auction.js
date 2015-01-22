@@ -96,9 +96,6 @@ function initialize() {
 function initializeSubmitButton() {
 	$('#create_auction').submit(function(event) {
 		event.preventDefault();
-		event.stopImmediatePropagation();
-
-		console.log('submitted');
 
     	var name = $("#auction_name").val(),
     		start_date = $('#start_date_input').val(),
@@ -116,15 +113,6 @@ function initializeSubmitButton() {
             },
             dataType: 'JSON',
             complete: function(data) {
-            	console.log(data);
-            	if(data.status == 200) {
-            		console.log('saved')
-            		$('#notifier').html('<h4 style="color:#008A00">Auction Created ✓</h4>');
-            	}
-            	else {
-            		console.log('not saved')
-            		$('#notifier').html('<h4 style="color:red">Unable To Save Auction</h4>');
-            	}
 				$('#notifier').hide();
 				$('#notifier').fadeIn(600);
 

@@ -11,19 +11,32 @@ router.get('/', function(req, res) {
 	    function (error, response, body) {
 	        if (!error && response.statusCode == 200) {
 	            console.log(body);
-	            console.log(body[0].Name);
+	            console.log(body[0]);
 
 	            var dustVars = {
 	            	title: 'Auction App',
 	            	cssFiles: [{css: 'index.css'}],
+	            	javascriptFiles: [{javascript: 'index.js'}],
 	            	auctions: body[0].auctions
 	            }
+
+	            res.render('index', dustVars);
+	        }
+	        else {
+	        	console.log("Unable to access REST API.");
+	        	console.log("Error: " + error);
+
+	        	var dustVars = {
+	            	title: 'Auction App',
+	            	cssFiles: [{css: 'index.css'}],
+	            	javascriptFiles: [{javascript: 'index.js'}],
+	            }
+
 	            res.render('index', dustVars);
 	        }
 	    }
 	);
 
-	//res.render('index', { title: 'Auction App Baby!' });
 });
 
 
