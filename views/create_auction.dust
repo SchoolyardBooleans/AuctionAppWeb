@@ -38,7 +38,7 @@
             <div class="form-group">
                 <div class="row" style="width:100%">
                     <span id="notifier" class="col-xs-6"><h4 style="color:#008A00">Auction Created ✓</h4></span>
-                    <button id="submit_auction" type="submit" class="btn btn-primary">Create</button>
+                    <button id="submit_auction" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </fieldset>
