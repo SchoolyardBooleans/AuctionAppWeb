@@ -21,7 +21,7 @@
             {#auctions}
             <tr class='clickableRow' href='/edit_auction/{Id}'>
                <td class="col-md-3">{Name}</td>
-               <td class="col-md-3">{Location}</td>
+               <td class="col-md-3"></td>
                <td class="col-md-3">{Start_Time}
                <td class="col-md-3">{End_Time}</td>
             </tr>
