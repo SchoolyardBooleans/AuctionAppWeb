@@ -97,48 +97,36 @@ function initializeSubmitButton() {
 	$('#create_auction').submit(function(event) {
 		event.preventDefault();
 
+    	var name = $("#auction_name").val(),
+    		start_date = $('#start_date_input').val(),
+    		end_date = $('#end_date_input').val(),
+    		location = $('#auction_location').val();
 
-		if($('#create_auction').data('bootstrapValidator').isValid()) {
-			console.log('IS VALID');
-			return true;
-		}
-		else {
-			console.log('is NOT VALID');
-			return false;
-		}
+        $.ajax({
+            type:'POST',
+            url:'/create_auction',
+            data: {
+            	'name': name,
+            	'start_date': start_date,
+            	'end_date': end_date,
+            	'location': location
+            },
+            dataType: 'JSON',
+            complete: function(data) {
+            	console.log(data);
+            	if(data.status == 200) {
+            		console.log('saved')
+            		$('#notifier').html('<h4 style="color:#008A00">Auction Created ✓</h4>');
+            	}
+            	else {
+            		console.log('not saved')
+            		$('#notifier').html('<h4 style="color:red">Unable To Save Auction</h4>');
+            	}
+				$('#notifier').hide();
+				$('#notifier').fadeIn(600);
 
-		// console.log('submitted');
-
-  //   	var name = $("#auction_name").val(),
-  //   		start_date = $('#start_date_input').val(),
-  //   		end_date = $('#end_date_input').val(),
-  //   		location = $('#auction_location').val();
-
-  //       $.ajax({
-  //           type:'POST',
-  //           url:'/create_auction',
-  //           data: {
-  //           	'name': name,
-  //           	'start_date': start_date,
-  //           	'end_date': end_date,
-  //           	'location': location
-  //           },
-  //           dataType: 'JSON',
-  //           complete: function(data) {
-  //           	console.log(data);
-  //           	if(data.status == 200) {
-  //           		console.log('saved')
-  //           		$('#notifier').html('<h4 style="color:#008A00">Auction Created ✓</h4>');
-  //           	}
-  //           	else {
-  //           		console.log('not saved')
-  //           		$('#notifier').html('<h4 style="color:red">Unable To Save Auction</h4>');
-  //           	}
-		// 		$('#notifier').hide();
-		// 		$('#notifier').fadeIn(600);
-
-		// 		console.log('Auction submitted.');
-		// 	}
-  //       });
+				console.log('Auction submitted.');
+			}
+        });
     });
 }
