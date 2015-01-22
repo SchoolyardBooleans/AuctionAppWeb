@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	/*Validate the form*/
-    $('#create_auction').bootstrapValidator({
+    $('#edit_auction').bootstrapValidator({
 	    message: 'This value is not valid',
 		fields: {
 	    	auction_name: {
@@ -70,7 +70,7 @@ function initialize() {
 	}).on('changeDate', function(ev) {
 		console.log('start date changed');
 
-		$('#create_auction').data('bootstrapValidator').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
+		$('#edit_auction').data('bootstrapValidator').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
 	});
 
 	 $("#end_date").datetimepicker({
@@ -80,43 +80,46 @@ function initialize() {
         todayBtn: false
     }).on('changeDate', function(ev) {
     	console.log('end date changed');
-    	$('#create_auction').data('bootstrapValidator').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
+    	$('#edit_auction').data('bootstrapValidator').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
     	console.log('end date changed 2');
 	});
-
-	var today = new Date();
-	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-	var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-	var tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-	
-	$("#start_date_input").attr("placeholder", todayStr);
-	$("#end_date_input").attr("placeholder", tomorrowStr);
 }
 
 function initializeSubmitButton() {
-	$('#create_auction').submit(function(event) {
+	$('#edit_auction').submit(function(event) {
 		event.preventDefault();
 
     	var name = $("#auction_name").val(),
+    		id = $('#auction_id').text(),
     		start_date = $('#start_date_input').val(),
     		end_date = $('#end_date_input').val(),
     		location = $('#auction_location').val();
 
+    	console.log('name: ' + name);
+    	console.log('id: ' + id);
+
         $.ajax({
             type:'POST',
-            url:'/create_auction',
+            url:'/edit_auction',
             data: {
             	'name': name,
+            	'id': id,
             	'start_date': start_date,
             	'end_date': end_date,
             	'location': location
             },
             dataType: 'JSON',
             complete: function(data) {
+            	if(data.status == 200) {
+            		console.log('Auction updated successfully')
+            		$('#notifier').html('<h4 style="color:#008A00">Auction Updated ✓</h4>');
+            	}
+            	else {
+            		console.log('not saved')
+            		$('#notifier').html('<h4 style="color:red">Unable To Update Auction</h4>');
+            	}
 				$('#notifier').hide();
 				$('#notifier').fadeIn(600);
-
-				console.log('Auction submitted.');
 			}
         });
     });

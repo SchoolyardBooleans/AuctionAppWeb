@@ -12,7 +12,9 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
-	conn.sobject('Auction__c').retrieve(req.params.id, function(err, auction) {
+	var auction_id = req.params.id;
+
+	conn.sobject('Auction__c').retrieve(auction_id, function(err, auction) {
 	 	if (err) {
 	 		return console.error(err);
 	 	}
@@ -25,6 +27,7 @@ router.get('/:id', function(req, res) {
 		var dustVars = {
 			title: 'Edit Auction',
 			auction_name: auction.Name,
+			auction_id: auction_id,
 			auction_start_date: start_str,
 			auction_end_date: end_str,
 			cssFiles: [
@@ -56,19 +59,24 @@ router.post('/', function(req, res) {
 	/*Still need to add on a location*/
 	var auction = {
 		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
+		Id: req.body.id,
 		name : req.body.name,
 		Start_Time__c : start_date,
 		End_Time__c : end_date
 	}
 
-	conn.sobject('Auction__c').create(auction, function(err, ret) {
+	console.log(auction);
+
+	// Single record update
+	conn.sobject("Auction__c").update(auction, function(err, ret) {
 		if (err || !ret.success) {
 			res.status(406).end();
 			return console.error(err, ret);
 		}
-
-  		console.log("Created record id : " + ret.id);
-  		res.status(200).end();
+		else {
+			res.status(200).end();
+			console.log('Updated Successfully : ' + ret.id);
+		}
 	});
 
 });
