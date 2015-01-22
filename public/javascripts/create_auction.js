@@ -1,3 +1,5 @@
+var submitted = false;
+
 $(document).ready(function() {
 
 	/*Validate the form*/
@@ -95,6 +97,7 @@ function initialize() {
 
 function initializeSubmitButton() {
 	$('#create_auction').submit(function(event) {
+		if(!submitted && $('#create_auction').data('bootstrapValidator').isValid()) {
 		event.preventDefault();
 
     	var name = $("#auction_name").val(),
@@ -128,5 +131,9 @@ function initializeSubmitButton() {
 				console.log('Auction submitted.');
 			}
         });
+
+        submitted = true;
+
+    	}
     });
 }

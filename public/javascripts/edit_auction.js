@@ -1,3 +1,4 @@
+var submitted = false;
 $(document).ready(function() {
 
 	/*Validate the form*/
@@ -89,6 +90,7 @@ function initializeSubmitButton() {
 	$('#edit_auction').submit(function(event) {
 		event.preventDefault();
 
+		if(!submitted  && $('#edit_auction').data('bootstrapValidator').isValid()) {
     	var name = $("#auction_name").val(),
     		id = $('#auction_id').text(),
     		start_date = $('#start_date_input').val(),
@@ -122,5 +124,9 @@ function initializeSubmitButton() {
 				$('#notifier').fadeIn(600);
 			}
         });
+
+        submitted = true;
+        
+    	}
     });
 }
