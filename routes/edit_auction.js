@@ -22,6 +22,7 @@ router.get('/:id', function(req, res) {
 	 	var start_str = moment(auction.Start_Time__c).format('MM/DD/YYYY hh:SS A');
 	 	var end_str = moment(auction.End_Time__c).format('MM/DD/YYYY hh:SS A');
 
+	 	console.log("Editing Auction: " + auction.Location);
 
 		/*still needs auction location*/
 		var dustVars = {
