@@ -1,10 +1,13 @@
-var submitted = false;
-
 $(document).ready(function() {
 
 	/*Validate the form*/
-    $('#create_auction').bootstrapValidator({
-	    message: 'This value is not valid',
+    $('#create_auction').formValidation({
+	    framework: 'bootstrap',
+	     icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
 		fields: {
 	    	auction_name: {
 	        	message: 'The auction name is not valid',
@@ -53,57 +56,15 @@ $(document).ready(function() {
 	        	}
 	    	}
 	    }
-	});
+	}).on('success.form.fv', function(e) {
+        /*Called when form button is pressed, and form is validated*/
+        
+        e.preventDefault();
 
-	initialize();
-
-	initializeSubmitButton();
-
-});
-
-function initialize() {
-	$('#notifier').hide();
-
-	$("#start_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
-        showMeridian: true,
-        autoclose: true,
-        todayBtn: false
-	}).on('changeDate', function(ev) {
-		console.log('start date changed');
-
-		$('#create_auction').data('bootstrapValidator').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
-	});
-
-	 $("#end_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
-        showMeridian: true,
-        autoclose: true,
-        todayBtn: false
-    }).on('changeDate', function(ev) {
-    	console.log('end date changed');
-    	$('#create_auction').data('bootstrapValidator').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
-    	console.log('end date changed 2');
-	});
-
-	var today = new Date();
-	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-	var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-	var tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-	
-	$("#start_date_input").attr("placeholder", todayStr);
-	$("#end_date_input").attr("placeholder", tomorrowStr);
-}
-
-function initializeSubmitButton() {
-	$('#create_auction').submit(function(event) {
-		if(!submitted && $('#create_auction').data('bootstrapValidator').isValid()) {
-		event.preventDefault();
-
-    	var name = $("#auction_name").val(),
-    		start_date = $('#start_date_input').val(),
-    		end_date = $('#end_date_input').val(),
-    		location = $('#auction_location').val();
+        var name = $("#auction_name").val(),
+		start_date = $('#start_date_input').val(),
+		end_date = $('#end_date_input').val(),
+		location = $('#auction_location').val();
 
         $.ajax({
             type:'POST',
@@ -131,9 +92,42 @@ function initializeSubmitButton() {
 				console.log('Auction submitted.');
 			}
         });
-
-        submitted = true;
-
-    	}
     });
+
+	initialize();
+
+});
+
+function initialize() {
+	$('#notifier').hide();
+
+	$("#start_date").datetimepicker({
+        format: "mm/dd/yy, HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false
+	}).on('changeDate', function(ev) {
+		console.log('start date changed');
+
+		$('#create_auction').data('formValidation').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
+	});
+
+	 $("#end_date").datetimepicker({
+        format: "mm/dd/yy, HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false
+    }).on('changeDate', function(ev) {
+    	console.log('end date changed');
+    	$('#create_auction').data('formValidation').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
+    	console.log('end date changed 2');
+	});
+
+	var today = new Date();
+	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+	var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+	var tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+	
+	$("#start_date_input").attr("placeholder", todayStr);
+	$("#end_date_input").attr("placeholder", tomorrowStr);
 }

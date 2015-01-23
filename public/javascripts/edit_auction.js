@@ -1,9 +1,13 @@
-var submitted = false;
 $(document).ready(function() {
 
 	/*Validate the form*/
-    $('#edit_auction').bootstrapValidator({
-	    message: 'This value is not valid',
+    $('#edit_auction').formValidation({
+	    framework: 'bootstrap',
+	    icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
 		fields: {
 	    	auction_name: {
 	        	message: 'The auction name is not valid',
@@ -52,46 +56,12 @@ $(document).ready(function() {
 	        	}
 	    	}
 	    }
-	});
+	}).on('success.form.fv', function(e) {
+        /*Called when form button is pressed, and form is validated*/
+        
+        e.preventDefault();
 
-	initialize();
-
-	initializeSubmitButton();
-
-});
-
-function initialize() {
-	$('#notifier').hide();
-
-	$("#start_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
-        showMeridian: true,
-        autoclose: true,
-        todayBtn: false
-	}).on('changeDate', function(ev) {
-		console.log('start date changed');
-
-		$('#edit_auction').data('bootstrapValidator').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
-	});
-
-	 $("#end_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
-        showMeridian: true,
-        autoclose: true,
-        todayBtn: false
-    }).on('changeDate', function(ev) {
-    	console.log('end date changed');
-    	$('#edit_auction').data('bootstrapValidator').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
-    	console.log('end date changed 2');
-	});
-}
-
-function initializeSubmitButton() {
-	$('#edit_auction').submit(function(event) {
-		event.preventDefault();
-
-		if(!submitted  && $('#edit_auction').data('bootstrapValidator').isValid()) {
-    	var name = $("#auction_name").val(),
+        var name = $("#auction_name").val(),
     		id = $('#auction_id').text(),
     		start_date = $('#start_date_input').val(),
     		end_date = $('#end_date_input').val(),
@@ -124,9 +94,34 @@ function initializeSubmitButton() {
 				$('#notifier').fadeIn(600);
 			}
         });
-
-        submitted = true;
-        
-    	}
     });
+
+	initialize();
+
+});
+
+function initialize() {
+	$('#notifier').hide();
+
+	$("#start_date").datetimepicker({
+        format: "mm/dd/yy, HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false
+	}).on('changeDate', function(ev) {
+		console.log('start date changed');
+
+		$('#edit_auction').data('formValidation').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
+	});
+
+	 $("#end_date").datetimepicker({
+        format: "mm/dd/yy, HH:ii P",
+        showMeridian: true,
+        autoclose: true,
+        todayBtn: false
+    }).on('changeDate', function(ev) {
+    	console.log('end date changed');
+    	$('#edit_auction').data('formValidation').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
+    	console.log('end date changed 2');
+	});
 }

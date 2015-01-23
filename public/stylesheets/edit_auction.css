@@ -1,21 +1,16 @@
 .form_container {
-	text-align: center;
-	margin: 0 auto;
+	margin-left: 50px;
 	width: 60%;
-	padding: 5%;
-	border-style: solid;
-	border-width: medium;
-	border-radius: 20px;
-	background-color: #e7e7e7;
 }
 
 .bottom_padding {
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 }
 
 .auction_title {
-	text-align:center;
-	margin-bottom:5%
+	margin-bottom:40px;
+	margin-left: 2%;
+	border-bottom: 1px solid #eee;
 }
 
 .center_form {
@@ -31,6 +26,14 @@
 	float: left;
 }
 
-#submit_auction {
+#submit_edited_auction {
 	float: right;
+}
+
+/* Extra Small devices */
+@media screen and (max-width: 960px) {
+	.form_container {
+		width: 100%;
+		margin: 0 10px;
+	}
 }

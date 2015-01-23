@@ -39,6 +39,7 @@ router.get('/:id', function(req, res) {
 			javascriptFiles: [
 				{javascript: 'bootstrap-datetimepicker.min.js'},
 				{javascript: 'formValidation.min.js'},
+				{javascript: 'formValidation-bootstrap.min.js'},
 				{javascript: 'edit_auction.js'}
 			]
 		};
