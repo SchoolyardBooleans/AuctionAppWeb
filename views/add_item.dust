@@ -1,0 +1,7 @@
+{>"layouts/main"/}
+
+{<container}
+
+<h1>Add Item</h1>
+
+{/container}

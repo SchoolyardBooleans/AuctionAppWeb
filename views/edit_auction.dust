@@ -45,6 +45,39 @@
             </div>
         </fieldset>
     </form>
+    <br>
+    <div class="panel panel-default">
+   <div class="panel-heading clearfix"> 
+      <h2 class="pull-left">Items</h2>
+      <a href="/edit_auction/{auction_id}/add_item" class="pull-right btn btn-primary add_item_btn">Add Item</a>
+   </div>
+   <div class="panel-body">
+      <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-4">Item Name</th>
+                <th class="col-md-4">Sponsor</th>
+                <th class="col-md-4">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class='clickableRow' href='/edit_auction/{Id}'>
+               <td class="col-md-3">Test Item</td>
+               <td class="col-md-3">Test Sponsor</td>
+               <td class="col-md-3">Price</td>
+            </tr>
+            {#auctions}
+            <tr class='clickableRow' href='/edit_auction/{Id}'>
+               <td class="col-md-3">{Name}</td>
+               <td class="col-md-3">{Sponsor}</td>
+               <td class="col-md-3">{Price}
+            </tr>
+            {/auctions}
+        </tbody>
+    </table>
+   </div>
+</div>
+
 </div>
 
 {/container}

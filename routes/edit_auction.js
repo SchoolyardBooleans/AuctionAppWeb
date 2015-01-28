@@ -5,6 +5,7 @@ var request = require('request');
 var moment = require('moment');
 var router = express.Router();
 
+
 /* GET the edit auction page */
 router.get('/:id', function(req, res) {
 	var conn = new jsforce.Connection({
@@ -21,8 +22,6 @@ router.get('/:id', function(req, res) {
 
 	 	var start_str = moment(auction.Start_Time__c).format('MM/DD/YYYY hh:SS A');
 	 	var end_str = moment(auction.End_Time__c).format('MM/DD/YYYY hh:SS A');
-
-	 	console.log("Editing Auction: " + auction.Location);
 
 		/*still needs auction location*/
 		var dustVars = {
@@ -81,6 +80,40 @@ router.post('/', function(req, res) {
 		}
 	});
 
+});
+
+/*Get add an item to auction page*/
+router.get('/:id/add_item', function(req, res) {
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+
+	var auction_id = req.params.id;
+	console.log('Auction ID: ' + auction_id);
+
+	conn.sobject('Auction__c').retrieve(auction_id, function(err, auction) {
+	 	if (err) {
+	 		return console.error(err);
+	 	}
+
+		var dustVars = {
+			title: 'Add Item',
+			cssFiles: [
+				{css: 'add_item.css'},
+				{css: 'formValidation.min.css'}
+			],
+			javascriptFiles: [
+				{javascript: 'formValidation.min.js'},
+				{javascript: 'formValidation-bootstrap.min.js'},
+				{javascript: 'add_item.js'}
+			]
+		};
+
+		console.log('About to render add item page');
+
+		res.render('add_item', dustVars);
+	});
 });
 
 
