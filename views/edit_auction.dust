@@ -56,23 +56,18 @@
         <thead>
             <tr>
                 <th class="col-md-4">Item Name</th>
-                <th class="col-md-4">Sponsor</th>
-                <th class="col-md-4">Price</th>
+                <th class="col-md-4">Description</th>
+                <th class="col-md-4">Value</th>
             </tr>
         </thead>
         <tbody>
+            {#auction_items}
             <tr class='clickableRow' href='/edit_auction/{Id}'>
-               <td class="col-md-3">Test Item</td>
-               <td class="col-md-3">Test Sponsor</td>
-               <td class="col-md-3">Price</td>
+               <td class="col-md-4">{Name}</td>
+               <td class="col-md-4">{Description__c}</td>
+               <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
             </tr>
-            {#auctions}
-            <tr class='clickableRow' href='/edit_auction/{Id}'>
-               <td class="col-md-3">{Name}</td>
-               <td class="col-md-3">{Sponsor}</td>
-               <td class="col-md-3">{Price}
-            </tr>
-            {/auctions}
+            {/auction_items}
         </tbody>
     </table>
    </div>

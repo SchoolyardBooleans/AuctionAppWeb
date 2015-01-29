@@ -1,3 +1,4 @@
 <html>
-An unexpected error has occured.
+<h1>{message}</h1>
+<h2>{error}</h2>
 </html>

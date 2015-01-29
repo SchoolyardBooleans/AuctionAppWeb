@@ -2,6 +2,7 @@ var express = require('express');
 var jsforce = require('jsforce');
 // won't be needed later
 var request = require('request');
+var util = require('util');
 var moment = require('moment');
 var router = express.Router();
 
@@ -12,24 +13,27 @@ router.get('/:id', function(req, res) {
 		accessToken: req.session.accessToken,
 		instanceUrl: req.session.instanceUrl
 	});
-
+	console.log('in edit auction');
 	var auction_id = req.params.id;
+	var query_str = "SELECT Id, Name, Start_Time__C, End_Time__C, (SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
 
-	conn.sobject('Auction__c').retrieve(auction_id, function(err, auction) {
-	 	if (err) {
-	 		return console.error(err);
-	 	}
+	conn.query(query_str, function(err, auction) {
+		if(err) {
+			return console.error(err);
+		}
 
-	 	var start_str = moment(auction.Start_Time__c).format('MM/DD/YYYY hh:SS A');
-	 	var end_str = moment(auction.End_Time__c).format('MM/DD/YYYY hh:SS A');
+		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A');
+	 	var end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A');
+	 	var items = auction.records[0].Auction_Items__r.records;
 
 		/*still needs auction location*/
 		var dustVars = {
 			title: 'Edit Auction',
-			auction_name: auction.Name,
+			auction_name: auction.records[0].Name,
 			auction_id: auction_id,
 			auction_start_date: start_str,
 			auction_end_date: end_str,
+			auction_items: items,
 			cssFiles: [
 				{css: 'edit_auction.css'},
 				{css: 'formValidation.min.css'},
