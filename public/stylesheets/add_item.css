@@ -1,0 +1,59 @@
+.item_title {
+	margin-bottom:40px;
+	margin-left: 2%;
+	border-bottom: 1px solid #eee;
+}
+
+.item_container {
+	width: 100%;
+}
+
+.center_form {
+	margin: 0 auto;
+	width:100%;
+}
+
+.bottom_padding {
+	margin-bottom: 25px;
+}
+
+.pad_right {
+	margin-right:15px;
+}
+
+.form_container {
+	margin-left: 50px;
+	width: 60%;
+}
+
+.input-group {
+    display: inline-table;
+    vertical-align: middle;
+
+    .input-group-addon,
+    .input-group-btn,
+    .form-control {
+        width: auto !important;
+    }
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
