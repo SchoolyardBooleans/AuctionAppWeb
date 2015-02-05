@@ -28,33 +28,83 @@ $(document).ready(function() {
     });
 
 
-	$("#add_item").submit(function() {
-		var item = {
-			name: $('#item_name').val(),
-			description: $('#item_description').val(),
-			value: $('#item_min_value').val(),
-			min_bid: $('#item_min_bid').val(),
-			sponsor: $('#sponsor_input').val(),
-			is_featured: $('#is_featured').val()
+    var form = $('#add_item');
+	var fileSelect = $('#image_input');
+	var uploadButton = $('#submit_item');
+
+	form.onsubmit = function(event) {
+  		event.preventDefault();
+  		// Update button text.
+  		uploadButton.innerHTML = 'Uploading...';
+
+  		// Get the selected files from the input.
+		var files = fileSelect.files;
+
+		// Create a new FormData object.
+		var formData = new FormData();
+
+		// Loop through each of the selected files.
+		for (var i = 0; i < files.length; i++) {
+			var file = files[i];
+
+			// Add the file to the request.
+			formData.append('photos[]', file, file.name);
+		}
+
+		// Set up the request.
+		var xhr = new XMLHttpRequest();
+
+		console.log('xhr hit 1');
+
+		// Open the connection.
+		xhr.open('POST', '', true);
+
+		console.log('xhr hit 2');
+
+		// Set up a handler for when the request finishes.
+		xhr.onload = function () {
+			if (xhr.status === 200) {
+				// File(s) uploaded.
+				uploadButton.innerHTML = 'Upload';
+			}
+			else {
+				alert('An error occurred!');
+			}
 		};
 
-	    $.ajax({
-	        url: '',
-	        type: 'POST',
-	        data: item,
-	        dataType: 'JSON',
-            complete: function(data) {
-				//$('#submit_button').before('<span id="notifier"><font color="#00FF00">Message sent ✓</font></span>');
-				// $('#notifier').hide();
-				// $('#notifier').fadeIn(600);
-				console.log('item sent: ' + data);
+		// Send the Data.
+		xhr.send(formData);
 
-				$("#submit_item").prop("disabled", true);
-			}
-	    });
+		return false;
+	}
 
-	    return false;
-	});
+	// $("#add_item").submit(function() {
+	// 	var item = {
+	// 		name: $('#item_name').val(),
+	// 		description: $('#item_description').val(),
+	// 		value: $('#item_min_value').val(),
+	// 		min_bid: $('#item_min_bid').val(),
+	// 		sponsor: $('#sponsor_input').val(),
+	// 		is_featured: $('#is_featured').val()
+	// 	};
+
+	//     $.ajax({
+	//         url: '',
+	//         type: 'POST',
+	//         data: item,
+	//         dataType: 'JSON',
+ //            complete: function(data) {
+	// 			//$('#submit_button').before('<span id="notifier"><font color="#00FF00">Message sent ✓</font></span>');
+	// 			// $('#notifier').hide();
+	// 			// $('#notifier').fadeIn(600);
+	// 			console.log('item sent: ' + data);
+
+	// 			$("#submit_item").prop("disabled", true);
+	// 		}
+	//     });
+
+	//     return false;
+	// });
 });
 
 function validate(){

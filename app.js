@@ -9,6 +9,7 @@ var cons = require('consolidate');
 var dustHelper = require('dustjs-helpers');
 var session = require('express-session')
 var template_engine = 'dust';
+var multer = require('multer');
 
 var app = express();
 
@@ -46,6 +47,10 @@ app.use(function (req, res, next) {
     next();  
   }
 });
+
+app.use(multer({
+  inMemory : true
+}));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
