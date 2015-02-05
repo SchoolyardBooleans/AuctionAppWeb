@@ -3,7 +3,7 @@
 {<container}
 
 <div class="auction_title">
-   <h2>Edit an Auction</h2>
+    <h2>Edit an Auction</h2>
 </div>
 <div class="form_container">
     <form id="edit_auction" class="form-horizontal center_form">
@@ -17,17 +17,17 @@
             <div class="form-group bottom_padding">
                 <label for="start_date_input" class="control-label col-xs-3">Start Date</label>
                 <div id="start_date" class="col-xs-9 input-append date">
-                     <input id="start_date_input" name="start_date_input" type="text" class="form-control" value="{auction_start_date}">
-                     <span class="add-on"><i class="icon-remove"></i></span>
-                     <span class="add-on"><i class="icon-th"></i></span>
+                    <input id="start_date_input" name="start_date_input" type="text" class="form-control" value="{auction_start_date}">
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
                 </div>
             </div>
             <div class="form-group bottom_padding">
                 <label for="end_date_input" class="control-label col-xs-3">End Date</label>
                 <div id="end_date" class="col-xs-9 input-append date">
-                     <input id="end_date_input" name="end_date_input" type="text" class="form-control" value="{auction_end_date}">
-                     <span class="add-on"><i class="icon-remove"></i></span>
-                     <span class="add-on"><i class="icon-th"></i></span>
+                    <input id="end_date_input" name="end_date_input" type="text" class="form-control" value="{auction_end_date}">
+                    <span class="add-on"><i class="icon-remove"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
                 </div>
             </div>
             <div class="form-group bottom_padding">
@@ -47,31 +47,31 @@
     </form>
     <br>
     <div class="panel panel-default">
-   <div class="panel-heading clearfix"> 
-      <h2 class="pull-left">Items</h2>
-      <a href="/edit_auction/{auction_id}/add_item" class="pull-right btn btn-primary add_item_btn">Add Item</a>
-   </div>
-   <div class="panel-body">
-      <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-                <th class="col-md-4">Item Name</th>
-                <th class="col-md-4">Description</th>
-                <th class="col-md-4">Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#auction_items}
-            <tr class='clickableRow' href='/edit_auction/{Id}'>
-               <td class="col-md-4">{Name}</td>
-               <td class="col-md-4">{Description__c}</td>
-               <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
-            </tr>
-            {/auction_items}
-        </tbody>
-    </table>
-   </div>
-</div>
+        <div class="panel-heading clearfix"> 
+            <h2 class="pull-left">Items</h2>
+            <a href="/edit_auction/{auction_id}/add_item" class="pull-right btn btn-primary add_item_btn">Add Item</a>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Item Name</th>
+                        <th class="col-md-4">Description</th>
+                        <th class="col-md-4">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#auction_items}
+                    <tr class='clickableRow' href='/edit_auction/{Id}'>
+                        <td class="col-md-4">{Name}</td>
+                        <td class="col-md-4">{Description__c}</td>
+                        <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
+                    </tr>
+                    {/auction_items}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 

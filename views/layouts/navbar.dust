@@ -16,10 +16,7 @@
 			<li><a href="create_auction">Create Auction</a></li>
 			<li><a href="#">View Donors</a></li>
 		</ul>
-		<form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>        
+		<form class="navbar-form navbar-left" role="search">      
       </form>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#">Logout</a></li>
