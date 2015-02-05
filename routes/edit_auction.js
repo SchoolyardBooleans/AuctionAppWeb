@@ -15,7 +15,7 @@ router.get('/:id', function(req, res) {
 	});
 	console.log('in edit auction');
 	var auction_id = req.params.id;
-	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, " +
+	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name," +
 		//"(SELECT Name FROM Auctions__r), " +
 		//"Auction_Location__r.Name," + 
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
@@ -29,6 +29,7 @@ router.get('/:id', function(req, res) {
 
 		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A');
 	 	var end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A');
+	 	var location_str = auction.records[0].Location__r.Name;
 	 	//var items = auction.records[0].Auction_Items__r.records;
 	 	var items = auction.records[0].Auction_Items__r.records;
 
@@ -39,6 +40,7 @@ router.get('/:id', function(req, res) {
 			auction_id: auction_id,
 			auction_start_date: start_str,
 			auction_end_date: end_str,
+			auction_location: location_str,
 			auction_items: items,
 			cssFiles: [
 				{css: 'edit_auction.css'},
@@ -160,63 +162,35 @@ router.get('/:id/add_item', function(req, res) {
 	});
 });
 
-// a middleware sub-stack shows request info for any type of HTTP request to /user/:id
-router.use('/:id/add_item', function(req, res, next) {
-  console.log('Request URL:', req.originalUrl);
-  next();
-});
-
 router.post('/:id/add_item', function(req, res) {
-	// var conn = new jsforce.Connection({
-	// 	accessToken: req.session.accessToken,
-	// 	instanceUrl: req.session.instanceUrl
-	// });
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
 
-	// var item = {
-	// 	Auction__c : req.params.id,
-	// 	Description__c : req.body.description,
-	// 	Estimated_Value__c : Number(req.body.value),
-	// 	Featured__C : Boolean(req.body.is_featured),
-	// 	Item_Sponsor__c : req.body.sponsor,
-	// 	Name : req.body.name,
-	// 	Starting_Bid__c : req.body.min_bid,
-	// 	Test_Image__c : 
-	// };
-
-	// conn.sobject('Auction_Item__c').create(item, function(err, ret) {
-	// 	if (err || !ret.success) {
-	// 		res.status(406).end();
-	// 		return console.error(err, ret);
-	// 	}
-
- //  		console.log("Created record id : " + ret.id);
- //  		res.status(200).end();
-	// });
-
-	console.log('in post');
 	console.log('multer body: ' + util.inspect(req.body, false, null));
 	console.log('multer files: ' + util.inspect(req.files, false, null));
-	res.status(200).redirect('/edit_auction/' + req.params.id);
-	// var busboy = new Busboy({ headers: req.headers });
- //    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
- //      console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
- //      file.on('data', function(data) {
- //        console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
- //      });
- //      file.on('end', function() {
- //        console.log('File [' + fieldname + '] Finished');
- //      });
- //    });
- //    busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
- //      console.log('Field [' + fieldname + ']: value: ' + inspect(val));
- //    });
- //    busboy.on('finish', function() {
- //      console.log('Done parsing form!');
- //      res.writeHead(303, { Connection: 'close', Location: '/' });
- //      res.end();
- //    });
-});
 
+	var item = {
+		Auction__c : req.params.id,
+		Description__c : req.body.item_description,
+		Estimated_Value__c : Number(req.body.item_value),
+		Featured__C : Boolean(req.body.is_featured),
+		Sponsor_Name__c : req.body.sponsor,
+		Name : req.body.item_name,
+		Starting_Bid__c : req.body.item_min_bid
+	};
+
+	conn.sobject('Auction_Item__c').create(item, function(err, ret) {
+		if (err || !ret.success) {
+			res.status(406).end();
+			return console.error(err, ret);
+		}
+
+  		console.log("Created record id : " + ret.id);
+  		res.status(200).redirect('/edit_auction/' + req.params.id);
+	});
+});
 
 
 module.exports = router;
