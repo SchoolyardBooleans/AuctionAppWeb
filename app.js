@@ -19,7 +19,7 @@ app.set('template_engine', template_engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', template_engine);
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/sf.png'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
