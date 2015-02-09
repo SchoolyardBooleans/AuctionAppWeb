@@ -54,4 +54,20 @@ router.get('/callback', function(req, res) {
     });
 });
 
+router.get('/logout', function(req, res) {
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+
+    conn.logout(function(err) {
+        if(err) {
+            return console.error(err);
+        }
+        
+        console.log('User logged out');
+        res.redirect('/oauth');
+    });
+});
+
 module.exports = router;
