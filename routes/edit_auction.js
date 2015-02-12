@@ -193,52 +193,42 @@ router.post('/:id/add_item', function(req, res) {
 	  IsPublic: true,
 	  FolderId: folderId
 	};
-	
-	conn.identity(function(err, userInfo) {
-	  if (err) { return console.error(err); }
-	  console.log("user ID: " + userInfo.user_id);
-	  console.log("organization ID: " + userInfo.organization_id);
-	  console.log("username: " + userInfo.username);
-	  console.log("display name: " + userInfo.display_name);
-	
 
+	conn.sobject('Document').create(imgDoc, function(err, ret) {
+		if (err || !ret.success) {
+			res.status(406).end();
+			return console.error(err, ret);
+		}
 
-		conn.sobject('Document').create(imgDoc, function(err, ret) {
+		console.log('Doc create return: ' + util.inspect(ret, false, null));
+  		console.log("Created Document id : " + util.inspect(ret.id, false, null));
+  		//try not responding?
+  		//res.status(200).redirect('/edit_auction/' + req.params.id);
+		
+		//assemble img instanceUrl
+		var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + req.session.orgId;
+		//create item
+   	
+   		//TODO: seperate post methods of img and item
+		var item = {
+			Auction__c : req.params.id,
+			Description__c : req.body.item_description,
+			Estimated_Value__c : Number(req.body.item_value),
+			Featured__C : Boolean(req.body.is_featured),
+			Sponsor_Name__c : req.body.sponsor,
+			Name : req.body.item_name,
+			Starting_Bid__c : req.body.item_min_bid,
+			Image_URL__c : imgUrl
+		};
+
+		conn.sobject('Auction_Item__c').create(item, function(err, ret) {
 			if (err || !ret.success) {
 				res.status(406).end();
 				return console.error(err, ret);
 			}
 
-			console.log('Doc create return: ' + util.inspect(ret, false, null));
-	  		console.log("Created Document id : " + util.inspect(ret.id, false, null));
-	  		//try not responding?
-	  		//res.status(200).redirect('/edit_auction/' + req.params.id);
-			
-			//assemble img instanceUrl
-			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + userInfo.organization_id;
-			//create item
-	   	
-	   	//TODO: seperate post methods of img and item
-			var item = {
-				Auction__c : req.params.id,
-				Description__c : req.body.item_description,
-				Estimated_Value__c : Number(req.body.item_value),
-				Featured__C : Boolean(req.body.is_featured),
-				Sponsor_Name__c : req.body.sponsor,
-				Name : req.body.item_name,
-				Starting_Bid__c : req.body.item_min_bid,
-				Image_URL__c : imgUrl
-			};
-
-			conn.sobject('Auction_Item__c').create(item, function(err, ret) {
-				if (err || !ret.success) {
-					res.status(406).end();
-					return console.error(err, ret);
-				}
-
-		  		console.log("Created record id : " + ret.id);
-		  		res.status(200).redirect('/edit_auction/' + req.params.id);
-			});
+	  		console.log("Created record id : " + ret.id);
+	  		res.status(200).redirect('/edit_auction/' + req.params.id);
 		});
 	});
 });
