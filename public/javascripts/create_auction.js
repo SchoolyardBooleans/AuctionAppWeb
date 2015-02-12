@@ -62,9 +62,9 @@ $(document).ready(function() {
         e.preventDefault();
 
         var name = $("#auction_name").val(),
-		start_date = $('#start_date_input').val(),
-		end_date = $('#end_date_input').val(),
-		location = $('#auction_location').val();
+			start_date = $('#start_date_input').val(),
+			end_date = $('#end_date_input').val(),
+			location = $('#auction_location').val();
 
         $.ajax({
             type:'POST',
@@ -108,7 +108,6 @@ function initialize() {
         todayBtn: false
 	}).on('changeDate', function(ev) {
 		console.log('start date changed');
-
 		$('#create_auction').data('formValidation').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
 	});
 

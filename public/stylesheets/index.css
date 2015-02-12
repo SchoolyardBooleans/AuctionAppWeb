@@ -13,3 +13,7 @@ td {
 .panel {
 	margin: 40px 0;
 }
+
+.clickableRow td {
+	cursor: pointer;
+}
