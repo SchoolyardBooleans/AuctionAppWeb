@@ -159,35 +159,88 @@ router.get('/:id/add_item', function(req, res) {
 	});
 });
 
+
+
+
 router.post('/:id/add_item', function(req, res) {
 	var conn = new jsforce.Connection({
 		accessToken: req.session.accessToken,
 		instanceUrl: req.session.instanceUrl
 	});
+	// TODO: Make sure files is image
+	var multerBody = req.body;
+	//only one file for now, testing
+	var multerFile = req.files;
+	var multerFileImage = multerFile.image;
+	// Hardcoded document folder id for 'Public_Images'
+	var folderId = '00lj0000000z5hsAAA';
+	// Hardcoded Orgid 
+	var orgId = '00Dj0000000K54X';
 
-	console.log('multer body: ' + util.inspect(req.body, false, null));
-	console.log('multer files: ' + util.inspect(req.files, false, null));
+	console.log('multer body: ' + util.inspect(multerBody, false, null));
+	console.log('multer file: ' + util.inspect(multerFile, false, null));
 
-	var item = {
-		Auction__c : req.params.id,
-		Description__c : req.body.item_description,
-		Estimated_Value__c : Number(req.body.item_value),
-		Featured__C : Boolean(req.body.is_featured),
-		Sponsor_Name__c : req.body.sponsor,
-		Name : req.body.item_name,
-		Starting_Bid__c : req.body.item_min_bid
+	//Sending img data to salesforce 
+
+	var encodedData = multerFileImage.buffer.toString('base64');
+
+	var imgDoc = {	
+	  //ParentId: accountId,
+	  Name: multerFileImage.originalname,
+	  Description: multerBody.item_description,
+	  body: encodedData,
+	  Type: multerFileImage.extension,
+	  IsPublic: true,
+	  FolderId: folderId
 	};
+	
+	conn.identity(function(err, userInfo) {
+	  if (err) { return console.error(err); }
+	  console.log("user ID: " + userInfo.user_id);
+	  console.log("organization ID: " + userInfo.organization_id);
+	  console.log("username: " + userInfo.username);
+	  console.log("display name: " + userInfo.display_name);
+	
 
-	conn.sobject('Auction_Item__c').create(item, function(err, ret) {
-		if (err || !ret.success) {
-			res.status(406).end();
-			return console.error(err, ret);
-		}
 
-  		console.log("Created record id : " + ret.id);
-  		res.status(200).redirect('/edit_auction/' + req.params.id);
+		conn.sobject('Document').create(imgDoc, function(err, ret) {
+			if (err || !ret.success) {
+				res.status(406).end();
+				return console.error(err, ret);
+			}
+
+			console.log('Doc create return: ' + util.inspect(ret, false, null));
+	  		console.log("Created Document id : " + util.inspect(ret.id, false, null));
+	  		//try not responding?
+	  		//res.status(200).redirect('/edit_auction/' + req.params.id);
+			
+			//assemble img instanceUrl
+			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + userInfo.organization_id;
+			//create item
+	   	
+	   	//TODO: seperate post methods of img and item
+			var item = {
+				Auction__c : req.params.id,
+				Description__c : req.body.item_description,
+				Estimated_Value__c : Number(req.body.item_value),
+				Featured__C : Boolean(req.body.is_featured),
+				Sponsor_Name__c : req.body.sponsor,
+				Name : req.body.item_name,
+				Starting_Bid__c : req.body.item_min_bid,
+				Image_URL__c : imgUrl
+			};
+
+			conn.sobject('Auction_Item__c').create(item, function(err, ret) {
+				if (err || !ret.success) {
+					res.status(406).end();
+					return console.error(err, ret);
+				}
+
+		  		console.log("Created record id : " + ret.id);
+		  		res.status(200).redirect('/edit_auction/' + req.params.id);
+			});
+		});
 	});
 });
 
-
-module.exports = router;
+module.exports = router;	
