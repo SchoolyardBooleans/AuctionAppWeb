@@ -26,8 +26,12 @@
 	float: left;
 }
 
-#submit_auction {
-	float: right;
+.full_width {
+	width:100%;
+}
+
+.green {
+	color:#008A00;
 }
 
 /* Extra Small devices */

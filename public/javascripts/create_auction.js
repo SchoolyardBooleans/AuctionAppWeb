@@ -1,6 +1,9 @@
 $(document).ready(function() {
+	initializeValidator();
+	initialize();
+});
 
-	/*Validate the form*/
+function initializeValidator() {
     $('#create_auction').formValidation({
 	    framework: 'bootstrap',
 	     icon: {
@@ -37,8 +40,6 @@ $(document).ready(function() {
                             var start = new Date(start_str),
                             	end = new Date(end_str);
 
-                            console.log('start: ' + start.getTime() + ' , end ' + end.getTime());
-
                             return start.getTime() < end.getTime();
                         }
                     },
@@ -61,7 +62,7 @@ $(document).ready(function() {
         
         e.preventDefault();
 
-        var name = $("#auction_name").val(),
+        var name = $('#auction_name').val(),
 			start_date = $('#start_date_input').val(),
 			end_date = $('#end_date_input').val(),
 			location = $('#auction_location').val();
@@ -77,56 +78,45 @@ $(document).ready(function() {
             },
             dataType: 'JSON',
             complete: function(data) {
-            	console.log(data);
             	if(data.status == 200) {
-            		console.log('saved')
             		$('#notifier').html('<h4 style="color:#008A00">Auction Created ✓</h4>');
             	}
             	else {
-            		console.log('not saved')
             		$('#notifier').html('<h4 style="color:red">Unable To Save Auction</h4>');
             	}
 				$('#notifier').hide();
 				$('#notifier').fadeIn(600);
-
-				console.log('Auction submitted.');
 			}
         });
     });
-
-	initialize();
-
-});
+}
 
 function initialize() {
 	$('#notifier').hide();
 
-	$("#start_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
+	$('#start_date').datetimepicker({
+        format: 'mm/dd/yy, HH:ii P',
         showMeridian: true,
         autoclose: true,
         todayBtn: false
 	}).on('changeDate', function(ev) {
-		console.log('start date changed');
 		$('#create_auction').data('formValidation').updateStatus('start_date_input', 'NOT_VALIDATED').validateField('start_date_input');
 	});
 
-	 $("#end_date").datetimepicker({
-        format: "mm/dd/yy, HH:ii P",
+	 $('#end_date').datetimepicker({
+        format: 'mm/dd/yy, HH:ii P',
         showMeridian: true,
         autoclose: true,
         todayBtn: false
     }).on('changeDate', function(ev) {
-    	console.log('end date changed');
     	$('#create_auction').data('formValidation').updateStatus('end_date_input', 'NOT_VALIDATED').validateField('end_date_input');
-    	console.log('end date changed 2');
 	});
 
-	var today = new Date();
-	var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-	var todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
-	var tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+	var today = new Date(),
+		tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+		todayStr = today.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'}),
+		tomorrowStr = tomorrow.toLocaleString(navigator.language, {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
 	
-	$("#start_date_input").attr("placeholder", todayStr);
-	$("#end_date_input").attr("placeholder", tomorrowStr);
+	$('#start_date_input').attr('placeholder', todayStr);
+	$('#end_date_input').attr('placeholder', tomorrowStr);
 }

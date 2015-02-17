@@ -33,7 +33,7 @@ router.post('/', function(req, res) {
 	var start_date = new Date(req.body.start_date).toISOString(),
 		end_date = new Date(req.body.end_date).toISOString();
 
-	/*Still need to add on a location*/
+	/*Still need to add on a location AND Hosting_Nonprofit__C won't be hardcoded in future*/
 	var auction = {
 		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		name : req.body.name,
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
 
 	conn.sobject('Auction__c').create(auction, function(err, ret) {
 		if (err || !ret.success) {
-			res.status(406).end();
+			res.status(500).end();
 			return console.error(err, ret);
 		}
 
