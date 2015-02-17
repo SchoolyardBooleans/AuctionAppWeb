@@ -62,7 +62,7 @@
                 </thead>
                 <tbody>
                     {#auction_items}
-                    <tr class='clickableRow' href='/edit_auction/{Id}'>
+                    <tr class='clickableRow' href='/edit_auction/{auction_id}/edit_item/{Id}'>
                         <td class="col-md-4">{Name}</td>
                         <td class="col-md-4">{Description__c}</td>
                         <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
