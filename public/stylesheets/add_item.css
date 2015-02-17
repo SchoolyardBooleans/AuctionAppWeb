@@ -57,3 +57,7 @@
     cursor: inherit;
     display: block;
 }
+
+#image_input {
+    width:50px;
+}

@@ -1,9 +1,37 @@
 $(document).ready(function() {
-	$('#bundled_items').multiselect();
-
+	init();
 	validate();
+	initValidationListeners();
+	initCheckboxChangedListener();
+	initFormSubmissionListener();
+});
 
-    $('#item_name').bind('input propertychange', function() {
+function init() {
+	$('#bundled_items').multiselect({buttonClass: 'btn-default btn-sm'});
+	$("#image_input").filestyle('buttonName', 'btn-default btn-sm');
+
+	if($('#is_featured').val() == 'true') {
+		console.log('is feature checked');
+		$('#is_featured').prop('checked', true);
+	}
+	else {
+	    console.log('is feature not checked');
+	    $('#is_featured').prop('checked', false);
+	}
+}
+
+function validate(){
+	var item_val = parseInt($('#item_value').val());
+	if ($('#item_name').val().length > 0 && $('#item_description').val().length > 0 && !isNaN(item_val) && item_val > 0) {
+		$("#submit_item").prop("disabled", false);
+	}
+	else {
+		$("#submit_item").prop("disabled", true);
+	}
+}
+
+function initValidationListeners() {
+	$('#item_name').bind('input propertychange', function() {
     	validate();
     });
 
@@ -14,8 +42,9 @@ $(document).ready(function() {
     $('#item_value').bind('input propertychange', function() {
     	validate();
     });
+}
 
-
+function initCheckboxChangedListener() {
     $('#is_featured').change(function() {
 	   	if($('#is_featured').prop('checked')) {
 			console.log('is feature checked');
@@ -26,9 +55,10 @@ $(document).ready(function() {
 		    $('#is_featured').val('false');
 		}
     });
+}
 
-
-    var form = $('#add_item');
+function initFormSubmissionListener() {
+	var form = $('#add_item');
 	var fileSelect = $('#image_input');
 	var uploadButton = $('#submit_item');
 
@@ -76,15 +106,5 @@ $(document).ready(function() {
 		xhr.send(formData);
 
 		return false;
-	}
-});
-
-function validate(){
-	var item_val = parseInt($('#item_value').val());
-	if ($('#item_name').val().length > 0 && $('#item_description').val().length > 0 && !isNaN(item_val) && item_val > 0) {
-		$("#submit_item").prop("disabled", false);
-	}
-	else {
-		$("#submit_item").prop("disabled", true);
 	}
 }

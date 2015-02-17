@@ -231,6 +231,8 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 			item_description: item.Description__c,
 			item_value: item.Estimated_Value__c,
 			item_min_bid: item.Starting_Bid__c,
+			item_image: item.Image_URL__c,
+			item_featured: item.Featured__c,
 			item_sponsor: item.Sponsor_Name__c
 		};
 
