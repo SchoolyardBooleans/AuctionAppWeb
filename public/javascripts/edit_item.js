@@ -81,10 +81,6 @@ $(document).ready(function() {
 
 function validate(){
 	var item_val = parseInt($('#item_value').val());
-	console.log('item name is greater than zero: ' + ($('#item_name').val().length > 0));
-	console.log('item description is greater than zero: ' + ($('#item_description').val().length > 0));
-	console.log('item value is a number:' + !isNaN(item_val));
-	console.log('item value is greater than 0: ' + (item_val > 0));
 	if ($('#item_name').val().length > 0 && $('#item_description').val().length > 0 && !isNaN(item_val) && item_val > 0) {
 		$("#submit_item").prop("disabled", false);
 	}

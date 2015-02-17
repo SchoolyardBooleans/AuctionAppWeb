@@ -225,11 +225,16 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 				{javascript: 'bootstrap-multiselect.js'},
 				{javascript: 'formValidation.min.js'},
 				{javascript: 'formValidation-bootstrap.min.js'},
-				{javascript: 'add_item.js'}
-			]
+				{javascript: 'edit_item.js'}
+			],
+			item_name: item.Name,
+			item_description: item.Description__c,
+			item_value: item.Estimated_Value__c,
+			item_min_bid: item.Starting_Bid__c,
+			item_sponsor: item.Sponsor_Name__c
 		};
 
-  		res.render('add_item', dustVars);
+  		res.render('edit_item', dustVars);
 	});
 });
 
