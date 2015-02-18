@@ -115,10 +115,29 @@ router.get('/:id/add_item', function(req, res) {
 				{javascript: 'formValidation.min.js'},
 				{javascript: 'formValidation-bootstrap.min.js'},
 				{javascript: 'add_item.js'}
-			]
+			],
+			sponsorAccounts: []
 		};
 
-		res.render('add_item', dustVars);
+		/*Get List of sponsors */
+		conn.query("SELECT Id, Name FROM Sponsor__c")
+		.on("record", function(record) {
+			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
+			dustVars.sponsorAccounts.push({
+				id: record.Id,
+				name: record.Name});
+		})
+	   .on("end", function(query) {
+	   		//moved here from end of callback
+
+	   		res.render('add_item', dustVars);
+	   	}).on("error", function(err) {
+	   		console.log("query error" + err);
+ 	   	}).run();
+
+
+
+		//res.render('add_item', dustVars);
 	});
 });
 
