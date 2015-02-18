@@ -43,7 +43,7 @@
 				<!-- <label for="sponsor_input" class="control-label col-xs-3">Sponsor: </label> -->
 				<label for="sponsor_picklist" class="control-label col-xs-3">Select a Sponsor:</label>
 				<div id="sponsor_input container" class="col-xs-3 input-append date">
-					<select id="sponsor_picklist">
+					<select id="sponsor_picklist" name="sponsor_picklist" class="form-control">
 					  {#sponsorAccounts}
 					  	<option value="{id}">{name}</option>
 					  {/sponsorAccounts}
