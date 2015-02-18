@@ -198,6 +198,7 @@ router.post('/:id/add_item', function(req, res) {
 			Estimated_Value__c : Number(req.body.item_value),
 			Featured__C : Boolean(req.body.is_featured),
 			Sponsor_Name__c : req.body.sponsor,
+			Item_Sponsor__c: req.body.sponsor_picklist,
 			Name : req.body.item_name,
 			Starting_Bid__c : req.body.item_min_bid,
 			Image_URL__c : imgUrl
