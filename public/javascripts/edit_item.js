@@ -3,6 +3,7 @@ $(document).ready(function() {
 	validate();
 	initValidationListeners();
 	initCheckboxChangedListener();
+	initImageChangedListener();
 	initFormSubmissionListener();
 });
 
@@ -57,39 +58,35 @@ function initCheckboxChangedListener() {
     });
 }
 
+function initImageChangedListener() {
+	$('#image_input').on('change', function() {
+		$('#item_image_thumbnail').hide();
+	});
+}
+
 function initFormSubmissionListener() {
 	var form = $('#add_item');
 	var fileSelect = $('#image_input');
 	var uploadButton = $('#submit_item');
 
+	console.log('hit!');
 	form.onsubmit = function(event) {
   		event.preventDefault();
-  		// Update button text.
-  		uploadButton.innerHTML = 'Uploading...';
-
-  		// Get the selected files from the input.
 		var files = fileSelect.files;
-
-		// Create a new FormData object.
 		var formData = new FormData();
 
 		// Loop through each of the selected files.
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
-
-			// Add the file to the request.
+			console.log('appended file to form data: ' + file.name);
 			formData.append('photos[]', file, file.name);
 		}
 
 		// Set up the request.
 		var xhr = new XMLHttpRequest();
 
-		console.log('xhr hit 1');
-
 		// Open the connection.
 		xhr.open('POST', '', true);
-
-		console.log('xhr hit 2');
 
 		// Set up a handler for when the request finishes.
 		xhr.onload = function () {

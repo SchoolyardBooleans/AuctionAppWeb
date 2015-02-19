@@ -11,7 +11,6 @@ router.get('/:id', function(req, res) {
 		accessToken: req.session.accessToken,
 		instanceUrl: req.session.instanceUrl
 	});
-	console.log('in edit auction');
 	var auction_id = req.params.id;
 	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name," +
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
@@ -70,9 +69,6 @@ router.post('/', function(req, res) {
 		Start_Time__c : start_date,
 		End_Time__c : end_date
 	}
-
-	console.log(auction);
-
 	// Single record update
 	conn.sobject("Auction__c").update(auction, function(err, ret) {
 		if (err || !ret.success) {
@@ -95,7 +91,6 @@ router.get('/:id/add_item', function(req, res) {
 	});
 
 	var auction_id = req.params.id;
-	console.log('Auction ID: ' + auction_id);
 
 	conn.sobject('Auction__c').retrieve(auction_id, function(err, auction) {
 	 	if (err) {
@@ -211,8 +206,6 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 			return console.error(err, ret);
 		}
 
-		console.log(util.inspect(item, false, null));
-
 		var dustVars = {
 			title: 'Edit Item',
 			cssFiles: [
@@ -235,9 +228,96 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 			item_featured: item.Featured__c,
 			item_sponsor: item.Sponsor_Name__c
 		};
-
+		
   		res.render('edit_item', dustVars);
 	});
 });
+
+router.post('/:auction_id/edit_item/:item_id', function(req, res) {
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+
+	var multerBody = req.body,
+		multerFile = req.files,
+		// Hardcoded document folder id for 'Public_Images'
+		folderId = '00lj0000000z5hsAAA',
+		orgId = req.session.orgId,
+		item = {
+			Id : req.params.item_id,
+			Description__c : req.body.item_description,
+			Estimated_Value__c : Number(req.body.item_value),
+			Featured__C : Boolean(req.body.is_featured),
+			Sponsor_Name__c : req.body.sponsor,
+			Name : req.body.item_name,
+			Starting_Bid__c : req.body.item_min_bid
+		};
+
+	console.log('multer body: ' + util.inspect(multerBody, false, null));
+	console.log('multer file: ' + util.inspect(multerFile, false, null));
+
+	/*Check to see if a new image was uploaded*/
+	if(!isEmpty(multerFile)) {
+		console.log("user uploaded new image");
+		//Sending img data to salesforce 
+		var multerFileImage = multerFile.image,
+			encodedData = multerFileImage.buffer.toString('base64'),
+			imgDoc = {
+				Name: multerFileImage.originalname,
+				Description: multerBody.item_description,
+				body: encodedData,
+				Type: multerFileImage.extension,
+				IsPublic: true,
+				FolderId: folderId
+			};
+
+		conn.sobject('Document').create(imgDoc, function(err, ret) {
+			if (err || !ret.success) {
+				res.status(406).end();
+				return console.error(err, ret);
+			}
+
+	  		console.log("Created Document id : " + ret.id);
+			
+			//assemble img instanceUrl
+			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + orgId;
+			item.Image_URL__c = imgUrl;
+
+			console.log('Updated item: ' + util.inspect(item, false, null));
+
+			conn.sobject('Auction_Item__c').update(item, function(err, ret) {
+				if (err || !ret.success) {
+					res.status(406).end();
+					return console.error(err, ret);
+				}
+
+		  		console.log("Updated record id : " + ret.id);
+		  		res.status(200).redirect('/edit_auction/' + req.params.auction_id);
+			});
+		});
+	}
+	else {
+		console.log('user did not upload image');
+		conn.sobject('Auction_Item__c').update(item, function(err, ret) {
+			if (err || !ret.success) {
+				res.status(406).end();
+				return console.error(err, ret);
+			}
+
+	  		console.log("Updated record id : " + ret.id);
+	  		res.status(200).redirect('/edit_auction/' + req.params.auction_id);
+		});
+	}
+});
+
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
 
 module.exports = router;	

@@ -63,7 +63,7 @@
 					<input id="image_input" class="filestyle" type="file" name="image" accept="image/*" data-input="false">
 				</div>
 				<div id="image_thumbnail_container" class="col-xs-1">
-					<img src="{item_image}" class="img-rounded" style="width:50px">
+					<img id="item_image_thumbnail" src="{item_image}" class="img-rounded" style="width:50px">
 				</div>
 			</div>
 			<div class="form-group">
