@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('#bundled_items').multiselect();
+	$('#sponsor_picklist').multiselect();
 
 	validate();
 
