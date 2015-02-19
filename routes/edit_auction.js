@@ -20,11 +20,10 @@ router.get('/:id', function(req, res) {
 			return console.error(err);
 		}
 
-		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A');
-	 	var end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A');
-	 	var location_str = auction.records[0].Location__r.Name;
-	 	var items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records;
-
+		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A'),
+	 		end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A'),
+	 		location_str = auction.records[0].Location__r == null ? null : auction.records[0].Location__r.Name,
+	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records;
 		/*still needs auction location*/
 		var dustVars = {
 			title: 'Edit Auction',
@@ -46,7 +45,7 @@ router.get('/:id', function(req, res) {
 				{javascript: 'edit_auction.js'}
 			]
 		};
-
+		
 		res.render('edit_auction', dustVars);
 	});
 });
