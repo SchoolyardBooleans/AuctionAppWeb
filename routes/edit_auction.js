@@ -223,7 +223,7 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 
 	conn.sobject('Auction_Item__c').retrieve(item_id, function(err, item) {
 		if (err) {
-			return console.error(err, ret);
+			return console.error(err, item);
 		}
 
 		var dustVars = {

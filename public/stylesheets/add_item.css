@@ -23,7 +23,7 @@
 
 .form_container {
 	margin-left: 50px;
-	width: 60%;
+	width: 70%;
 }
 
 .input-group {
@@ -60,4 +60,12 @@
 
 #image_input {
     width:50px;
+}
+
+@media (min-width: @screen-sm-min) {
+    .form_container {
+        margin-left: 5px;
+        width: 70%;
+    }
+}
 }

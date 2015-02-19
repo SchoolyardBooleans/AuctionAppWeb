@@ -8,8 +8,8 @@ $(document).ready(function() {
 });
 
 function init() {
-	$('#bundled_items').multiselect({buttonClass: 'btn-default btn-sm'});
-	$("#image_input").filestyle('buttonName', 'btn-default btn-sm');
+	$('#bundled_items').multiselect();
+	$("#image_input").filestyle();
 
 	if($('#is_featured').val() == 'true') {
 		console.log('is feature checked');
