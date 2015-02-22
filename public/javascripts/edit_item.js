@@ -10,6 +10,8 @@ $(document).ready(function() {
 function init() {
 	$('#bundled_items').multiselect();
 	$("#image_input").filestyle();
+	
+	$('#sponsor_picklist').multiselect();
 
 	if($('#is_featured').val() == 'true') {
 		console.log('is feature checked');

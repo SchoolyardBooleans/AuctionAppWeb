@@ -245,10 +245,32 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 			item_min_bid: item.Starting_Bid__c,
 			item_image: item.Image_URL__c,
 			item_featured: item.Featured__c,
-			item_sponsor: item.Sponsor_Name__c
+			item_sponsor: item.Sponsor_Name__c,
+			sponsor_id: item.Item_Sponsor__c,
+			sponsorAccounts: []
 		};
+
+		/*Get List of sponsors */
+		conn.query("SELECT Id, Name FROM Sponsor__c")
+		.on("record", function(record) {
+			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
+			var new_entry = {id: record.Id, name: record.Name}
+			if (record.Id === dustVars.sponsor_id)
+			{
+				console.log('Adding selected class to sponsor entry: ' + record.Name);
+				new_entry['classes'] = 'selected';
+			}
+			dustVars.sponsorAccounts.push(new_entry);
+		})
+	   .on("end", function(query) {
+	   		//moved here from end of callback
+
+	   		res.render('edit_item', dustVars);
+	   	}).on("error", function(err) {
+	   		console.log("query error" + err);
+ 	   	}).run();
+
 		
-  		res.render('edit_item', dustVars);
 	});
 });
 

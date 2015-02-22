@@ -62,6 +62,10 @@
     width:50px;
 }
 
+.multi-label {
+    margin-right: 15px;
+}
+
 @media (min-width: @screen-sm-min) {
     .form_container {
         margin-left: 5px;
