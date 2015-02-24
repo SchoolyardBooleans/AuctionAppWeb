@@ -14,7 +14,7 @@
                 <th class="col-md-3">Auction Name</th>
                 <th class="col-md-3">Location</th>
                 <th class="col-md-3">Start Date</th>
-                <th class="col-md-3">End Date</th>
+                <th class="col-md-3">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@
                <td class="col-md-3">{Name}</td>
                <td class="col-md-3">{Location}</td>
                <td class="col-md-3">{Start_Time}
-               <td class="col-md-3">{End_Time}</td>
+               <td class="col-md-3">{Status}</td>
             </tr>
             {/auctions}
         </tbody>

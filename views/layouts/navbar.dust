@@ -13,8 +13,8 @@
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="/">View Auctions</a></li>
-			<li><a href="create_auction">Create Auction</a></li>
-			<li><a href="#">View Donors</a></li>
+			<li><a href="/create_auction">Create Auction</a></li>
+			<li><a href="/donors">View Donors</a></li>
 		</ul>
 		<form class="navbar-form navbar-left" role="search">      
       </form>

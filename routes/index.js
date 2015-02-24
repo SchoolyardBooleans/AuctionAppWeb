@@ -18,21 +18,29 @@ router.get('/', function(req, res) {
     	auctions: []
     }
 
-	var query_str = "SELECT Id, Name, Status__c, Start_Time__c, End_Time__c, Location__r.Name" + 
+	var query_str = "SELECT Id, Name, Status__c, Start_Time__c, Location__r.Name" + 
 		" FROM Auction__c";
 	//"SELECT Id, Name FROM Sponsor__c"	
 	/*Get List of Auctions */
 	conn.query(query_str)
 	.on("record", function(record) {
-		
-		console.log('record body: ' + JSON.stringify(record));
+		console.log("start time: " + record.Start_Time__c);
+		var status_str = "Upcoming";
+
+		if(record.Status__c == 1) {
+			status_str = "In Progress";
+		}
+		else if(record.Status__c == 2) {
+			status_str = "Complete";
+		}
 			
 		dustVars.auctions.push({
 			Id: record.Id,
 			Name: record.Name,
 			Location: record.Location__r == null ? null : record.Location__r.Name,
-			Start_Time: moment(record.Start_Time).format('MM/DD/YYYY hh:SS A'),
-        	End_Time: moment(record.End_Time).format('MM/DD/YYYY hh:SS A')
+			Start_Time: moment(record.Start_Time__c).format('MM/DD/YYYY hh:SS A'),
+        	//End_Time: moment(record.End_Time).format('MM/DD/YYYY hh:SS A')
+        	Status: status_str
  		});
 
 	})
