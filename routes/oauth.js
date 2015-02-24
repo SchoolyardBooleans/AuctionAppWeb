@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
-
+var util = require('util');
 var cId = process.env.CLIENT_ID || '3MVG9fMtCkV6eLhf_.BQiGsIkFrST_DhAezGVR8iA.fnmsZe9ciV3NxOkI1.y0jo26qDFS3FjCwfm84xGfCaR';
 var cSecret = process.env.CLIENT_SECRET || '7491496118908735789';
 var rUri = process.env.REDIRECT_URI || 'http://localhost:3000/oauth/callback';
@@ -42,8 +42,8 @@ router.get('/callback', function(req, res) {
         console.log('Access Token: ' + conn.accessToken);
         console.log('Instance URL: ' + conn.instanceUrl);
         console.log('User ID: ' + userInfo.id);
-        console.log('Org ID: ' + userInfo.organizationId);   
- 
+        console.log('Org ID: ' + userInfo.organizationId);
+
         req.session.accessToken = conn.accessToken;
         req.session.instanceUrl = conn.instanceUrl;
         req.session.userId = userInfo.id;
