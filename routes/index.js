@@ -11,25 +11,6 @@ router.get('/', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
-	// var query_str = "SELECT Id FROM Auction__c WHERE Hosting_Nonprofit__c = 'a0Zj0000000eDTTEA2'";
-
-	// conn.query(query_str, function(err, result) {
-	// 	if (err) {
-	// 		return console.error(err);
-	// 	}
-
- //  		console.log("total : " + result.totalSize);
- //  		console.log("fetched : " + result.records.length);
-
- //  		var dustVars = {
-	// 		title: 'Auction App',
-	// 		cssFiles: [{css: 'index.css'}],
-	// 		javascriptFiles: [{javascript: 'index.js'}],
-	//     }
-
-	// 	res.render('index', dustVars);
-	// });
-
 	var dustVars = {
     	title: 'Auction App',
     	cssFiles: [{css: 'index.css'}],
