@@ -12,7 +12,7 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 	var auction_id = req.params.id;
-	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name," +
+	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
 
 	conn.query(query_str, function(err, auction) {
@@ -23,8 +23,9 @@ router.get('/:id', function(req, res) {
 		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A'),
 	 		end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A'),
 	 		location_str = auction.records[0].Location__r == null ? null : auction.records[0].Location__r.Name,
-	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records;
-		/*still needs auction location*/
+	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records,
+			status_str = genStatusString(auction.records[0].Status__c);
+
 		var dustVars = {
 			title: 'Edit Auction',
 			auction_name: auction.records[0].Name,
@@ -33,6 +34,7 @@ router.get('/:id', function(req, res) {
 			auction_end_date: end_str,
 			auction_location: location_str,
 			auction_items: items,
+			auction_status: status_str,
 			cssFiles: [
 				{css: 'edit_auction.css'},
 				{css: 'formValidation.min.css'},
@@ -45,8 +47,22 @@ router.get('/:id', function(req, res) {
 				{javascript: 'edit_auction.js'}
 			]
 		};
+
+		//TODO: Render different pages based on auction status
+		switch(status_str) {
+			case 'Upcoming':
+				res.render('edit_auction', dustVars);
+				break;
+			case 'In Progress':
+				//TODO: determine response for in-progress auction
+				res.sendStatus(200);
+				break;
+			case 'Complete':
+				dustVars.title = 'Close Auction';
+				res.render('edit_completed_auction', dustVars);
+				break;
+		}
 		
-		res.render('edit_auction', dustVars);
 	});
 });
 
@@ -359,6 +375,22 @@ function isEmpty(obj) {
     }
 
     return true;
+}
+
+/*
+	return the appropriate string for an auction status enum.
+*/
+function genStatusString(statusNum) {
+    var status_str = "Upcoming";
+
+	if(statusNum == 1) {
+		status_str = "In Progress";
+	}
+	else if(statusNum == 2) {
+		status_str = "Complete";
+	}
+
+	return status_str
 }
 
 module.exports = router;	
