@@ -58,13 +58,14 @@ var oauth = require('./routes/oauth');
 var create_auction = require('./routes/create_auction');
 var edit_auction = require('./routes/edit_auction');
 var donors = require('./routes/donors');
-
+var auction_finished = require('./routes/auction_finished');
 app.use('/', routes);
 app.use('/users', users);
 app.use('/oauth', oauth);
 app.use('/create_auction', create_auction);
 app.use('/edit_auction', edit_auction);
 app.use('/donors', donors);
+app.use('/auction_summary', auction_finished);
 
 
 /*Dev error handler, prints stack trace*/

@@ -19,19 +19,21 @@ router.get('/', function(req, res) {
     }
 
 	var query_str = "SELECT Id, Name, Status__c, Start_Time__c, Location__r.Name" + 
-		" FROM Auction__c";
+		" FROM Auction__c ORDER BY Status__c ASC";
 	//"SELECT Id, Name FROM Sponsor__c"	
 	/*Get List of Auctions */
 	conn.query(query_str)
 	.on("record", function(record) {
 		console.log("start time: " + record.Start_Time__c);
 		var status_str = "Upcoming";
+		var auction_base_url = "edit_auction";
 
 		if(record.Status__c == 1) {
 			status_str = "In Progress";
 		}
 		else if(record.Status__c == 2) {
 			status_str = "Complete";
+			auction_base_url = "auction_summary";
 		}
 			
 		dustVars.auctions.push({
@@ -40,7 +42,8 @@ router.get('/', function(req, res) {
 			Location: record.Location__r == null ? null : record.Location__r.Name,
 			Start_Time: moment(record.Start_Time__c).format('MM/DD/YYYY hh:SS A'),
         	//End_Time: moment(record.End_Time).format('MM/DD/YYYY hh:SS A')
-        	Status: status_str
+        	Status: status_str,
+        	auction_base_url: auction_base_url
  		});
 
 	})

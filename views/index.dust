@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             {#auctions}
-            <tr class='clickableRow' href='/edit_auction/{Id}'>
+            <tr class='clickableRow' href='/{auction_base_url}/{Id}'>
                <td class="col-md-3">{Name}</td>
                <td class="col-md-3">{Location}</td>
                <td class="col-md-3">{Start_Time}

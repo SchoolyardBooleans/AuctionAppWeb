@@ -1,0 +1,9 @@
+{>"layouts/main"/}
+
+{<container}
+
+<div>
+    <h2>Auction Summary</h2>
+</div>
+
+{/container}

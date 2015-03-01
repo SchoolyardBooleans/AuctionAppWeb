@@ -4,7 +4,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading clearfix"> 
-        <h2 class="pull-left">Donors</h2>
+        <h2 class="pull-left">Auction Donors</h2>
     </div>
     <div class="panel-body">
         <table class="table table-hover table-bordered">
@@ -17,19 +17,14 @@
                 </tr>
             </thead>
             <tbody>
+                {#donors}
                 <tr class='clickableRow' href='/donors/{Id}'>
-                <td class="col-md-3">James Wilson</td>
-                <td class="col-md-3">4</td>
-                <td class="col-md-3">2012 Gala</td>
-                <td class="col-md-3"><span>$</span>3700</td>
+                    <td class="col-md-3">{Name}</td>
+                    <td class="col-md-3"></td>
+                    <td class="col-md-3"></td>
+                    <td class="col-md-3"><span>$</span></td>
                 </tr>
-                {#auction_items}
-                <tr class='clickableRow' href='/donors/{Id}'>
-                    <td class="col-md-4">{Name}</td>
-                    <td class="col-md-4">{Description__c}</td>
-                    <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
-                </tr>
-                {/auction_items}
+                {/donors}
             </tbody>
         </table>
     </div>
