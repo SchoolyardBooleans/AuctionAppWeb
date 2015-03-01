@@ -15,6 +15,22 @@ router.get('/:id', function(req, res) {
 	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
 
+	var dustVars = {
+		title: 'Edit Auction',
+		auction_id: auction_id,
+		cssFiles: [
+			{css: 'edit_auction.css'},
+			{css: 'formValidation.min.css'},
+			{css: 'bootstrap-datetimepicker.min.css'}
+		],
+		javascriptFiles: [
+			{javascript: 'bootstrap-datetimepicker.min.js'},
+			{javascript: 'formValidation.min.js'},
+			{javascript: 'formValidation-bootstrap.min.js'},
+			{javascript: 'edit_auction.js'}
+		]
+	};
+
 	conn.query(query_str, function(err, auction) {
 		if(err) {
 			return console.error(err);
@@ -26,44 +42,18 @@ router.get('/:id', function(req, res) {
 	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records,
 			status_str = genStatusString(auction.records[0].Status__c);
 
-		var dustVars = {
-			title: 'Edit Auction',
-			auction_name: auction.records[0].Name,
-			auction_id: auction_id,
-			auction_start_date: start_str,
-			auction_end_date: end_str,
-			auction_location: location_str,
-			auction_items: items,
-			auction_status: status_str,
-			cssFiles: [
-				{css: 'edit_auction.css'},
-				{css: 'formValidation.min.css'},
-				{css: 'bootstrap-datetimepicker.min.css'}
-			],
-			javascriptFiles: [
-				{javascript: 'bootstrap-datetimepicker.min.js'},
-				{javascript: 'formValidation.min.js'},
-				{javascript: 'formValidation-bootstrap.min.js'},
-				{javascript: 'edit_auction.js'}
-			]
-		};
-
-		//TODO: Render different pages based on auction status
-		switch(status_str) {
-			case 'Upcoming':
-				res.render('edit_auction', dustVars);
-				break;
-			case 'In Progress':
-				//TODO: determine response for in-progress auction
-				res.sendStatus(200);
-				break;
-			case 'Complete':
-				dustVars.title = 'Close Auction';
-				res.render('edit_completed_auction', dustVars);
-				break;
-		}
-		
-	});
+		dustVars.auction_name = auction.records[0].Name;
+		dustVars.auction_start_date = start_str;
+		dustVars.auction_end_date = end_str;
+		dustVars.auction_location = location_str;
+		dustVars.auction_items = items;
+		dustVars.auction_status = status_str;
+	}).on("end", function(query) {
+		res.render('edit_auction', dustVars);
+	}).on("error", function(err) {
+	   		console.log("query error" + err);
+	   		res.render('edit_auction', dustVars);
+ 	}).run();;
 });
 
 /* POST edited auction */
