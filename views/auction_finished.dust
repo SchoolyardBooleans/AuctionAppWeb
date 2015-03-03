@@ -3,7 +3,43 @@
 {<container}
 
 <div>
-    <h2>Auction Summary</h2>
+    <h2>Auction Summary: {name}</h2>
 </div>
-
+<br>
+<div style="width:50%">
+    <h4>Top 5 Auction Donors:</h4>
+    <ul class="list-group">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+</div>
+<br>
+<div class="panel panel-default">
+        <div class="panel-heading clearfix"> 
+            <h2 class="pull-left">Item Results</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Item Name</th>
+                        <th class="col-md-4">Winning Bid</th>
+                        <th class="col-md-4">Winning Bidder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#auction_items}
+                    <tr class='clickableRow' href='/auction_summary/{auction_id}/item_summary/{Id}'>
+                        <td class="col-md-4">{Name}</td>
+                        <td class="col-md-4"><span>$</span>{Current_Bid__c}</td>
+                        <td class="col-md-4">{Winning_Bidder__c}</td>
+                    </tr>
+                    {/auction_items}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {/container}

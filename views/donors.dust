@@ -19,7 +19,7 @@
             <tbody>
                 {#donors}
                 <tr class='clickableRow' href='/donors/{Id}'>
-                    <td class="col-md-3">{Name}</td>
+                    <td class="col-md-3">{Name} {lastName__c}</td>
                     <td class="col-md-3"></td>
                     <td class="col-md-3"></td>
                     <td class="col-md-3"><span>$</span></td>

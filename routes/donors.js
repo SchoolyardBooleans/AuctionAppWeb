@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
     	donors: []
     }
 
-	var query_str = "SELECT Name FROM BidderAccount__c";
+	var query_str = "SELECT Name, lastName__c FROM Bidder_Account__c";
 
 	/*Get List of Donors */
 	conn.query(query_str)

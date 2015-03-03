@@ -1,0 +1,29 @@
+{>"layouts/main"/}
+
+{<container}
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-left col-md-8">
+                <h2>Item Gift Basket</h2>
+            </div>
+            <div class="pull-right col-md-2">
+                <button class="btn btn-default">Remove Top Bid</button>
+            </div>
+            <div class="pull-right col-md-2">
+                <button class="btn btn-default">Payment Verified</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>image goes here</h4>
+            </div>
+            <div class="col-md-6">
+                <h4>bid history goes here</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/container}

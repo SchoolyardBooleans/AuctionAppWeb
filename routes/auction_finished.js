@@ -3,7 +3,7 @@ var router = express.Router();
 var util = require('util');
 var jsforce = require('jsforce');
 
-/* GET users listing. */
+/* GET a finished auction*/
 router.get('/:id', function(req, res) {
 	var conn = new jsforce.Connection({
 		accessToken: req.session.accessToken,
@@ -11,16 +11,25 @@ router.get('/:id', function(req, res) {
 	});
 
 	var dustVars = {
-    	title: 'Auction Summary'
+    	title: 'Auction Summary',
+    	cssFiles: [{css: 'auction_finished.css'}]
     }
 
-	var query_str = "SELECT Name FROM Auction__C WHERE Id = '" + req.params.id + "'";
+	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__c FROM Auction_Items__r) " +
+					"FROM Auction__C WHERE Id = '" + req.params.id + "'";
 
-	/*Get List of Donors */
+	/*Gets auction and list of auction items in that auction */
 	conn.query(query_str)
 	.on("record", function(auction) {
 		console.log("Auction: " + util.inspect(auction, false, null));
-		dustVars.Name = auction.Name
+		dustVars.name = auction.Name;
+		dustVars.auction_id = req.params.id;
+		dustVars.auction_items = [];
+		if(auction.Auction_Items__r) {
+			auction.Auction_Items__r.records.forEach(function(item) {
+				dustVars.auction_items.push(item);
+			});
+		}
 	})
    .on("end", function(query) {
    		res.render('auction_finished', dustVars);
@@ -28,6 +37,11 @@ router.get('/:id', function(req, res) {
 		console.log("query error" + err);
 		res.render('auction_finished', dustVars);
    	}).run();
+});
+
+/*GET a finished auction item*/
+router.get('/:auction_id/item_summary/:item_id', function(req, res) {
+	res.render('item_finished', {});
 });
 
 module.exports = router;
