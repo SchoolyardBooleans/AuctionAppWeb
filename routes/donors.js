@@ -16,20 +16,25 @@ router.get('/', function(req, res) {
     	donors: []
     }
 
-	var query_str = "SELECT Name, lastName__c FROM Bidder_Account__c";
-
-	/*Get List of Donors */
+	var query_str = "SELECT Id, Name, lastName__c, Total_Contributions__c, Auctions_Attended__c, " +
+      "(SELECT Auction__r.Name, Auction__r.End_Time__c,Bidder_Account__c FROM Bidder_Attendance__r ORDER BY Auction__r.End_Time__c DESC NULLS FIRST)" +
+      " FROM Bidder_Account__c";
+   /*Get List of Donors */
 	conn.query(query_str)
 	.on("record", function(donor) {
 		console.log("Donor: " + util.inspect(donor, false, null));
-		dustVars.donors.push(donor);
+      if (donor.Bidder_Attendance__r) {
+         donor['lastEvent'] = donor.Bidder_Attendance__r.records[0].Auction__r.Name;
+      }
+      dustVars.donors.push(donor);
+   	
 	})
    .on("end", function(query) {
    		res.render('donors', dustVars);
-   	}).on("error", function(err) {
+	}).on("error", function(err) {
 		console.log("query error" + err);
 		res.render('donors', dustVars);
-   	}).run();
+	}).run();
 });
 
 module.exports = router;
