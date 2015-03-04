@@ -6,18 +6,24 @@
     <div class="container-fluid">
         <div class="row">
             <div class="pull-left col-md-8">
-                <h2>Item Gift Basket</h2>
+                <h2>Item: {name}</h2>
             </div>
             <div class="pull-right col-md-2">
-                <button class="btn btn-default">Remove Top Bid</button>
+                <button class="btn btn-default top_margin">Payment Verified</button>
             </div>
             <div class="pull-right col-md-2">
-                <button class="btn btn-default">Payment Verified</button>
+                <button class="btn btn-default top_margin">Remove Top Bid</button>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-6">
-                <h4>image goes here</h4>
+                <div class="thumbnail">
+                    <img src="{image_url}">
+                </div>
+                <div class="caption text-center">
+                    <h4>{description}</h4>
+                </div>
             </div>
             <div class="col-md-6">
                 <h4>bid history goes here</h4>

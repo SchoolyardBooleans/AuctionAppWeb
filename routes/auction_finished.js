@@ -12,7 +12,8 @@ router.get('/:id', function(req, res) {
 
 	var dustVars = {
     	title: 'Auction Summary',
-    	cssFiles: [{css: 'auction_finished.css'}]
+    	cssFiles: [{css: 'auction_finished.css'}],
+    	javascriptFiles: [{javascript: 'auction_finished.js'}]
     }
 
 	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__c FROM Auction_Items__r) " +
@@ -41,7 +42,36 @@ router.get('/:id', function(req, res) {
 
 /*GET a finished auction item*/
 router.get('/:auction_id/item_summary/:item_id', function(req, res) {
-	res.render('item_finished', {});
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+
+	var dustVars = {
+    	title: 'Item Summary',
+    	cssFiles: [{css: 'item_finished.css'}],
+    	javascriptFiles: [{javascript: 'item_finished.js'}]
+    }
+
+    var query_str = "SELECT Current_Bid__c, Description__c, Id, Image_URL__c, Name, Payment_Verified__c " +
+    				"FROM Auction_Item__c WHERE Id = '" + req.params.item_id + "'";
+
+	/*Gets auction and list of auction items in that auction */
+	conn.query(query_str)
+	.on("record", function(item) {
+		console.log("Item: " + util.inspect(item, false, null));
+		dustVars.name = item.Name;
+		dustVars.item_id = req.params.id;
+		dustVars.description = item.Description__c;
+		dustVars.payment_verified = item.Payment_Verified__c;
+		dustVars.image_url = item.Image_URL__c;
+	})
+   .on("end", function(query) {
+   		res.render('item_finished', dustVars);
+   	}).on("error", function(err) {
+		console.log("query error" + err);
+		res.render('item_finished', dustVars);
+   	}).run();
 });
 
 module.exports = router;
