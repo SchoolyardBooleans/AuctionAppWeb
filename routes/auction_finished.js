@@ -53,8 +53,8 @@ router.get('/:auction_id/item_summary/:item_id', function(req, res) {
     	javascriptFiles: [{javascript: 'item_finished.js'}]
     }
 
-    var query_str = "SELECT Current_Bid__c, Description__c, Id, Image_URL__c, Name, Payment_Verified__c " +
-    				"FROM Auction_Item__c WHERE Id = '" + req.params.item_id + "'";
+    var query_str = "SELECT Current_Bid__c, Description__c, Id, Image_URL__c, Name, Payment_Verified__c, " +
+    				"(SELECT Id, Amount__c FROM Bids__r) FROM Auction_Item__c WHERE Id = '" + req.params.item_id + "'";
 
 	/*Gets auction and list of auction items in that auction */
 	conn.query(query_str)
@@ -72,6 +72,11 @@ router.get('/:auction_id/item_summary/:item_id', function(req, res) {
 		console.log("query error" + err);
 		res.render('item_finished', dustVars);
    	}).run();
+});
+
+/*POST to remove the top bid for an item*/
+router.post('/remove_top_bid', function(req, res) {
+	res.send(500).end();
 });
 
 module.exports = router;

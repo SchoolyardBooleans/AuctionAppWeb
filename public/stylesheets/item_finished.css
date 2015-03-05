@@ -7,3 +7,15 @@ img {
    border:1px solid #021a40;
    background-color:#ff0;
 }
+
+#notifier-success {
+	color:#008A00;
+	font-size:15px;
+	display:none;
+}
+
+#notifier-failure {
+	color:red;
+	font-size:15px;
+	display:none;
+}
