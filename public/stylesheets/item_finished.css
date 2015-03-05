@@ -8,13 +8,13 @@ img {
    background-color:#ff0;
 }
 
-#notifier-success {
+.notifier-success {
 	color:#008A00;
 	font-size:15px;
 	display:none;
 }
 
-#notifier-failure {
+.notifier-failure {
 	color:red;
 	font-size:15px;
 	display:none;

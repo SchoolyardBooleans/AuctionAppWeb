@@ -1,37 +1,81 @@
 $(document).ready(function() {
-	$('#notifier-success').hide();
-	$('#notifier-failure').hide();
+	init();
 	initializeClickListeners();
 });
 
+function init() {
+	hideNotifiers();
+	$("#bid_list").trigger('change');
+}
+
+function hideNotifiers() {
+	$('#verified-notifier-success').hide();
+	$('#verified-notifier-failure').hide();
+	$('#bid-removed-notifier-success').hide();
+	$('#bid-removed-notifier-failure').hide();
+}
 function initializeClickListeners() {
 	$('#verify_payment').on('click', function(ev) {
 		ev.preventDefault();
-		$('#notifier-success').hide();
-		$('#notifier-failure').hide();
-		console.log('verify payment clicked');
-	})
+		hideNotifiers();
+
+		var item_id = $("#item_id").text();
+		console.log('item id is: ' + item_id);
+
+        $.ajax({
+            type:'POST',
+            url:'/auction_summary/payment_verified',
+            data: {
+            	'item_id': item_id,
+            	'item_verified' : true
+            },
+            dataType: 'JSON',
+            complete: function(data) {
+            	if(data.status == 200) {
+            		$("#verify_payment").prop("disabled", true);
+            		$("#verify_payment").text("Payment Verified");
+            		$('#verified-notifier-success').hide().fadeIn(600);
+            		$('#remove_top_bid').fadeOut(600);
+            		$("#bid_list li:first-child").addClass('list-group-item-success');
+            		
+            	}
+            	else {
+            		$('#verified-notifier-failure').hide().fadeIn(600);	
+            	}
+			}
+        });
+	});
 
 	$('#remove_top_bid').on('click', function(ev) {
 		ev.preventDefault();
-		$('#notifier').hide();
-		console.log('remove top bid clicked');
+		hideNotifiers();
+
+		var deleted_bid_id = $("#bid_list li:first-child .bid_id").text();
 
         $.ajax({
             type:'POST',
             url:'/auction_summary/remove_top_bid',
             data: {
-            	'item_id': '1234'
+            	'bid_id': deleted_bid_id
             },
             dataType: 'JSON',
             complete: function(data) {
             	if(data.status == 200) {
-            		$('#notifier-success').hide().fadeIn(600);
+            		$('#bid-removed-notifier-success').hide().fadeIn(600);
+            		$("#bid_list li:first-child").remove();
+            		$("#bid_list").trigger('change');
             	}
             	else {
-            		$('#notifier-failure').hide().fadeIn(600);	
+            		$('#bid-removed-notifier-failure').hide().fadeIn(600);	
             	}
 			}
         });
-	})
+	});
+
+	/*disables 'Remove Top Bid' button if there are no bids*/
+	$("#bid_list").on('change', function() {
+  		if($("#bid_list li").length == 0) {
+  			$("#remove_top_bid").prop("disabled", true);
+  		}
+	});
 }
