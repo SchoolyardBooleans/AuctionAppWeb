@@ -12,9 +12,10 @@
             <div class="pull-right col-md-2">
                 {?payment_verified}
                     <button id="verify_payment" class="btn btn-default top_margin" disabled>Payment Verified</button>
-                    {:else}
+                {:else}
                     <button id="verify_payment" class="btn btn-default top_margin">Verify Payment</button>
-                    {/payment_verified}
+                {/payment_verified}
+                <span id="payment_is_verified" style="display:none;">{payment_verified}</span>
             </div>
             <div class="pull-right col-md-2">
                 <button id="remove_top_bid" class="btn btn-default top_margin" {?payment_verified}style="display:none"{/payment_verified}>Remove Top Bid</button>

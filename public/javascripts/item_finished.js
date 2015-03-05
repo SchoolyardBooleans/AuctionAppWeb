@@ -6,6 +6,11 @@ $(document).ready(function() {
 function init() {
 	hideNotifiers();
 	$("#bid_list").trigger('change');
+
+	/*if the payment is verified then highlight the verified payer's bid green*/
+	if($('#payment_is_verified').text() == "true") {
+		$("#bid_list li:first-child").addClass('list-group-item-success');
+	}
 }
 
 function hideNotifiers() {
@@ -14,6 +19,7 @@ function hideNotifiers() {
 	$('#bid-removed-notifier-success').hide();
 	$('#bid-removed-notifier-failure').hide();
 }
+
 function initializeClickListeners() {
 	$('#verify_payment').on('click', function(ev) {
 		ev.preventDefault();
@@ -50,13 +56,13 @@ function initializeClickListeners() {
 		ev.preventDefault();
 		hideNotifiers();
 
-		var deleted_bid_id = $("#bid_list li:first-child .bid_id").text();
+		var item_id = $("#item_id").text();
 
         $.ajax({
             type:'POST',
             url:'/auction_summary/remove_top_bid',
             data: {
-            	'bid_id': deleted_bid_id
+            	'item_id': item_id
             },
             dataType: 'JSON',
             complete: function(data) {
