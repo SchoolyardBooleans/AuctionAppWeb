@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     }
 
 	var query_str = "SELECT Id, Name, lastName__c, Total_Contributions__c, Auctions_Attended__c, " +
-      "(SELECT Auction__r.Name, Auction__r.End_Time__c,Bidder_Account__c FROM Bidder_Attendance__r ORDER BY Auction__r.End_Time__c DESC NULLS FIRST)" +
+      "(SELECT Auction__r.Name, Auction__r.End_Time__c,Bidder_Account__c FROM Bidder_Attendance__r ORDER BY Auction__r.End_Time__c DESC NULLS FIRST LIMIT 1)" +
       " FROM Bidder_Account__c";
    /*Get List of Donors */
 	conn.query(query_str)
