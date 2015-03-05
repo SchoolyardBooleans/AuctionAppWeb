@@ -99,7 +99,7 @@ router.post('/remove_top_bid', function(req, res) {
 	var delete_bid_item_id = req.body.item_id;
 	console.log('id of item where top bid will be deleted: ' + delete_bid_item_id);
 
-	var rm_bid_url = req.session.instanceUrl + '/services/apexrest/bidremove/' + delete_bid_item_id;
+	var rm_bid_url = '/services/apexrest/bidremove/' + delete_bid_item_id;
 	console.log('Remove bid URL: ' + rm_bid_url);
 
 	// body payload structure is depending to the Apex REST method interface.
