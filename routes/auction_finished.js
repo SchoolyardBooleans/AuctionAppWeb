@@ -11,14 +11,19 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
+	var auctionId = req.params.id;
+
+	var auctionstats_url = '/services/apexrest/auctionstats/' + auctionId;
+
 	var dustVars = {
     	title: 'Auction Summary',
     	cssFiles: [{css: 'auction_finished.css'}],
-    	javascriptFiles: [{javascript: 'auction_finished.js'}]
+    	javascriptFiles: [{javascript: 'auction_finished.js'}],
+    	top_bidders: []
     }
 
 	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__c, Payment_Verified__c FROM Auction_Items__r) " +
-					"FROM Auction__C WHERE Id = '" + req.params.id + "'";
+					"FROM Auction__C WHERE Id = '" + auctionId + "'";
 
 	/*Gets auction and list of auction items in that auction */
 	conn.query(query_str)
@@ -34,7 +39,22 @@ router.get('/:id', function(req, res) {
 		}
 	})
    .on("end", function(query) {
-   		res.render('auction_finished', dustVars);
+   		console.log('calling GET on auction stats url: ' + auctionstats_url);
+   		conn.apex.get(auctionstats_url, function(err, response) {
+			   if(err) {
+			  		console.error(err);
+			  		res.status(500).end();
+			   }
+			   else {
+
+			  		console.log("response: ", util.inspect(response, false, null));
+			  		// the response object structure depends on the definition of apex class
+			  		dustVars.top_bidders = response;
+
+					res.render('auction_finished', dustVars);
+			  	}
+			});
+
    	}).on("error", function(err) {
 		console.log("query error" + err);
 		res.render('auction_finished', dustVars);
