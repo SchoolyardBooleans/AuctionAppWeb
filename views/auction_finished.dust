@@ -32,7 +32,11 @@
                 </thead>
                 <tbody>
                     {#auction_items}
+                    {?Payment_Verified__c}
                     <tr class='clickableRow' href='/auction_summary/{auction_id}/item_summary/{Id}'>
+                    {:else}
+                    <tr class='clickableRow pending' href='/auction_summary/{auction_id}/item_summary/{Id}'>
+                    {/Payment_Verified__c}
                         <td class="col-md-4">{Name}</td>
                         <td class="col-md-4"><span>$</span>{Current_Bid__c}</td>
                         <td class="col-md-4">{Winning_Bidder__c}</td>
