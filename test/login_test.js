@@ -1,3 +1,10 @@
+/* The login_test.js file uses Selenium to test the functionality of logging into our application using
+   SalesForce Authentication. Before the tests are run, the server is started. Then, a Selenium driver
+   is used to click a few buttons and fill out a few form fields. Then, the one test that is run is an
+   assertion to see if the title of the home screen (after authentication) is correct. Then the server
+   is shut down*/
+
+
 var assert = require('assert'),
 	test = require('selenium-webdriver/testing'),
 	webdriver = require('selenium-webdriver'),
