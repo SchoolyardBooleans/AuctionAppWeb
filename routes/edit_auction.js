@@ -72,7 +72,8 @@ router.post('/', function(req, res) {
 		Id: req.body.id,
 		name : req.body.name,
 		Start_Time__c : start_date,
-		End_Time__c : end_date
+		End_Time__c : end_date,
+		Location__c : req.body.auction_location
 	}
 	// Single record update
 	conn.sobject("Auction__c").update(auction, function(err, ret) {

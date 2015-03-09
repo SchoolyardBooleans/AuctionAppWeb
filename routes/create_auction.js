@@ -38,7 +38,8 @@ router.post('/', function(req, res) {
 		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		name : req.body.name,
 		Start_Time__c : start_date,
-		End_Time__c : end_date
+		End_Time__c : end_date,
+		Location__c : req.body.auction_location
 	}
 
 	conn.sobject('Auction__c').create(auction, function(err, ret) {
