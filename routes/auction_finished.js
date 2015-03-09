@@ -22,7 +22,7 @@ router.get('/:id', function(req, res) {
     	top_bidders: []
     }
 
-	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__c, Payment_Verified__c FROM Auction_Items__r) " +
+	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__r.Name, Winning_Bidder__r.lastName__c, Payment_Verified__c FROM Auction_Items__r) " +
 					"FROM Auction__C WHERE Id = '" + auctionId + "'";
 
 	/*Gets auction and list of auction items in that auction */

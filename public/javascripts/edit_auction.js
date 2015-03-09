@@ -2,7 +2,7 @@ $(document).ready(function() {
     initializeValidation()
 	initialize();
     initializeClickListeners();
-
+    //jQuery('#location_picklist').multiselect();
 });
 
 function initializeValidation() {
@@ -59,6 +59,14 @@ function initializeValidation() {
                         message: 'An auction location is required'
                     }
                 }
+            },
+            location_picklist: {
+                message: "The auction's location is not valid",
+                validators: {
+                    notEmpty: {
+                        message: 'An auction location is required'
+                    }
+                }
             }
         }
     }).on('success.form.fv', function(e) {
@@ -70,7 +78,8 @@ function initializeValidation() {
             id = $('#auction_id').text(),
             start_date = $('#start_date_input').val(),
             end_date = $('#end_date_input').val(),
-            location = $('#auction_location').val();
+            location = $('#auction_location').val(),
+            location_picklist = $('select#location_picklist').val();
 
         console.log('name: ' + name);
         console.log('id: ' + id);
@@ -83,7 +92,8 @@ function initializeValidation() {
                 'id': id,
                 'start_date': start_date,
                 'end_date': end_date,
-                'location': location
+                'location': location,
+                'location_picklist': location_picklist
             },
             dataType: 'JSON',
             complete: function(data) {

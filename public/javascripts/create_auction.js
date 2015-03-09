@@ -65,7 +65,8 @@ function initializeValidator() {
         var name = $('#auction_name').val(),
 			start_date = $('#start_date_input').val(),
 			end_date = $('#end_date_input').val(),
-			location = $('#auction_location').val();
+			location = $('#auction_location').val(),
+         location_picklist = $('select#location_picklist').val();
 
         $.ajax({
             type:'POST',
@@ -74,7 +75,8 @@ function initializeValidator() {
             	'name': name,
             	'start_date': start_date,
             	'end_date': end_date,
-            	'location': location
+            	'location': location,
+               'location_picklist': location_picklist
             },
             dataType: 'JSON',
             complete: function(data) {
@@ -93,6 +95,7 @@ function initializeValidator() {
 
 function initialize() {
 	$('#notifier').hide();
+
 
 	$('#start_date').datetimepicker({
         format: 'mm/dd/yy, HH:ii P',

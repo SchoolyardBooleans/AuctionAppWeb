@@ -6,6 +6,11 @@ var router = express.Router();
 
 /* GET the create auction page */
 router.get('/', function(req, res) {
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+	
 	var dustVars = {
 		title: 'Create Auction',
 		cssFiles: [
@@ -18,9 +23,27 @@ router.get('/', function(req, res) {
 			{javascript: 'formValidation.min.js'},
 			{javascript: 'formValidation-bootstrap.min.js'},
 			{javascript: 'create_auction.js'}
-		]
+		],
+		auctionVenues: []
 	};
-	res.render('create_auction', dustVars);
+
+	//	get List of auction locations
+	/*Get List of sponsors */
+	conn.query("SELECT Id, Name FROM Auction_Venue__c")
+	.on("record", function(record) {
+		console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
+		var new_entry = {id: record.Id, name: record.Name}
+		
+		dustVars.auctionVenues.push(new_entry);
+	})
+   .on("end", function(query) {
+		//moved here from end of route
+
+		res.render('create_auction', dustVars);
+	}).on("error", function(err) {
+		console.log("query error" + err);
+	}).run(); 
+	
 });
 
 /* POST created auction */
@@ -39,7 +62,7 @@ router.post('/', function(req, res) {
 		name : req.body.name,
 		Start_Time__c : start_date,
 		End_Time__c : end_date,
-		Location__c : req.body.auction_location
+		Location__c : req.body.location_picklist
 	}
 
 	conn.sobject('Auction__c').create(auction, function(err, ret) {
