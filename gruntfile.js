@@ -1,24 +1,21 @@
 module.exports = function(grunt) {
+
+  // Add the grunt-mocha-test tasks. 
+  grunt.loadNpmTasks('grunt-mocha-test');
+
   grunt.initConfig({
-    sass: {
-      dist: {
-        files: {
-          'public/stylesheets/application.css': 'sass/application.scss'
-        },
-      }
-    },
-    watch: {
-      source: {
-        files: ['sass/**/*.scss', 'views/**/*.dust'],
-        tasks: ['sass'],
+    mochaTest: {
+      test: {
         options: {
-          livereload: true, // needed to run LiveReload
-        }
+          reporter: 'spec',
+          quiet: false, // Optionally suppress output to standard out (defaults to false) 
+          clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false) 
+        },
+        src: ['test/*.js']
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-sass');
-  grunt.registerTask('default', ['sass']);
+  grunt.registerTask('test', 'mochaTest');
+
 };

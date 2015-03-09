@@ -121,21 +121,12 @@ router.post('/remove_top_bid', function(req, res) {
 
 	var rm_bid_url = '/services/apexrest/bidremove/' + delete_bid_item_id;
 	console.log('Remove bid URL: ' + rm_bid_url);
-
-	// body payload structure is depending to the Apex REST method interface.
-	//var body = { title: 'hello', num : 1 };
 	
 	conn.apex.delete(rm_bid_url, {}, function(err, response) {
-	  if(err) {
-	  	console.error(err);
-	  	res.status(500).end();
-	  }
-	  else {
-	  	console.log("response: ", response);
-	  	// the response object structure depends on the definition of apex class
-	  	res.status(200).end();
-	  }
+		console.log('returned from update');
 	});
+	
+	res.status(200).end();
 });
 
 /*POST to verify the payment for the item*/
@@ -150,7 +141,7 @@ router.post('/payment_verified', function(req, res) {
 	  Payment_Verified__c : (req.body.item_verified == "true")
 	}
 	conn.sobject("Auction_Item__c").update(updated_item, function(err, ret) {
-	  if (err || !ret.success) {
+	  if (err) {
 	  	console.error(err, ret);
 		res.status(500).end();
 	  }
