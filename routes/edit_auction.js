@@ -12,7 +12,7 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 	var auction_id = req.params.id;
-	var query_str = "SELECT Id, Name, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
+	var query_str = "SELECT Id, Name, Location__c, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
 
 	var dustVars = {
@@ -28,8 +28,11 @@ router.get('/:id', function(req, res) {
 			{javascript: 'formValidation.min.js'},
 			{javascript: 'formValidation-bootstrap.min.js'},
 			{javascript: 'edit_auction.js'}
-		]
+		],
+		auctionVenues: []
 	};
+
+
 
 	conn.query(query_str, function(err, auction) {
 		if(err) {
@@ -38,6 +41,7 @@ router.get('/:id', function(req, res) {
 
 		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A'),
 	 		end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A'),
+	 		location_id = auction.records[0].Location__c;
 	 		location_str = auction.records[0].Location__r == null ? null : auction.records[0].Location__r.Name,
 	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records,
 			status_str = genStatusString(auction.records[0].Status__c);
@@ -49,11 +53,33 @@ router.get('/:id', function(req, res) {
 		dustVars.auction_items = items;
 		dustVars.auction_status = status_str;
 	}).on("end", function(query) {
-		res.render('edit_auction', dustVars);
+		//ned origin
+		/*Get List of sponsors */
+		conn.query("SELECT Id, Name FROM Auction_Venue__c")
+		.on("record", function(record) {
+			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
+			var new_entry = {id: record.Id, name: record.Name};
+			
+			if (record.Id === dustVars.location_id)
+			{
+				console.log('Adding selected class to location entry: ' + record.Name);
+				new_entry['classes'] = 'selected';
+			}
+			dustVars.auctionVenues.push(new_entry);
+		})
+	   .on("end", function(query) {
+   		//moved here from end of callback
+   		res.render('edit_auction', dustVars);
+   	}).on("error", function(err) {
+   		console.log("query error" + err);
+   		res.render('edit_auction', dustVars);
+   	}).run(); 
+
+		//begining orig
 	}).on("error", function(err) {
-	   		console.log("query error" + err);
-	   		res.render('edit_auction', dustVars);
- 	}).run();;
+		console.log("query error" + err);
+		res.render('edit_auction', dustVars);
+ 	}).run();
 });
 
 /* POST edited auction */
@@ -66,13 +92,15 @@ router.post('/', function(req, res) {
 	var start_date = new Date(req.body.start_date).toISOString(),
 		end_date = new Date(req.body.end_date).toISOString();
 
+	console.log("Updated auction location: " + util.inspect(req.body.location_picklist));
 	/*Still need to add on a location*/
 	var auction = {
 		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		Id: req.body.id,
 		name : req.body.name,
 		Start_Time__c : start_date,
-		End_Time__c : end_date
+		End_Time__c : end_date,
+		Location__c : req.body.location_picklist
 	}
 	// Single record update
 	conn.sobject("Auction__c").update(auction, function(err, ret) {
