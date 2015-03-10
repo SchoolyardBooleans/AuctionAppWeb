@@ -1,0 +1,42 @@
+{>"layouts/main"/}
+
+{<container}
+
+<div>
+    <h2>Donor: {Name}</h2>
+</div>
+<br>
+<div>
+    <h4 >Contact Email: {email}</h4>
+</div>
+<div>
+    <h4 >Total Contributions: <span>$</span>{contributions}</h4>
+</div>
+<br>
+<br>
+<div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h2 class="pull-left">Purchased Items:</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Item Name</th>
+                        <th class="col-md-4">Winning Bid</th>
+                        <th class="col-md-4">Auction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#purchasedItems}
+                    <tr class='clickableRow' href='/auction_summary/{Auction__c}/item_summary/{Id}'>
+                        <td class="col-md-4">{Name}</td>
+                        <td class="col-md-4"><span>$</span>{Current_Bid__c}</td>
+                        <td class="col-md-4">{Auction__r.Name}</td>
+                    </tr>
+                    {/purchasedItems}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{/container}
