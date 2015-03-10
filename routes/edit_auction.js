@@ -56,21 +56,24 @@ router.get('/:id', function(req, res) {
 		dustVars.auction_location = location_str;
 		dustVars.auction_items = items;
 		dustVars.auction_status = status_str;
-		dustvars.location_id = location_id;
+		dustVars.location_id = location_id;
 	}).on("end", function(query) {
 		//ned origin
 		/*Get List of sponsors */
 		conn.query("SELECT Id, Name FROM Auction_Venue__c")
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
-			var new_entry = {id: record.Id, name: record.Name};
+			var entry_classes = null;
 			
-			if (new_entry.id == dustVars.location_id)
+			if (String(record.Id).trim() === String(dustVars.location_id).trim())
 			{
 				console.log('Adding selected class to location entry: ' + record.Name);
-				new_entry['classes'] = 'selected';
+				entry_classes = 'selected';
 			}
-			dustVars.auctionVenues.push(new_entry);
+			dustVars.auctionVenues.push({
+				id: record.Id, 
+				name: record.Name,
+				classes: entry_classes});
 		})
 	   .on("end", function(query) {
    		//moved here from end of callback
