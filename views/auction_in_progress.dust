@@ -1,0 +1,22 @@
+{>"layouts/main"/}
+
+{<container}
+
+<div>
+    <h2>Auction in Progress: {auction_name}</h2>
+</div>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Bid History</h3>
+        <h7 id="last_updated"></h7>
+    </div>
+  <div class="panel-body">
+      <ul class="list-group">
+    {#bids}
+        <li class="list-group-item">{bidder_name} bids ${amount} on {item_name}</li>
+    {/bids}
+  </ul>
+  </div>
+</div>
+{/container}

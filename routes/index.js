@@ -30,6 +30,7 @@ router.get('/', function(req, res) {
 
 		if(record.Status__c == 1) {
 			status_str = "In Progress";
+			auction_base_url = "auction_in_progress/" + record.Name;
 		}
 		else if(record.Status__c == 2) {
 			status_str = "Complete";

@@ -47,8 +47,8 @@
             </div>
             <div class="form-group">
                 <div class="row" style="width:100%">
-                    <span id="notifier" class="col-xs-6"><h4 style="color:#008A00">Auction Saved ✓</h4></span>
-                    <span id="auction_id" style="display:none">{auction_id}</span>
+                    <span id="notifier" class="col-xs-6"><h4 id="notifier_message">Auction Saved ✓</h4></span>
+                    <span id="auction_id">{auction_id}</span>
                     <button id="submit_edited_auction" type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
