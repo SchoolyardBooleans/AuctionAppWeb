@@ -12,7 +12,7 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 	var auction_id = req.params.id;
-	var query_str = "SELECT Id, Name, Location__c, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
+	var query_str = "SELECT Id, Name, Location__c, Location__r.Id, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
 		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
 
 	var dustVars = {
@@ -21,10 +21,12 @@ router.get('/:id', function(req, res) {
 		cssFiles: [
 			{css: 'edit_auction.css'},
 			{css: 'formValidation.min.css'},
+			{css: 'bootstrap-multiselect.css'},
 			{css: 'bootstrap-datetimepicker.min.css'}
 		],
 		javascriptFiles: [
 			{javascript: 'bootstrap-datetimepicker.min.js'},
+			{javascript: 'bootstrap-multiselect.js'},
 			{javascript: 'formValidation.min.js'},
 			{javascript: 'formValidation-bootstrap.min.js'},
 			{javascript: 'edit_auction.js'}
@@ -38,13 +40,15 @@ router.get('/:id', function(req, res) {
 		if(err) {
 			return console.error(err);
 		}
-
+		
 		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:SS A'),
 	 		end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:SS A'),
-	 		location_id = auction.records[0].Location__c;
+	 		location_id = auction.records[0].Location__c,
 	 		location_str = auction.records[0].Location__r == null ? null : auction.records[0].Location__r.Name,
 	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records,
 			status_str = genStatusString(auction.records[0].Status__c);
+
+		console.log("locaiont__c for this auciton: " + location_id);
 
 		dustVars.auction_name = auction.records[0].Name;
 		dustVars.auction_start_date = start_str;
@@ -52,6 +56,7 @@ router.get('/:id', function(req, res) {
 		dustVars.auction_location = location_str;
 		dustVars.auction_items = items;
 		dustVars.auction_status = status_str;
+		dustvars.location_id = location_id;
 	}).on("end", function(query) {
 		//ned origin
 		/*Get List of sponsors */
@@ -60,7 +65,7 @@ router.get('/:id', function(req, res) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			var new_entry = {id: record.Id, name: record.Name};
 			
-			if (record.Id === dustVars.location_id)
+			if (new_entry.id == dustVars.location_id)
 			{
 				console.log('Adding selected class to location entry: ' + record.Name);
 				new_entry['classes'] = 'selected';
@@ -289,7 +294,7 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			var new_entry = {id: record.Id, name: record.Name}
-			if (record.Id === dustVars.sponsor_id)
+			if (record.Id == dustVars.sponsor_id)
 			{
 				console.log('Adding selected class to sponsor entry: ' + record.Name);
 				new_entry['classes'] = 'selected';
