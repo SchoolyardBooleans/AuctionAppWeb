@@ -2,7 +2,7 @@ $(document).ready(function() {
     initializeValidation()
 	initialize();
     initializeClickListeners();
-    //jQuery('#location_picklist').multiselect();
+    $('#location_picklist').multiselect();
 });
 
 function initializeValidation() {
