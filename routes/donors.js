@@ -75,9 +75,15 @@ router.get('/:id', function(req, res) {
 
       console.log("Bidder: " + util.inspect(bidder, false, null));
       if (bidder.Purchased_Items__r) {
-         for (var bidderItem in bidder.Purchased_Items__r.records) {
-            dustVars.purchasedItems.push(bidderItem);
-         }
+         bidder.Purchased_Items__r.records.forEach(function(bidderItem){
+            console.log('adding bidder item: ', bidderItem)
+            dustVars.purchasedItems.push({
+               Name: bidderItem.Name,
+               Current_Bid__c: bidderItem.Current_Bid__c,
+               AuctionName: bidderItem.Auction__r.Name
+            });
+         });
+         
       }
    })
    .on("end", function(query) {
