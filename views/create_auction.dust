@@ -38,11 +38,8 @@
                           {/auctionVenues}
                           {! <option value="New">New Sponsor</option> !}
                     </select>
-            </div>
-                {! Add hidden label here for new loc? !}
-                <div class="col-xs-9">
-                    <input type="text" class="form-control hide" id="auction_location" name="auction_location" placeholder="McKenzie Park">
                 </div>
+                
             </div>
             <div class="form-group">
                 <div class="row full_width">
