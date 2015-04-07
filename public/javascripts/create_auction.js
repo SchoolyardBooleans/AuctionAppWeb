@@ -48,7 +48,7 @@ function initializeValidator() {
 	            	}
 	        	}
 	    	},
-	    	auction_location: {
+	    	location_picklist: {
 	        	message: "The auction's location is not valid",
 	        	validators: {
 	            	notEmpty: {
@@ -65,7 +65,6 @@ function initializeValidator() {
         var name = $('#auction_name').val(),
 			start_date = $('#start_date_input').val(),
 			end_date = $('#end_date_input').val(),
-			location = $('#auction_location').val(),
          location_picklist = $('select#location_picklist').val();
 
         $.ajax({
@@ -75,7 +74,6 @@ function initializeValidator() {
             	'name': name,
             	'start_date': start_date,
             	'end_date': end_date,
-            	'location': location,
                'location_picklist': location_picklist
             },
             dataType: 'JSON',
