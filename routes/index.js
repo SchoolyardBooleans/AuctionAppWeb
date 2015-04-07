@@ -59,6 +59,27 @@ router.get('/', function(req, res) {
    	//TODO: sort record traversal based on date/status
 });
 
+router.delete('/delete_auction/:id', function(req, res) {
+	var auction_id = req.params.id;
+	console.log("auction id to delete is: " + auction_id);
+
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+
+	conn.sobject("Auction__c").destroy(auction_id, function(err, ret) {
+  		if(err || !ret.success) {
+  			console.error(err, ret);
+  			res.status(500).end();
+  		}
+  		else {
+  			console.log('Deleted Successfully : ' + ret.id);
+  			res.status(200).end();
+  		}
+	});
+});
+
 
 
 module.exports = router;

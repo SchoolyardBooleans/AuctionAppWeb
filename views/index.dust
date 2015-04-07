@@ -12,23 +12,57 @@
         <thead>
             <tr>
                 <th class="col-md-3">Auction Name</th>
-                <th class="col-md-3">Location</th>
+                <th class="col-md-2">Location</th>
                 <th class="col-md-3">Start Date</th>
-                <th class="col-md-3">Status</th>
+                <th class="col-md-2">Status</th>
+                <th class="col-md-1">View</th>
+                <th class="col-md-1">Delete</th>
             </tr>
         </thead>
         <tbody>
             {#auctions}
-            <tr class='clickableRow' href='/{auction_base_url}/{Id}'>
+            <tr data-target="#delete_modal" data-id="{Id}" data-name="{Name}">
                <td class="col-md-3">{Name}</td>
                <td class="col-md-3">{Location}</td>
                <td class="col-md-3">{Start_Time}
                <td class="col-md-3">{Status}</td>
+               <td class="col-md-1 text-center">
+                <a title="View Auction" href='/{auction_base_url}/{Id}'>
+                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                </a>
+               </td>
+               <td class="col-md-1 text-center delete_button">
+                {@eq key=auction_base_url value="edit_auction"}
+                  <a title="Delete auction" href=""><span class="glyphicon glyphicon-trash red" aria-hidden="true" data-toggle="modal" data-target="#delete_modal"></span>
+                  </a>
+                {:else} 
+                  <a title="Auctions in progress or completed cannot be deleted"><span class="glyphicon glyphicon-trash grey" aria-hidden="true"></span>
+                {/eq}
+               </td>
             </tr>
             {/auctions}
         </tbody>
+
+
     </table>
    </div>
+</div>
+
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Delete Auction</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirm_delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 {/container}
