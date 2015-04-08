@@ -9,10 +9,12 @@ function initializeClickListeners() {
 
 	});
 
-	$('#delete_modal').on('show.bs.modal', function(){
-		var auction_id = $(event.target).closest('tr').data('id'),
-		auction_name = $(event.target).closest('tr').data('name');
+	$('#delete_modal').on('show.bs.modal', function(event) {
 
+		var auction_id = $(event.relatedTarget).closest('tr').data('id'),
+			auction_name = $(event.relatedTarget).closest('tr').data('name');
+
+		console.log("auction id is: " + auction_id);
 		console.log("auction name is: " + auction_name);
 
 		$('.modal-body').text('Are you sure you want to delete the auction "' + auction_name + '"? This action cannot be undone.');
