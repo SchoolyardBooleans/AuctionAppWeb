@@ -185,72 +185,78 @@ router.post('/:id/add_item', function(req, res) {
 		accessToken: req.session.accessToken,
 		instanceUrl: req.session.instanceUrl
 	});
-	// TODO: Make sure files is image
-	var multerBody = req.body;
-	//only one file for now, testing
-	var multerFile = req.files;
-	var multerFileImage = multerFile.image;
-	// Hardcoded document folder id for 'Public_Images'
-	var folderId = '00lj0000000z5hsAAA';
-	// Hardcoded Orgid 
-	var orgId = '00Dj0000000K54X';
 
-	console.log('multer body: ' + util.inspect(multerBody, false, null));
-	console.log('multer file: ' + util.inspect(multerFile, false, null));
-
-	//Sending img data to salesforce 
-
-	var encodedData = multerFileImage.buffer.toString('base64');
-
-	var imgDoc = {	
-	  //ParentId: accountId,
-	  Name: multerFileImage.originalname,
-	  Description: multerBody.item_description,
-	  body: encodedData,
-	  Type: multerFileImage.extension,
-	  IsPublic: true,
-	  FolderId: folderId
+	var item = {
+		Auction__c : req.params.id,
+		Description__c : req.body.item_description,
+		Estimated_Value__c : Number(req.body.item_value),
+		Featured__C : Boolean(req.body.is_featured),
+		Sponsor_Name__c : req.body.sponsor,
+		Item_Sponsor__c: req.body.sponsor_picklist,
+		Name : req.body.item_name,
+		Starting_Bid__c : req.body.item_min_bid
 	};
 
-	conn.sobject('Document').create(imgDoc, function(err, ret) {
-		if (err || !ret.success) {
-			res.status(406).end();
-			return console.error(err, ret);
-		}
+	//only one file for now, testing
+	var multerFile = req.files;
 
-		console.log('Doc create return: ' + util.inspect(ret, false, null));
-  		console.log("Created Document id : " + util.inspect(ret.id, false, null));
-  		//try not responding?
-  		//res.status(200).redirect('/edit_auction/' + req.params.id);
-		
-		//assemble img instanceUrl
-		var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + req.session.orgId;
-		//create item
-   	
-   		//TODO: seperate post methods of img and item
-		var item = {
-			Auction__c : req.params.id,
-			Description__c : req.body.item_description,
-			Estimated_Value__c : Number(req.body.item_value),
-			Featured__C : Boolean(req.body.is_featured),
-			Sponsor_Name__c : req.body.sponsor,
-			Item_Sponsor__c: req.body.sponsor_picklist,
-			Name : req.body.item_name,
-			Starting_Bid__c : req.body.item_min_bid,
-			Image_URL__c : imgUrl
+	if(multerFile != null && multerFile.image != null) {
+		var multerFileImage = multerFile.image;
+
+		console.log('Body: ' + util.inspect(req.body, false, null));
+		console.log('multer file: ' + util.inspect(multerFile, false, null));
+
+		// Hardcoded document folder id for 'Public_Images'
+		var folderId = '00lj0000000z5hsAAA';
+		// Hardcoded Orgid 
+		var orgId = '00Dj0000000K54X';
+
+		//Sending img data to salesforce 
+
+		var encodedData = multerFileImage.buffer.toString('base64');
+
+		var imgDoc = {	
+		  //ParentId: accountId,
+		  Name: multerFileImage.originalname,
+		  Description: req.body.item_description,
+		  body: encodedData,
+		  Type: multerFileImage.extension,
+		  IsPublic: true,
+		  FolderId: folderId
 		};
 
-		conn.sobject('Auction_Item__c').create(item, function(err, ret) {
+		conn.sobject('Document').create(imgDoc, function(err, ret) {
 			if (err || !ret.success) {
 				res.status(406).end();
 				return console.error(err, ret);
 			}
 
-	  		console.log("Created record id : " + ret.id);
-	  		res.status(200).redirect('/edit_auction/' + req.params.id);
+			console.log('Doc create return: ' + util.inspect(ret, false, null));
+	  		console.log("Created Document id : " + util.inspect(ret.id, false, null));
+			
+			//assemble img instanceUrl
+			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + req.session.orgId;
+			item.Image_URL__c = imgUrl;
+
+			createItem(req, res, conn, item);
 		});
-	});
+	}
+	else {
+		createItem(req, res, conn, item);
+	}
 });
+
+function createItem(req, res, conn, item) {
+	conn.sobject('Auction_Item__c').create(item, function(err, ret) {
+		if (err || !ret.success) {
+			res.status(406).end();
+			return console.error(err, ret);
+		}
+
+  		console.log("Created record id : " + ret.id);
+  		res.status(200).redirect('/edit_auction/' + req.params.id);
+	});
+}
 
 /*Get add an item to auction page*/
 router.get('/:auction_id/edit_item/:item_id', function(req, res) {
