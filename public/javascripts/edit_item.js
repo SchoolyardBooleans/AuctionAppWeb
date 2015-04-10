@@ -8,7 +8,6 @@ $(document).ready(function() {
 });
 
 function init() {
-	$('#bundled_items').multiselect();
 	$("#image_input").filestyle();
 	
 	$('#sponsor_picklist').multiselect();

@@ -10,27 +10,27 @@
 	<form id="add_item" class="form-horizontal center_form" action="" method="post" enctype="multipart/form-data">
 		<fieldset>
 			<div class="form-group bottom_padding row">
-				<label for="item_name" class="control-label col-xs-6 col-md-3">Item Name: *</label>
-				<div class="col-xs-6 col-md-9">
+				<label for="item_name" class="control-label col-xs-12 col-md-3">Item Name: *</label>
+				<div class="col-xs-12 col-md-9">
 					<input id="item_name" name="item_name" type="text" class="form-control" value="{item_name}">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="item_description" class="control-label col-xs-6 col-md-3">Description: *</label>
-				<div id="item_description_container" class="col-xs-6 col-md-9">
+				<label for="item_description" class="control-label col-xs-12 col-md-3">Description: *</label>
+				<div id="item_description_container" class="col-xs-12 col-md-9">
 					<textarea id="item_description" name="item_description" class="form-control" rows="4">{item_description}</textarea>
 				</div>
 			</div>
 			<div class="form-group row">
-				 <div class="checkbox control-label col-xs-12 pull-right">
-				    <label>
+				 <div class="checkbox control-label col-xs-12 col-md-12">
+				    <label class="pull-right">
 				      <input id="is_featured" type="checkbox" name="is_featured" value="{item_featured}"> Feature this item
 				    </label>
 				  </div>
 			</div>
 			<div class="form-group bottom_padding row">
-				<label for="item_value_container" class="control-label col-xs-3">Value: *</label>
-				<div id="item_value_container" class="col-xs-5">
+				<label for="item_value_container" class="control-label col-md-3 col-xs-12">Value: *</label>
+				<div id="item_value_container" class="col-md-5 col-xs-12">
 					<div class="input-group">
 					  <span class="input-group-addon">$</span>
 					  <input id="item_value" name="item_value" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{item_value}">
@@ -39,8 +39,8 @@
 				</div>
 			</div>
 			<div class="form-group bottom_padding row">
-				<label for="item_value_container" class="control-label col-xs-3">Minimum Bid: </label>
-				<div id="item_value_container" class="col-xs-5">
+				<label for="item_value_container" class="control-label col-md-3 col-xs-12">Minimum Bid: </label>
+				<div id="item_value_container" class="col-md-5 col-xs-12">
 					<div class="input-group">
 					  <span class="input-group-addon">$</span>
 					  <input id="item_min_bid" name="item_min_bid" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{item_min_bid}">
@@ -49,32 +49,27 @@
 				</div>
 			</div>
 			<div class="form-group bottom_padding row">
-				<label for="sponsor_input" class="control-label col-xs-3 multi-label">Sponsor: </label>
-				<select id="sponsor_picklist" name="sponsor_picklist" class="form-control">
+				<div class="col-md-3 col-xs-12>"
+					<label for="sponsor_input" class="control-label col-md-3 col-xs-12 multi-label">Sponsor: </label>
+				</div>
+				<div class="col-md-5 col-xs-12">
+					<select id="sponsor_picklist" name="sponsor_picklist" class="form-control">
 					  {#sponsorAccounts}
 					  	<option value="{id}" {classes}>{name}</option>
 					  {/sponsorAccounts}
 					  {! <option value="New">New Sponsor</option> !}
 					</select>
-				<div id="sponsor_input container" class="col-xs-5 input-append date">
+				</div>
+				<div id="sponsor_input container" class="col-md-5 col-xs-12 input-append date">
 					<input id="sponsor_input" name="sponsor" type="text" class="form-control hide" placeholder="Sponsor Name">
 				</div>
 			</div>
 			<div class="form-group bottom_padding row">
-				<label for="bundled_items" class="control-label col-xs-3 multi-label">Bundle with: </label>
-				<select id="bundled_items" class="col-xs-5" multiple="multiple">
-				    <option value="cheese">Lotions</option>
-				    <option value="tomatoes">Wine</option>
-				    <option value="mozarella">Fruit Basket</option>
-				    <option value="mushrooms">Massage</option>
-				</select>
-			</div>
-			<div class="form-group bottom_padding row">
-				<label for="image_input" class="control-label col-xs-3">Image: </label>
-				<div id="image_input_container" class="col-xs-3">
+				<label for="image_input" class="control-label col-md-3 col-xs-12">Image: </label>
+				<div id="image_input_container" class="col-md-3 col-xs-6">
 					<input id="image_input" class="filestyle" type="file" name="image" accept="image/*" data-input="false">
 				</div>
-				<div id="image_thumbnail_container" class="pull-left">
+				<div id="image_thumbnail_container" class="pull-left col-md-3 col-xs-6">
 					<img id="item_image_thumbnail" src="{item_image}" class="img-rounded" style="width:50px">
 				</div>
 			</div>

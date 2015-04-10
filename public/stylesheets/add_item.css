@@ -4,6 +4,11 @@
 	border-bottom: 1px solid #eee;
 }
 
+.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
 .item_container {
 	width: 100%;
 }
@@ -72,4 +77,9 @@
         width: 70%;
     }
 }
+
+@media (min-width: 768px) {
+    .control-label {
+        text-align: left !important;
+    }
 }
