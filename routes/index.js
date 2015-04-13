@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
 			Id: record.Id,
 			Name: record.Name,
 			Location: record.Location__r == null ? null : record.Location__r.Name,
-			Start_Time: moment(record.Start_Time__c).format('MM/DD/YYYY hh:SS A'),
+			Start_Time: moment(record.Start_Time__c).format('MM/DD/YYYY hh:mm A'),
         	//End_Time: moment(record.End_Time).format('MM/DD/YYYY hh:SS A')
         	Status: status_str,
         	auction_base_url: auction_base_url
