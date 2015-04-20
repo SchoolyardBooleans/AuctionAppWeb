@@ -43,8 +43,8 @@
 	margin-top: 10px;
 }
 
-.clickableRow td {
-	cursor: pointer;
+.red {
+	color: red;
 }
 
 /* Extra Small devices */

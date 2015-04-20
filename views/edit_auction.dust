@@ -64,23 +64,50 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="col-md-4">Item Name</th>
+                        <th class="col-md-3">Item Name</th>
                         <th class="col-md-4">Description</th>
-                        <th class="col-md-4">Value</th>
+                        <th class="col-md-3">Value</th>
+                        <th class="col-md-1">View</th>
+                        <th class="col-md-1">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {#auction_items}
-                    <tr class='clickableRow' href='/edit_auction/{auction_id}/edit_item/{Id}'>
-                        <td class="col-md-4">{Name}</td>
+                    <tr data-target="#delete_modal" data-id="{Id}" data-name="{Name}">
+                        <td class="col-md-3">{Name}</td>
                         <td class="col-md-4">{Description__c}</td>
-                        <td class="col-md-4"><span>$</span>{Estimated_Value__c}</td>
+                        <td class="col-md-3"><span>$</span>{Estimated_Value__c}</td>
+                        <td class="col-md-1 text-center">
+                            <a title="View Item" href='/edit_auction/{auction_id}/edit_item/{Id}'>
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                        <td class="col-md-1 text-center delete_button">
+                            <a title="Delete Item" href=""><span class="glyphicon glyphicon-trash red" aria-hidden="true" data-toggle="modal" data-target="#delete_modal"></span>
+                        </td>
                     </tr>
                     {/auction_items}
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Delete Item</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirm_delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 {/container}
