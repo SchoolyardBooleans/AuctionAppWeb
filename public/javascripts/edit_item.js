@@ -56,6 +56,7 @@ function initCheckboxChangedListener() {
 		    console.log('is feature not checked');
 		    $('#is_featured').val('false');
 		}
+		console.log("sponsor picklist is: " + $('#sponsor_picklist').val());
     });
 }
 

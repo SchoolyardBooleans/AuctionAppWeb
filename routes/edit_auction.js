@@ -335,7 +335,7 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 		})
 	   .on("end", function(query) {
 	   		//moved here from end of callback
-
+	   		console.log("Sponsor is: " + dustVars.sponsor_id);
 	   		res.render('edit_item', dustVars);
 	   	}).on("error", function(err) {
 	   		console.log("query error" + err);
@@ -361,7 +361,7 @@ router.post('/:auction_id/edit_item/:item_id', function(req, res) {
 			Description__c : req.body.item_description,
 			Estimated_Value__c : Number(req.body.item_value),
 			Featured__C : Boolean(req.body.is_featured),
-			Sponsor_Name__c : req.body.sponsor,
+			Item_Sponsor__c : req.body.sponsor_picklist,
 			Name : req.body.item_name,
 			Starting_Bid__c : req.body.item_min_bid
 		};
