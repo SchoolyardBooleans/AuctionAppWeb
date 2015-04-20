@@ -145,35 +145,35 @@ function initialize() {
 
     $('#delete_modal').on('show.bs.modal', function(event) {
 
-        var auction_id = $(event.relatedTarget).closest('tr').data('id'),
-            auction_name = $(event.relatedTarget).closest('tr').data('name');
+        var item_id = $(event.relatedTarget).closest('tr').data('id'),
+            item_name = $(event.relatedTarget).closest('tr').data('name');
 
-        console.log("auction id is: " + auction_id);
-        console.log("auction name is: " + auction_name);
+        console.log("auction id is: " + item_id);
+        console.log("auction name is: " + item_name);
 
-        $('.modal-body').text('Are you sure you want to delete the item "' + auction_name + '"? This action cannot be undone.');
+        $('.modal-body').text('Are you sure you want to delete the item "' + item_name + '"? This action cannot be undone.');
 
         $("#confirm_delete").on('click', function(ev) {
             ev.preventDefault();
 
-            // $.ajax({ 
-            //     type:'DELETE', 
-            //     url: '/delete_auction/' + auction_id, 
-            //     dataType: 'json',
-            //     complete: function(data) {
-            //         if(data.status == 200) {
-            //             $('tr[data-id="'+auction_id +'"]').remove();
-            //             console.log('item deleted');
+            $.ajax({ 
+                type:'DELETE', 
+                url: '/edit_auction/delete_item/' + item_id, 
+                dataType: 'json',
+                complete: function(data) {
+                    if(data.status == 200) {
+                        $('tr[data-id="'+ item_id +'"]').remove();
+                        console.log('item deleted');
 
-            //         }
-            //         else {
-            //             alert('Something went wrong. Auction could not be deleted.');
-            //         }
+                    }
+                    else {
+                        alert('Something went wrong. Auction could not be deleted.');
+                    }
 
-            //         $('#delete_modal').modal('hide');
-            //     }
+                    $('#delete_modal').modal('hide');
+                }
 
-            // });
+            });
         });
     });
 }

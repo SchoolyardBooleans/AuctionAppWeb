@@ -258,6 +258,29 @@ function createItem(req, res, conn, item) {
 	});
 }
 
+/*DELETE an item*/
+router.delete('/delete_item/:id', function(req, res) {
+	console.log("In the delete item route");
+	var item_id = req.params.id;
+	console.log("Item id to delete is: " + item_id);
+
+	var conn = new jsforce.Connection({
+		accessToken: req.session.accessToken,
+		instanceUrl: req.session.instanceUrl
+	});
+
+	conn.sobject("Auction_Item__c").destroy(item_id, function(err, ret) {
+  		if(err || !ret.success) {
+  			console.error(err, ret);
+  			res.status(500).end();
+  		}
+  		else {
+  			console.log('Deleted Successfully : ' + ret.id);
+  			res.status(200).end();
+  		}
+	});
+});
+
 /*Get add an item to auction page*/
 router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 	var conn = new jsforce.Connection({
