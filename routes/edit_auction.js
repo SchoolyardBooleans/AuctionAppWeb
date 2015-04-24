@@ -12,8 +12,8 @@ router.get('/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 	var auction_id = req.params.id;
-	var query_str = "SELECT Id, Name, Location__c, Location__r.Id, Start_Time__c, End_Time__c, Location__r.Name, Status__c," +
-		"(SELECT Name, Id, Description__c, Estimated_Value__c FROM Auction_Items__r) FROM Auction__c WHERE Id = '" + auction_id + "'";
+	var query_str = "SELECT Id, Name, bidfresh__Location__c, bidfresh__Location__r.Id, bidfresh__Start_Time__c, bidfresh__End_Time__c, bidfresh__Location__r.Name, bidfresh__Status__c," +
+		"(SELECT Name, Id, bidfresh__Description__c, bidfresh__Estimated_Value__c FROM bidfresh__Auction_Items__r) FROM bidfresh__Auction__c WHERE Id = '" + auction_id + "'";
 
 	var dustVars = {
 		title: 'Edit Auction',
@@ -41,12 +41,12 @@ router.get('/:id', function(req, res) {
 			return console.error(err);
 		}
 		
-		var start_str = moment(auction.records[0].Start_Time__c).format('MM/DD/YYYY hh:mm A'),
-	 		end_str = moment(auction.records[0].End_Time__c).format('MM/DD/YYYY hh:mm A'),
-	 		location_id = auction.records[0].Location__c,
-	 		location_str = auction.records[0].Location__r == null ? null : auction.records[0].Location__r.Name,
-	 		items = auction.records[0].Auction_Items__r == null ? null : auction.records[0].Auction_Items__r.records,
-			status_str = genStatusString(auction.records[0].Status__c);
+		var start_str = moment(auction.records[0].bidfresh__Start_Time__c).format('MM/DD/YYYY hh:mm A'),
+	 		end_str = moment(auction.records[0].bidfresh__End_Time__c).format('MM/DD/YYYY hh:mm A'),
+	 		location_id = auction.records[0].bidfresh__Location__c,
+	 		location_str = auction.records[0].bidfresh__Location__r == null ? null : auction.records[0].bidfresh__Location__r.Name,
+	 		items = auction.records[0].bidfresh__Auction_Items__r == null ? null : auction.records[0].bidfresh__Auction_Items__r.records,
+			status_str = genStatusString(auction.records[0].bidfresh__Status__c);
 
 		console.log("locaiont__c for this auciton: " + location_id);
 
@@ -60,7 +60,7 @@ router.get('/:id', function(req, res) {
 	}).on("end", function(query) {
 		//ned origin
 		/*Get List of sponsors */
-		conn.query("SELECT Id, Name FROM Auction_Venue__c")
+		conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c")
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			var entry_classes = null;
@@ -156,7 +156,7 @@ router.get('/:id/add_item', function(req, res) {
 		};
 
 		/*Get List of sponsors */
-		conn.query("SELECT Id, Name FROM Sponsor__c")
+		conn.query("SELECT Id, Name FROM bidfresh__Sponsor__c")
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			dustVars.sponsorAccounts.push({
@@ -311,18 +311,18 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 				{javascript: 'edit_item.js'}
 			],
 			item_name: item.Name,
-			item_description: item.Description__c,
-			item_value: item.Estimated_Value__c,
-			item_min_bid: item.Starting_Bid__c,
-			item_image: item.Image_URL__c,
-			item_featured: item.Featured__c,
-			item_sponsor: item.Sponsor_Name__c,
-			sponsor_id: item.Item_Sponsor__c,
+			item_description: item.bidfresh__Description__c,
+			item_value: item.bidfresh__Estimated_Value__c,
+			item_min_bid: item.bidfresh__Starting_Bid__c,
+			item_image: item.bidfresh__Image_URL__c,
+			item_featured: item.bidfresh__Featured__c,
+			item_sponsor: item.bidfresh__Sponsor_Name__c,
+			sponsor_id: item.bidfresh__Item_Sponsor__c,
 			sponsorAccounts: []
 		};
 
 		/*Get List of sponsors */
-		conn.query("SELECT Id, Name FROM Sponsor__c")
+		conn.query("SELECT Id, Name FROM bidfresh__Sponsor__c")
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			var new_entry = {id: record.Id, name: record.Name}
@@ -358,12 +358,12 @@ router.post('/:auction_id/edit_item/:item_id', function(req, res) {
 		orgId = req.session.orgId,
 		item = {
 			Id : req.params.item_id,
-			Description__c : req.body.item_description,
-			Estimated_Value__c : Number(req.body.item_value),
-			Featured__C : Boolean(req.body.is_featured),
-			Item_Sponsor__c : req.body.sponsor_picklist,
+			bidfresh__Description__c : req.body.item_description,
+			bidfresh__Estimated_Value__c : Number(req.body.item_value),
+			bidfresh__Featured__C : Boolean(req.body.is_featured),
+			bidfresh__Item_Sponsor__c : req.body.sponsor_picklist,
 			Name : req.body.item_name,
-			Starting_Bid__c : req.body.item_min_bid
+			bidfresh__Starting_Bid__c : req.body.item_min_bid
 		};
 
 	console.log('multer body: ' + util.inspect(multerBody, false, null));
@@ -394,7 +394,7 @@ router.post('/:auction_id/edit_item/:item_id', function(req, res) {
 			
 			//assemble img instanceUrl
 			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + orgId;
-			item.Image_URL__c = imgUrl;
+			item.bidfresh__Image_URL__c = imgUrl;
 
 			console.log('Updated item: ' + util.inspect(item, false, null));
 
