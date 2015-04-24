@@ -18,21 +18,23 @@ router.get('/', function(req, res) {
     	auctions: []
     }
 
-	var query_str = "SELECT Id, Name, Status__c, Start_Time__c, Location__r.Name" + 
-		" FROM Auction__c ORDER BY Status__c ASC";
-	//"SELECT Id, Name FROM Sponsor__c"	
+    //regexp replace str: ([\s,.])([_A-Za-z]+__[cr])
+
+	var query_str = "SELECT Id, Name, bidfresh__Status__c, bidfresh__Start_Time__c, bidfresh__Location__r.Name" + 
+		" FROM bidfresh__Auction__c ORDER BY bidfresh__Status__c ASC";
+	//"SELECT Id, Name FROM bidfresh__Sponsor__c"	
 	/*Get List of Auctions */
 	conn.query(query_str)
 	.on("record", function(record) {
-		console.log("start time: " + record.Start_Time__c);
+		console.log("start time: " + record.bidfresh__Start_Time__c);
 		var status_str = "Upcoming";
 		var auction_base_url = "edit_auction";
 
-		if(record.Status__c == 1) {
+		if(record.bidfresh__Status__c == 1) {
 			status_str = "In Progress";
 			auction_base_url = "auction_in_progress/" + record.Name;
 		}
-		else if(record.Status__c == 2) {
+		else if(record.bidfresh__Status__c == 2) {
 			status_str = "Complete";
 			auction_base_url = "auction_summary";
 		}
@@ -40,8 +42,8 @@ router.get('/', function(req, res) {
 		dustVars.auctions.push({
 			Id: record.Id,
 			Name: record.Name,
-			Location: record.Location__r == null ? null : record.Location__r.Name,
-			Start_Time: moment(record.Start_Time__c).format('MM/DD/YYYY hh:mm A'),
+			Location: record.bidfresh__Location__r == null ? null : record.bidfresh__Location__r.Name,
+			Start_Time: moment(record.bidfresh__Start_Time__c).format('MM/DD/YYYY hh:mm A'),
         	//End_Time: moment(record.End_Time).format('MM/DD/YYYY hh:SS A')
         	Status: status_str,
         	auction_base_url: auction_base_url
