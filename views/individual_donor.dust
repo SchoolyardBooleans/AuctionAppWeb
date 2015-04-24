@@ -29,9 +29,9 @@
                 </thead>
                 <tbody>
                     {#purchasedItems}
-                    <tr class='clickableRow' href='/auction_summary/{Auction__c}/item_summary/{Id}'>
+                    <tr class='clickableRow' href='/auction_summary/{bidfresh__Auction__c}/item_summary/{Id}'>
                         <td class="col-md-4">{Name}</td>
-                        <td class="col-md-4"><span>$</span>{Current_Bid__c}</td>
+                        <td class="col-md-4"><span>$</span>{bidfresh__Current_Bid__c}</td>
                         <td class="col-md-4">{AuctionName}</td>
                     </tr>
                     {/purchasedItems}

@@ -291,7 +291,7 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 	var auction_id = req.params.auction_id,
 		item_id = req.params.item_id;
 
-	conn.sobject('Auction_Item__c').retrieve(item_id, function(err, item) {
+	conn.sobject('bidfresh__Auction_Item__c').retrieve(item_id, function(err, item) {
 		if (err) {
 			return console.error(err, item);
 		}
@@ -316,7 +316,7 @@ router.get('/:auction_id/edit_item/:item_id', function(req, res) {
 			item_min_bid: item.bidfresh__Starting_Bid__c,
 			item_image: item.bidfresh__Image_URL__c,
 			item_featured: item.bidfresh__Featured__c,
-			item_sponsor: item.bidfresh__Sponsor_Name__c,
+			item_sponsor: item.bidfresh__Sponsor_Name__c, 
 			sponsor_id: item.bidfresh__Item_Sponsor__c,
 			sponsorAccounts: []
 		};
@@ -398,7 +398,7 @@ router.post('/:auction_id/edit_item/:item_id', function(req, res) {
 
 			console.log('Updated item: ' + util.inspect(item, false, null));
 
-			conn.sobject('Auction_Item__c').update(item, function(err, ret) {
+			conn.sobject('bidfresh__Auction_Item__c').update(item, function(err, ret) {
 				if (err || !ret.success) {
 					res.status(406).end();
 					return console.error(err, ret);
@@ -411,7 +411,7 @@ router.post('/:auction_id/edit_item/:item_id', function(req, res) {
 	}
 	else {
 		console.log('user did not upload image');
-		conn.sobject('Auction_Item__c').update(item, function(err, ret) {
+		conn.sobject('bidfresh__Auction_Item__c').update(item, function(err, ret) {
 			if (err || !ret.success) {
 				res.status(406).end();
 				return console.error(err, ret);

@@ -19,10 +19,10 @@
             <tbody>
                 {#donors}
                 <tr class='clickableRow' href='/donors/{Id}'>
-                    <td class="col-md-3">{Name} {lastName__c}</td>
-                    <td class="col-md-3">{Auctions_Attended__c}</td>
+                    <td class="col-md-3">{Name} {bidfresh__lastName__c}</td>
+                    <td class="col-md-3">{bidfresh__Auctions_Attended__c}</td>
                     <td class="col-md-3">{lastEvent}</td>
-                    <td class="col-md-3"><span>${Total_Contributions__c}</span></td>
+                    <td class="col-md-3"><span>${bidfresh__Total_Contributions__c}</span></td>
                 </tr>
                 {/donors}
             </tbody>

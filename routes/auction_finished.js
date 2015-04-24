@@ -13,7 +13,7 @@ router.get('/:id', function(req, res) {
 
 	var auctionId = req.params.id;
 
-	var auctionstats_url = '/services/apexrest/auctionstats/' + auctionId;
+	var auctionstats_url = '/services/apexrest/bidfresh/auctionstats/' + auctionId;
 
 	var dustVars = {
     	title: 'Auction Summary',
@@ -22,8 +22,8 @@ router.get('/:id', function(req, res) {
     	top_bidders: []
     }
 
-	var query_str = "SELECT Name, (SELECT Name, Id, Current_Bid__c, Winning_Bidder__r.Name, Winning_Bidder__r.lastName__c, Payment_Verified__c FROM Auction_Items__r) " +
-					"FROM Auction__C WHERE Id = '" + auctionId + "'";
+	var query_str = "SELECT Name, (SELECT Name, Id, bidfresh__Current_Bid__c, bidfresh__Winning_Bidder__r.Name, bidfresh__Winning_Bidder__r.bidfresh__lastName__c, bidfresh__Payment_Verified__c FROM bidfresh__Auction_Items__r) " +
+					"FROM bidfresh__Auction__C WHERE Id = '" + auctionId + "'"; //check if need to append prefix on each leavel
 
 	/*Gets auction and list of auction items in that auction */
 	conn.query(query_str)
@@ -32,8 +32,8 @@ router.get('/:id', function(req, res) {
 		dustVars.name = auction.Name;
 		dustVars.auction_id = req.params.id;
 		dustVars.auction_items = [];
-		if(auction.Auction_Items__r) {
-			auction.Auction_Items__r.records.forEach(function(item) {
+		if(auction.bidfresh__Auction_Items__r) {
+			auction.bidfresh__Auction_Items__r.records.forEach(function(item) {
 				dustVars.auction_items.push(item);
 			});
 		}
@@ -74,8 +74,8 @@ router.get('/:auction_id/item_summary/:item_id', function(req, res) {
     	javascriptFiles: [{javascript: 'item_finished.js'}]
     }
 
-    var query_str = "SELECT Current_Bid__c, Description__c, Id, Image_URL__c, Name, Payment_Verified__c, " + 
-    				"(SELECT Id, Amount__c, Bidder_Account__r.Name FROM Bids__r ORDER BY Amount__c DESC) FROM Auction_Item__c " + 
+    var query_str = "SELECT bidfresh__Current_Bid__c, bidfresh__Description__c, Id, bidfresh__Image_URL__c, Name, bidfresh__Payment_Verified__c, " + 
+    				"(SELECT Id, bidfresh__Amount__c, bidfresh__Bidder_Account__r.Name FROM bidfresh__Bids__r ORDER BY bidfresh__Amount__c DESC) FROM bidfresh__Auction_Item__c " + 
     				"WHERE Id = '" + req.params.item_id + "'";
 
 	/*Gets auction and list of auction items in that auction */
@@ -84,16 +84,16 @@ router.get('/:auction_id/item_summary/:item_id', function(req, res) {
 		console.log("Item: " + util.inspect(item, false, null));
 		dustVars.name = item.Name;
 		dustVars.item_id = req.params.item_id;
-		dustVars.description = item.Description__c;
-		dustVars.payment_verified = item.Payment_Verified__c;
-		dustVars.image_url = item.Image_URL__c;
+		dustVars.description = item.bidfresh__Description__c;
+		dustVars.payment_verified = item.bidfresh__Payment_Verified__c;
+		dustVars.image_url = item.bidfresh__Image_URL__c;
 		dustVars.bids = [];
-		if(item.Bids__r) {
-			item.Bids__r.records.forEach(function(bid) {
+		if(item.bidfresh__Bids__r) {
+			item.bidfresh__Bids__r.records.forEach(function(bid) {
 				var temp_bid = {
 					bid_id : bid.Id,
-					amount : bid.Amount__c,
-					bidder_name : bid.Bidder_Account__r.Name
+					amount : bid.bidfresh__Amount__c,
+					bidder_name : bid.bidfresh__Bidder_Account__r.Name
 				}
 				dustVars.bids.push(temp_bid);
 			});
@@ -119,7 +119,7 @@ router.post('/remove_top_bid', function(req, res) {
 	var delete_bid_item_id = req.body.item_id;
 	console.log('id of item where top bid will be deleted: ' + delete_bid_item_id);
 
-	var rm_bid_url = '/services/apexrest/bidremove/' + delete_bid_item_id;
+	var rm_bid_url = '/services/apexrest/bidfresh/bidremove/' + delete_bid_item_id;
 	console.log('Remove bid URL: ' + rm_bid_url);
 	
 	conn.apex.delete(rm_bid_url, {}, function(err, response) {
@@ -138,9 +138,9 @@ router.post('/payment_verified', function(req, res) {
 
 	var updated_item = { 
 	  Id : req.body.item_id,
-	  Payment_Verified__c : (req.body.item_verified == "true")
+	  bidfresh__Payment_Verified__c : (req.body.item_verified == "true")
 	}
-	conn.sobject("Auction_Item__c").update(updated_item, function(err, ret) {
+	conn.sobject("bidfresh__Auction_Item__c").update(updated_item, function(err, ret) {
 	  if (err) {
 	  	console.error(err, ret);
 		res.status(500).end();

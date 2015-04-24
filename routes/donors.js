@@ -19,15 +19,15 @@ router.get('/', function(req, res) {
     	donors: []
     }
 
-	var query_str = "SELECT Id, Name, lastName__c, Total_Contributions__c, Auctions_Attended__c, " +
-      "(SELECT Auction__r.Name, Auction__r.End_Time__c,Bidder_Account__c FROM Bidder_Attendance__r ORDER BY Auction__r.End_Time__c DESC NULLS FIRST LIMIT 1)" +
-      " FROM Bidder_Account__c";
+	var query_str = "SELECT Id, Name, bidfresh__lastName__c, bidfresh__Total_Contributions__c, bidfresh__Auctions_Attended__c, " +
+      "(SELECT bidfresh__Auction__r.Name, bidfresh__Auction__r.bidfresh__End_Time__c,bidfresh__Bidder_Account__c FROM bidfresh__Bidder_Attendance__r ORDER BY bidfresh__Auction__r.bidfresh__End_Time__c DESC NULLS FIRST LIMIT 1)" +
+      " FROM bidfresh__Bidder_Account__c";
    /*Get List of Donors */
 	conn.query(query_str)
 	.on("record", function(donor) {
 		console.log("Donor: " + util.inspect(donor, false, null));
-      if (donor.Bidder_Attendance__r) {
-         donor['lastEvent'] = donor.Bidder_Attendance__r.records[0].Auction__r.Name;
+      if (donor.bidfresh__Bidder_Attendance__r) {
+         donor['lastEvent'] = donor.bidfresh__Bidder_Attendance__r.records[0].bidfresh__Auction__r.Name;
       }
       dustVars.donors.push(donor);
    	
@@ -47,8 +47,8 @@ router.get('/:id', function(req, res) {
       instanceUrl: req.session.instanceUrl
    });
    var bidder_id = req.params.id;
-   var query_str = "SELECT Email__c,lastName__c,Name,Total_Contributions__c, " +
-   "(SELECT Id, Name, Current_Bid__c, Auction__r.Name FROM Purchased_Items__r) FROM Bidder_Account__c WHERE Id = '" + bidder_id + "'";
+   var query_str = "SELECT bidfresh__Email__c,bidfresh__lastName__c,Name,bidfresh__Total_Contributions__c, " +
+   "(SELECT Id, Name, bidfresh__Current_Bid__c, bidfresh__Auction__r.Name FROM bidfresh__Purchased_Items__r) FROM bidfresh__Bidder_Account__c WHERE Id = '" + bidder_id + "'";
 
    var dustVars = {
       title: 'View Donor',
@@ -69,18 +69,18 @@ router.get('/:id', function(req, res) {
       var bidder = bidderResp.records[0];
       console.log("bidResp: " + util.inspect(bidderResp, false, null));
             
-      dustVars["Name"] = bidder.Name + " " + bidder.lastName__c;
-      dustVars["email"] = bidder.Email__c;
-      dustVars["contributions"] = bidder.Total_Contributions__c;
+      dustVars["Name"] = bidder.Name + " " + bidder.bidfresh__lastName__c;
+      dustVars["email"] = bidder.bidfresh__Email__c;
+      dustVars["contributions"] = bidder.bidfresh__Total_Contributions__c;
 
       console.log("Bidder: " + util.inspect(bidder, false, null));
-      if (bidder.Purchased_Items__r) {
-         bidder.Purchased_Items__r.records.forEach(function(bidderItem){
+      if (bidder.bidfresh__Purchased_Items__r) {
+         bidder.bidfresh__Purchased_Items__r.records.forEach(function(bidderItem){
             console.log('adding bidder item: ', bidderItem)
             dustVars.purchasedItems.push({
                Name: bidderItem.Name,
-               Current_Bid__c: bidderItem.Current_Bid__c,
-               AuctionName: bidderItem.Auction__r.Name
+               bidfresh__Current_Bid__c: bidderItem.bidfresh__Current_Bid__c,
+               AuctionName: bidderItem.bidfresh__Auction__r.Name
             });
          });
          

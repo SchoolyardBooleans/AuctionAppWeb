@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
 
 	//	get List of auction locations
 	/*Get List of sponsors */
-	conn.query("SELECT Id, Name FROM Auction_Venue__c")
+	conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c")
 	.on("record", function(record) {
 		console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 		var new_entry = {id: record.Id, name: record.Name}
@@ -57,11 +57,11 @@ router.post('/', function(req, res) {
 		end_date = new Date(req.body.end_date).toISOString();
 
 	var auction = {
-		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
+		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		name : req.body.name,
-		Start_Time__c : start_date,
-		End_Time__c : end_date,
-		Location__c : req.body.location_picklist
+		bidfresh__Start_Time__c : start_date,
+		bidfresh__End_Time__c : end_date,
+		bidfresh__Location__c : req.body.location_picklist
 	}
 
 	conn.sobject('Auction__c').create(auction, function(err, ret) {

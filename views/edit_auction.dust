@@ -75,8 +75,8 @@
                     {#auction_items}
                     <tr data-target="#delete_modal" data-id="{Id}" data-name="{Name}">
                         <td class="col-md-3">{Name}</td>
-                        <td class="col-md-4">{Description__c}</td>
-                        <td class="col-md-3"><span>$</span>{Estimated_Value__c}</td>
+                        <td class="col-md-4">{bidfresh__Description__c}</td>
+                        <td class="col-md-3"><span>$</span>{bidfresh__Estimated_Value__c}</td>
                         <td class="col-md-1 text-center">
                             <a title="View Item" href='/edit_auction/{auction_id}/edit_item/{Id}'>
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
