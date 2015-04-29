@@ -1,7 +1,6 @@
 $(document).ready(function() {
     initializeValidation()
 	initialize();
-    initializeClickListeners();
     $('#location_picklist').multiselect();
 });
 
@@ -115,6 +114,12 @@ function initializeValidation() {
 function initialize() {
 	$('#notifier').hide();
 
+    $('#edit_auction').data('formValidation').validateField("auction_name");
+    $('#edit_auction').data('formValidation').validateField("start_date_input");
+    $('#edit_auction').data('formValidation').validateField("end_date_input");
+    $('#edit_auction').data('formValidation').validateField("auction_location");
+    $('#edit_auction').data('formValidation').validateField("location_picklist");
+
 	$("#start_date").datetimepicker({
         format: "mm/dd/yy, HH:ii P",
         showMeridian: true,
@@ -175,12 +180,5 @@ function initialize() {
 
             });
         });
-    });
-}
-
-function initializeClickListeners() {
-    $(".clickableRow").click(function() {
-        console.log("Row clicked");
-        window.document.location = $(this).attr("href");
     });
 }

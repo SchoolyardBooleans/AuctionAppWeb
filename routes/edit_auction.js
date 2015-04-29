@@ -100,16 +100,17 @@ router.post('/', function(req, res) {
 	var start_date = new Date(req.body.start_date).toISOString(),
 		end_date = new Date(req.body.end_date).toISOString();
 
-	console.log("Updated auction location: " + util.inspect(req.body.location_picklist));
 	/*Still need to add on a location*/
 	var auction = {
-		Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		Id: req.body.id,
 		name : req.body.name,
 		Start_Time__c : start_date,
 		End_Time__c : end_date,
 		Location__c : req.body.location_picklist
 	}
+
+	console.log("Updated auction: " + util.inspect(auction));
+
 	// Single record update
 	conn.sobject("Auction__c").update(auction, function(err, ret) {
 		if (err || !ret.success) {
