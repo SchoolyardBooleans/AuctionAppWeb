@@ -57,14 +57,14 @@ router.post('/', function(req, res) {
 		end_date = new Date(req.body.end_date).toISOString();
 
 	var auction = {
-		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		name : req.body.name,
+		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		bidfresh__Start_Time__c : start_date,
 		bidfresh__End_Time__c : end_date,
 		bidfresh__Location__c : req.body.location_picklist
 	}
 
-	conn.sobject('Auction__c').create(auction, function(err, ret) {
+	conn.sobject('bidfresh__Auction__c').create(auction, function(err, ret) {
 		if (err || !ret.success) {
 			res.status(500).end();
 			return console.error(err, ret);

@@ -70,7 +70,7 @@ router.delete('/delete_auction/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
-	conn.sobject("Auction__c").destroy(auction_id, function(err, ret) {
+	conn.sobject("bidfresh__Auction__c").destroy(auction_id, function(err, ret) {
   		if(err || !ret.success) {
   			console.error(err, ret);
   			res.status(500).end();

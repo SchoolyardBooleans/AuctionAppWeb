@@ -102,17 +102,18 @@ router.post('/', function(req, res) {
 
 	/*Still need to add on a location*/
 	var auction = {
+		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
 		Id: req.body.id,
 		name : req.body.name,
-		Start_Time__c : start_date,
-		End_Time__c : end_date,
-		Location__c : req.body.location_picklist
+		bidfresh__Start_Time__c : start_date,
+		bidfresh__End_Time__c : end_date,
+		bidfresh__Location__c : req.body.location_picklist
 	}
 
 	console.log("Updated auction: " + util.inspect(auction));
 
 	// Single record update
-	conn.sobject("Auction__c").update(auction, function(err, ret) {
+	conn.sobject("bidfresh__Auction__c").update(auction, function(err, ret) {
 		if (err || !ret.success) {
 			res.status(406).end();
 			return console.error(err, ret);
@@ -134,7 +135,7 @@ router.get('/:id/add_item', function(req, res) {
 
 	var auction_id = req.params.id;
 
-	conn.sobject('Auction__c').retrieve(auction_id, function(err, auction) {
+	conn.sobject('bidfresh__Auction__c').retrieve(auction_id, function(err, auction) {
 	 	if (err) {
 	 		return console.error(err);
 	 	}
@@ -171,10 +172,6 @@ router.get('/:id/add_item', function(req, res) {
 	   	}).on("error", function(err) {
 	   		console.log("query error" + err);
  	   	}).run();
-
-
-
-		//res.render('add_item', dustVars);
 	});
 });
 
@@ -188,14 +185,14 @@ router.post('/:id/add_item', function(req, res) {
 	});
 
 	var item = {
-		Auction__c : req.params.id,
-		Description__c : req.body.item_description,
-		Estimated_Value__c : Number(req.body.item_value),
-		Featured__C : Boolean(req.body.is_featured),
-		Sponsor_Name__c : req.body.sponsor,
-		Item_Sponsor__c: req.body.sponsor_picklist,
+		bidfresh__Auction__c : req.params.id,
+		bidfresh__Description__c : req.body.item_description,
+		bidfresh__Estimated_Value__c : Number(req.body.item_value),
+		bidfresh__Featured__C : Boolean(req.body.is_featured),
+		bidfresh__Sponsor_Name__c : req.body.sponsor,
+		bidfresh__Item_Sponsor__c: req.body.sponsor_picklist,
 		Name : req.body.item_name,
-		Starting_Bid__c : req.body.item_min_bid
+		bidfresh__Starting_Bid__c : req.body.item_min_bid
 	};
 
 	//only one file for now, testing
@@ -248,7 +245,7 @@ router.post('/:id/add_item', function(req, res) {
 });
 
 function createItem(req, res, conn, item) {
-	conn.sobject('Auction_Item__c').create(item, function(err, ret) {
+	conn.sobject('bidfresh__Auction_Item__c').create(item, function(err, ret) {
 		if (err || !ret.success) {
 			res.status(406).end();
 			return console.error(err, ret);
@@ -270,7 +267,7 @@ router.delete('/delete_item/:id', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
-	conn.sobject("Auction_Item__c").destroy(item_id, function(err, ret) {
+	conn.sobject("bidfresh__Auction_Item__c").destroy(item_id, function(err, ret) {
   		if(err || !ret.success) {
   			console.error(err, ret);
   			res.status(500).end();
