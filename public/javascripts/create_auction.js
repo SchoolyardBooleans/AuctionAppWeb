@@ -94,7 +94,6 @@ function initializeValidator() {
 function initialize() {
 	$('#notifier').hide();
 
-
 	$('#start_date').datetimepicker({
         format: 'mm/dd/yy, HH:ii P',
         showMeridian: true,

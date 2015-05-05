@@ -33,6 +33,7 @@
                 <label for="location_picklist" class="control-label col-xs-3">Location</label>
                 <div class="col-xs-9">
                     <select id="location_picklist" name="location_picklist" class="form-control">
+                          <option selected disabled hidden value=''></option>
                           {#auctionVenues}
                             <option value="{id}">{name}</option>
                           {/auctionVenues}

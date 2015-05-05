@@ -33,7 +33,7 @@
 				<div id="item_value_container" class="col-md-5 col-xs-12">
 					<div class="input-group">
 					  <span class="input-group-addon">$</span>
-					  <input id="item_value" name="item_value" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="50">
+					  <input id="item_value" name="item_value" type="number" min="1" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="50">
 					  <span class="input-group-addon">.00</span>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 				<div id="item_value_container" class="col-md-5 col-xs-12">
 					<div class="input-group">
 					  <span class="input-group-addon">$</span>
-					  <input id="item_min_bid" name="item_min_bid" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="25">
+					  <input id="item_min_bid" name="item_min_bid" type="number" min="1" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="25">
 					  <span class="input-group-addon">.00</span>
 					</div>
 				</div>
