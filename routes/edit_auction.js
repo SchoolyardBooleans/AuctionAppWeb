@@ -234,7 +234,7 @@ router.post('/:id/add_item', function(req, res) {
 			
 			//assemble img instanceUrl
 			var imgUrl = 'https://c.na16.content.force.com/servlet/servlet.ImageServer?id=' + ret.id + '&oid=' + req.session.orgId;
-			item.Image_URL__c = imgUrl;
+			item.bidfresh__Image_URL__c = imgUrl;
 
 			createItem(req, res, conn, item);
 		});
