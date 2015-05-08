@@ -60,7 +60,7 @@ router.get('/:id', function(req, res) {
 	}).on("end", function(query) {
 		//ned origin
 		/*Get List of sponsors */
-		conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c")
+		conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c ORDER BY Name ASC")
 		.on("record", function(record) {
 			console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 			var entry_classes = null;

@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
 
 	//	get List of auction locations
 	/*Get List of sponsors */
-	conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c")
+	conn.query("SELECT Id, Name FROM bidfresh__Auction_Venue__c ORDER BY Name ASC")
 	.on("record", function(record) {
 		console.log('Name : ' + record.Name  + ', Id: ' + record.Id);
 		var new_entry = {id: record.Id, name: record.Name}
@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
 		dustVars.auctionVenues.push(new_entry);
 	})
    .on("end", function(query) {
-		//moved here from end of route
+		dustVars.auctionVenues[0].isSelected = "selected";
 
 		res.render('create_auction', dustVars);
 	}).on("error", function(err) {

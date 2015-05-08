@@ -12,8 +12,6 @@ router.post('/', function(req, res) {
 
   var location_name = req.body.new_location_name;
 
-  console.log("location name is: " + location_name);
-
   var location = {
     Name : location_name
   }
@@ -25,9 +23,7 @@ router.post('/', function(req, res) {
     }
 
       console.log("Created Auction Venue object with id: " + ret.id);
-      console.log("ret object is: " + util.inspect(ret, false, null));
 
-      // res.status(200).json({id : ret.id}).end();
       res.status(200).send({id : ret.id}).end();
   });
 });

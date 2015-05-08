@@ -129,7 +129,6 @@ function initialize() {
 function initModal() {
 	$("#add_loc_btn").on('click', function(ev) {
         ev.preventDefault();
-        console.log("add location clicked");
 
     });
 
@@ -138,7 +137,6 @@ function initModal() {
             ev.preventDefault();
 
 			var new_location_name = $('#location_input_new').val();
-        	console.log('new location name is: ' +  new_location_name);
 
             $.ajax({ 
                 type:'POST', 
@@ -149,9 +147,8 @@ function initModal() {
                 dataType: 'json',
                 complete: function(data) {
                     if(data.status == 200) {
-                    	console.log("Id returned is: " + data.responseJSON.id);
                         $("#location_picklist").append('<option selected value="' + data.responseJSON.id + '">' + new_location_name + "</option>");
-                        console.log('Location successfully created');
+                        $('#create_auction').data('formValidation').validateField('location_picklist');
 
                     }
                     else {
