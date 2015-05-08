@@ -60,6 +60,8 @@ var edit_auction = require('./routes/edit_auction');
 var donors = require('./routes/donors');
 var auction_in_progress = require('./routes/auction_in_progress');
 var auction_finished = require('./routes/auction_finished');
+var location = require('./routes/location');
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/oauth', oauth);
@@ -68,7 +70,7 @@ app.use('/edit_auction', edit_auction);
 app.use('/donors', donors);
 app.use('/auction_in_progress', auction_in_progress);
 app.use('/auction_summary', auction_finished);
-
+app.use('/location', location);
 
 /*Dev error handler, prints stack trace*/
 if (app.get('env') === 'development') {

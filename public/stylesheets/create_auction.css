@@ -34,6 +34,10 @@
 	color:#008A00;
 }
 
+#add_loc_btn {
+	margin-top:5px;
+}
+
 /* Extra Small devices */
 @media screen and (max-width: 960px) {
 	.form_container {

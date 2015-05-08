@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	initializeValidator();
 	initialize();
+	initModal();
 });
 
 function initializeValidator() {
@@ -94,6 +95,10 @@ function initializeValidator() {
 function initialize() {
 	$('#notifier').hide();
 
+	$('#location_picklist').on('change', function() {
+		$('#create_auction').data('formValidation').validateField('location_picklist');
+	});
+
 	$('#start_date').datetimepicker({
         format: 'mm/dd/yy, HH:ii P',
         showMeridian: true,
@@ -119,4 +124,44 @@ function initialize() {
 	
 	$('#start_date_input').attr('placeholder', todayStr);
 	$('#end_date_input').attr('placeholder', tomorrowStr);
+}
+
+function initModal() {
+	$("#add_loc_btn").on('click', function(ev) {
+        ev.preventDefault();
+        console.log("add location clicked");
+
+    });
+
+    $('#add_location_modal').on('show.bs.modal', function(event) {
+        $("#confirm_add_loc").on('click', function(ev) {
+            ev.preventDefault();
+
+			var new_location_name = $('#location_input_new').val();
+        	console.log('new location name is: ' +  new_location_name);
+
+            $.ajax({ 
+                type:'POST', 
+                url: '/location',
+                data: {
+            		'new_location_name': new_location_name
+            	},
+                dataType: 'json',
+                complete: function(data) {
+                    if(data.status == 200) {
+                    	console.log("Id returned is: " + data.responseJSON.id);
+                        $("#location_picklist").append('<option selected value="' + data.responseJSON.id + '">' + new_location_name + "</option>");
+                        console.log('Location successfully created');
+
+                    }
+                    else {
+                        alert('Something went wrong. Location could not be created.');
+                    }
+
+                    $('#add_location_modal').modal('hide');
+                }
+
+            });
+        });
+    });
 }
