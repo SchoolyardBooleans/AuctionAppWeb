@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="form-group bottom_padding row">
-                <label for="location_picklist" class="control-label col-xs-3 multi-label">Location</label>
+                <label for="location_picklist" class="control-label col-xs-3">Location</label>
                 <div class="col-xs-9">
                     <select id="location_picklist" name="location_picklist" class="form-control">
                       {#auctionVenues}
@@ -39,10 +39,6 @@
                       {/auctionVenues}
                       {! <option value="New">New Sponsor</option> !}
                     </select>
-            </div>
-                <label for="auction_location" class="control-label col-xs-3 hide">Location Name</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control hide" id="auction_location" name="auction_location" value="{auction_location}">
                 </div>
             </div>
             <div class="form-group">

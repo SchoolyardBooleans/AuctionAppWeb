@@ -21,12 +21,10 @@ router.get('/:id', function(req, res) {
 		cssFiles: [
 			{css: 'edit_auction.css'},
 			{css: 'formValidation.min.css'},
-			{css: 'bootstrap-multiselect.css'},
 			{css: 'bootstrap-datetimepicker.min.css'}
 		],
 		javascriptFiles: [
 			{javascript: 'bootstrap-datetimepicker.min.js'},
-			{javascript: 'bootstrap-multiselect.js'},
 			{javascript: 'formValidation.min.js'},
 			{javascript: 'formValidation-bootstrap.min.js'},
 			{javascript: 'edit_auction.js'}

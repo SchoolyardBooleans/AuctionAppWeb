@@ -1,7 +1,6 @@
 $(document).ready(function() {
     initializeValidation()
 	initialize();
-    $('#location_picklist').multiselect();
 });
 
 function initializeValidation() {
