@@ -22,8 +22,8 @@ router.get('/:auction_name/:id', function(req, res) {
     	bids: []
     }
 
-	var query_str = "SELECT Amount__c, Auction_Item__r.Name, Bidder_Account__r.Name FROM " + 
-					"Bid__c WHERE Auction_Item__r.Auction__c = '" + auctionId + "' " + 
+	var query_str = "SELECT bidfresh__Amount__c, bidfresh__Auction_Item__r.Name, bidfresh__Bidder_Account__r.Name FROM " + 
+					"bidfresh__Bid__c WHERE bidfresh__Auction_Item__r.bidfresh__Auction__c = '" + auctionId + "' " + 
 					"ORDER BY CreatedDate DESC";
 
 	/*Gets auction and list of auction items in that auction */
