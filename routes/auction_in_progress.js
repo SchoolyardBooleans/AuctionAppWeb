@@ -14,7 +14,7 @@ router.get('/:auction_name/:id', function(req, res) {
 
 	var dustVars = {
     	title: 'Auction Summary',
-    	cssFiles: [],
+    	cssFiles: [{css: 'auction_in_progress.css'}],
     	javascriptFiles: [
     		{javascript: 'auction_in_progress.js'}
     	],

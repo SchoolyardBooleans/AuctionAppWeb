@@ -8,8 +8,18 @@
 <br>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>Bid History</h3>
+<!--         <h3>Bid History</h3>
         <h7 id="last_updated"></h7>
+        <button id="refresh_btn" class="pull-right btn btn-primary">Refresh Bids</button> -->
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <h3>Bid History</h3>
+            <h7 id="last_updated"></h7>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <button id="refresh_btn" class="pull-right btn btn-primary">Refresh Bids</button>
+          </div>
+        </div>
     </div>
   <div class="panel-body">
       <ul class="list-group">

@@ -46,7 +46,7 @@ function initializeClickListeners() {
             		
             	}
             	else {
-            		$('#verified-notifier-failure').hide().fadeIn(600);	
+            		$('#verified-notifier-failure').hide().fadeIn(600);
             	}
 			}
         });
