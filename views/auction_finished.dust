@@ -8,11 +8,12 @@
 <br>
 <div style="width:50%">
     <h4>Top 5 Auction Donors:</h4>
+
     <ul class="list-group">
         {#top_bidders}
-        <li class="list-group-item">{first} {last}</li>
+        <li class="list-group-item clickableRow" href="/donors/{Id}">{first} {last} <span class="pull-right">${total}</span></li>
         {/top_bidders}
-</ul>
+    </ul>
 </div>
 <br>
 <div class="panel panel-default">
