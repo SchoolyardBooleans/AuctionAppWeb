@@ -7,23 +7,26 @@
 
 var assert = require('assert'),
 	test = require('selenium-webdriver/testing'),
+	util = require('util'),
 	webdriver = require('selenium-webdriver'),
 	app = require('../app.js');
 
-var TEN_SEC = 10000;
+var FIFTEEN_SEC = 10000;
 
 test.describe('Login page', function() {
 	var server;
-	before(function() {
+	var driver;
+
+	test.before(function() {
     	server = app.listen(3000);
+
+    	driver = new webdriver.Builder().
+			withCapabilities(webdriver.Capabilities.chrome()).
+			build();
   	});
 
 	test.it('should work', function() {
-		this.timeout(TEN_SEC);
-
-		var driver = new webdriver.Builder().
-			withCapabilities(webdriver.Capabilities.chrome()).
-			build();
+		this.timeout(FIFTEEN_SEC);
 
 		driver.get('http://localhost:3000');
 		var loginButton = driver.findElement(webdriver.By.id('login_button'));
@@ -38,17 +41,25 @@ test.describe('Login page', function() {
 		var sfLoginButton = driver.findElement(webdriver.By.name('Login'));
 		sfLoginButton.click();
 
-		var homepageTitle = driver.getTitle();
+		// var homepageTitle = driver.getTitle();
+		// console.log("MOTHER FUCKER!")
+		// return assert.equal("Web App", homepageTitle);
 
-		driver.getTitle(function(title) {
-           assertEquals("Auction", title);
-           assert.equal("Auction App", title);
+
+		driver.wait(function () {
+    		return driver.isElementPresent(webdriver.By.id("delete_modal"));
+		}, 5 * 1000);
+
+		driver.getTitle().then(function(title) {
+			console.log("title is: " + util.inspect(title, false, null));
+			assert.equal("Auction App", title);
+        	// test.assert.equal("Auction App", "No Worky");
+           //return assert.equal("wrong title for sure", title, "The title is Auction App");
          });
-		
-		driver.quit();
 	});
 
-	after(function(){
+	test.after(function() {
+		driver.quit();
     	server.close();
   	});
 });
