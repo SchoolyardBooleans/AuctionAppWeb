@@ -43,6 +43,7 @@ function initializeClickListeners() {
             		$('#verified-notifier-success').hide().fadeIn(600);
             		$('#remove_top_bid').fadeOut(600);
             		$("#bid_list li:first-child").addClass('list-group-item-success');
+
             		
             	}
             	else {

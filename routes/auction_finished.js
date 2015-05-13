@@ -71,7 +71,8 @@ router.get('/:auction_id/item_summary/:item_id', function(req, res) {
 	var dustVars = {
     	title: 'Item Summary',
     	cssFiles: [{css: 'item_finished.css'}],
-    	javascriptFiles: [{javascript: 'item_finished.js'}]
+    	javascriptFiles: [{javascript: 'item_finished.js'}],
+    	return_url: '/auction_summary/' + req.params.auction_id
     }
 
     var query_str = "SELECT bidfresh__Current_Bid__c, bidfresh__Description__c, Id, bidfresh__Image_URL__c, Name, bidfresh__Payment_Verified__c, " + 
