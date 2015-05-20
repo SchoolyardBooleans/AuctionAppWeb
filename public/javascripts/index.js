@@ -36,6 +36,7 @@ function initializeClickListeners() {
 	            		alert('Something went wrong. Auction could not be deleted.');
 	            	}
 
+	            	$('#confirm_delete').unbind('click')
 	            	$('#delete_modal').modal('hide');
 				}
 

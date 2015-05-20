@@ -104,6 +104,9 @@ function initializeValidator() {
             complete: function(data) {
             	if(data.status == 200) {
             		$('#notifier').html('<h4 style="color:#008A00">Auction Created ✓</h4>');
+            		setTimeout(function(){
+            			window.location = '/';
+            		}, 1200);
             	}
             	else {
             		$('#notifier').html('<h4 style="color:red">Unable To Save Auction</h4>');
