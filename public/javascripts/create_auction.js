@@ -24,9 +24,21 @@ function initializeValidator() {
 	    	start_date_input: {
 	        	message: "The auction's start date is not valid",
 	        	validators: {
+	        		callback: {
+                        message: "The auction's start date must be an upcoming date",
+                        callback: function(value, validator, $field) {
+                            var start_str = $('#start_date_input').val();
+
+                            var start = new Date(start_str),
+                            	now = new Date();
+
+                            return start.getTime() > now.getTime();
+                        }
+                    },
 	            	notEmpty: {
 	                	message: "The auction's start date is required"
-	            	}
+	            	},
+
 	        	}
 	    	},
 	    	end_date_input: {
@@ -42,6 +54,17 @@ function initializeValidator() {
                             	end = new Date(end_str);
 
                             return start.getTime() < end.getTime();
+                        }
+                    },
+                    callback: {
+                        message: "The auction's end date must be an upcoming date",
+                        callback: function(value, validator, $field) {
+                            var end_str = $('#end_date_input').val();
+
+                            var end = new Date(end_str),
+                            	now = new Date();
+
+                            return end.getTime() > now.getTime();
                         }
                     },
 					notEmpty: {

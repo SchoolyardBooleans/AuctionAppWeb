@@ -46,6 +46,23 @@ router.get('/', function(req, res) {
 	
 });
 
+function createNewAuction(request) {
+	var start_date = new Date(request.body.start_date).toISOString(),
+		end_date = new Date(request.body.end_date).toISOString();
+
+	var auction = {
+		name : request.body.name,
+		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
+		bidfresh__Start_Time__c : start_date,
+		bidfresh__End_Time__c : end_date,
+		bidfresh__Location__c : request.body.location_picklist
+	}
+
+	return auction;
+}
+
+router.createNewAuction = createNewAuction;
+
 /* POST created auction */
 router.post('/', function(req, res) {
 	var conn = new jsforce.Connection({
@@ -53,18 +70,9 @@ router.post('/', function(req, res) {
 		instanceUrl: req.session.instanceUrl
 	});
 
-	var start_date = new Date(req.body.start_date).toISOString(),
-		end_date = new Date(req.body.end_date).toISOString();
+	var newAuction = createNewAuction(req);
 
-	var auction = {
-		name : req.body.name,
-		bidfresh__Hosting_Nonprofit__c : 'a0Zj0000000eDTTEA2',
-		bidfresh__Start_Time__c : start_date,
-		bidfresh__End_Time__c : end_date,
-		bidfresh__Location__c : req.body.location_picklist
-	}
-
-	conn.sobject('bidfresh__Auction__c').create(auction, function(err, ret) {
+	conn.sobject('bidfresh__Auction__c').create(newAuction, function(err, ret) {
 		if (err || !ret.success) {
 			res.status(500).end();
 			return console.error(err, ret);

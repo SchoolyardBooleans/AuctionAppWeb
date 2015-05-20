@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             {#auctions}
-            <tr data-target="#delete_modal" data-id="{Id}" data-name="{Name}">
+            <tr data-target="#delete_modal" data-id="{Id}" data-name="{Name}" name="{Name}">
                <td class="col-md-3">{Name}</td>
                <td class="col-md-3">{Location}</td>
                <td class="col-md-3">{Start_Time}

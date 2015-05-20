@@ -11,7 +11,7 @@ var assert = require('assert'),
 	webdriver = require('selenium-webdriver'),
 	app = require('../app.js');
 
-var FIFTEEN_SEC = 10000;
+var THIRTY_SEC = 30000;
 
 test.describe('Login page', function() {
 	var server;
@@ -26,7 +26,7 @@ test.describe('Login page', function() {
   	});
 
 	test.it('should work', function() {
-		this.timeout(FIFTEEN_SEC);
+		this.timeout(THIRTY_SEC);
 
 		driver.get('http://localhost:3000');
 		var loginButton = driver.findElement(webdriver.By.id('login_button'));
@@ -36,7 +36,7 @@ test.describe('Login page', function() {
 			passwordInput = driver.findElement(webdriver.By.name('pw'));
 
 		usernameInput.sendKeys('dev@schoolyardbooleans.org');
-		passwordInput.sendKeys('penguin2');
+		passwordInput.sendKeys('penguin5');
 		
 		var sfLoginButton = driver.findElement(webdriver.By.name('Login'));
 		sfLoginButton.click();
@@ -56,6 +56,33 @@ test.describe('Login page', function() {
         	// test.assert.equal("Auction App", "No Worky");
            //return assert.equal("wrong title for sure", title, "The title is Auction App");
          });
+
+		var create_auction_btn = driver.findElement(webdriver.By.className('create_auction_btn'));
+		create_auction_btn.click();
+
+		var auctionNameInput = driver.findElement(webdriver.By.name('auction_name')),
+			startDateInput = driver.findElement(webdriver.By.name('start_date_input')),
+			endDateInput = driver.findElement(webdriver.By.name('end_date_input')),
+			locationInput = driver.findElement(webdriver.By.name('location_picklist')),
+			createAuctionBtn = driver.findElement(webdriver.By.id('submit_auction'));
+
+		auctionNameInput.sendKeys("Test Auction");
+		startDateInput.sendKeys("05/13/19, 07:35 PM");
+		startDateInput.sendKeys(webdriver.Key.TAB);
+		endDateInput.sendKeys("05/15/19, 07:35 PM");
+		endDateInput.sendKeys(webdriver.Key.TAB);
+		locationInput.click();
+		locationInput.sendKeys(webdriver.Key.Down);
+		locationInput.sendKeys(webdriver.Key.Enter);
+		locationInput.sendKeys(webdriver.Key.Down);
+		// locationInput.sendKeys(webdriver.Key.Tab);
+
+		// createAuctionBtn.click();
+
+		driver.wait(function () {
+    		return driver.isElementPresent(webdriver.By.id("delete_modal"));
+		}, 5 * 1000);
+
 	});
 
 	test.after(function() {
