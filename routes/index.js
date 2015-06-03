@@ -56,7 +56,11 @@ router.get('/', function(req, res) {
    		res.render('index', dustVars);
    	}).on("error", function(err) {
 		console.log("query error" + err);
-		res.render('index', dustVars);
+		var errVars = {
+			message: 'Query error, make sure your salesforce organization has the bidfresh app installed.',
+			error: err
+		};
+		res.render('error', errVars);
    	}).run();
    	//TODO: sort record traversal based on date/status
 });
